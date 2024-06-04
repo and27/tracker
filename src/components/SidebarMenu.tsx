@@ -3,21 +3,21 @@ import "../styles/SidebarMenu.css";
 
 const SidebarMenu = () => {
   return (
-    <div className="basis-1/5 p-5 h-screen border-r-2 border-current w-full">
-      <ul className="flex flex-col gap-4 items-start text-slate-500 w-full">
+    <div className="col-span-2 p-5 h-screen bg-teal-500 text-white">
+      <ul className="flex flex-col gap-4 items-start w-full">
         <li className="w-full ">
-          <NavLink to="/" className="text-slate-500 block text-start">
-            Dashboard
+          <NavLink to="/" className="block text-start">
+            Overview
           </NavLink>
         </li>
         <li className="w-full p-2">
-          <NavLink to="/users" className="text-slate-500 block text-start">
-            Users
+          <NavLink to="/users" className="block text-start">
+            Transactions
           </NavLink>
         </li>
         <li className="w-full p-2">
-          <NavLink to="/products" className="text-slate-500 block text-start">
-            Products
+          <NavLink to="/products" className="block text-start">
+            Reports
           </NavLink>
         </li>
       </ul>

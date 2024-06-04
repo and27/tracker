@@ -1,0 +1,8 @@
+a.active {
+  background-color: #99999920;
+  padding: 0.5rem;
+}
+
+a:hover {
+  background-color: #99999920;
+}

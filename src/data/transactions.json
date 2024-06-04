@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Burger King",
+    "amount": 100,
+    "type": "expense"
+  },
+  {
+    "id": 2,
+    "name": "McDonalds",
+    "amount": 200,
+    "type": "expense"
+  },
+  {
+    "id": 3,
+    "name": "KFC",
+    "amount": 300,
+    "type": "expense"
+  },
+  {
+    "id": 4,
+    "name": "Subway",
+    "amount": 400,
+    "type": "expense"
+  },
+  {
+    "id": 5,
+    "name": "Pizza Hut",
+    "amount": 500,
+    "type": "expense"
+  }
+]

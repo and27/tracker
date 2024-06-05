@@ -5,6 +5,7 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import TransactionsPage from "./pages/TransactionsPage.tsx";
 import ErrorPage from "./pages/ErrorPage.tsx";
+import ReportsPage from "./pages/ReportsPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,11 @@ const router = createBrowserRouter([
   {
     path: "/transactions",
     element: <TransactionsPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/reports",
+    element: <ReportsPage />,
     errorElement: <ErrorPage />,
   },
 ]);

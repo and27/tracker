@@ -1,7 +1,11 @@
 a.active {
-  background-color: #14968787;
+  background-color: #14968762;
+}
+
+a.active:hover {
+  transition: background-color 0.1s;
 }
 
 a:hover {
-  background-color: #14968787;
+  transition: background-color 0.25s;
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Transaction } from "../pages/TransactionsPage";
+import { Transaction } from "../../pages/TransactionsPage";
 import { Link } from "react-router-dom";
 
 const TransactionForm = () => {
@@ -61,6 +61,36 @@ const TransactionForm = () => {
           onChange={handleChange}
         />
       </label>
+      <label htmlFor="amount" className="flex flex-col text-gray-700">
+        Amount
+        <input
+          className="border border-gray-300 p-2 rounded-md"
+          type="number"
+          name="amount"
+          onChange={handleChange}
+        />
+      </label>
+      <label htmlFor="type" className="flex flex-col text-gray-700">
+        Type
+        <select
+          className="border border-gray-300 p-2 rounded-md"
+          name="type"
+          onChange={handleChange}
+        >
+          <option value="income">Income</option>
+          <option value="expense">Expense</option>
+        </select>
+      </label>
+      <label htmlFor="paymentMethod" className="flex flex-col text-gray-700">
+        Payment Method
+        <input
+          className="border border-gray-300 p-2 rounded-md"
+          type="text"
+          name="paymentMethod"
+          onChange={handleChange}
+        />
+      </label>
+
       <div className="flex gap-2">
         <button
           type="submit"

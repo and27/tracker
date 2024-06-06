@@ -1,5 +1,5 @@
 import SidebarMenu from "../components/SidebarMenu";
-import TransactionForm from "../components/TransactionForm";
+import TransactionForm from "../components/Forms/TransactionForm";
 
 const TransactionFormPage = () => {
   return (

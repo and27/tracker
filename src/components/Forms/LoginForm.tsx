@@ -1,5 +1,5 @@
 import { useState } from "react";
-import LinkButton from "./LinkButton";
+import LinkButton from "../LinkButton";
 
 type LoginData = {
   username: string;

@@ -1,8 +1,9 @@
 import React from "react";
 import Table from "../components/Table";
 import SidebarMenu from "../components/SidebarMenu";
+import LinkButton from "../components/LinkButton";
 
-type Transaction = {
+export type Transaction = {
   transactionId: string;
   description: string;
   date: string;
@@ -89,14 +90,12 @@ const TransactionsPage: React.FC = () => {
     <>
       <div className="grid grid-cols-12">
         <SidebarMenu />
-        <main className="col-span-10 p-6">
+        <main className="col-span-10 pt-10 px-8">
           <div className="flex justify-between">
-            <h1 className="text-3xl font-semibold mb-6">Transactions</h1>
-            <button className="bg-teal-500 px-5 rounded">
-              New Transaction
-            </button>
+            <h1 className="text-3xl mb-6">Transactions</h1>
+            <LinkButton to="/transaction">New Transaction</LinkButton>
           </div>
-          <Table columns={columns} data={transactionsData} />;
+          <Table columns={columns} data={transactionsData} />
         </main>
       </div>
     </>

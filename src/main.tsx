@@ -6,11 +6,19 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import TransactionsPage from "./pages/TransactionsPage.tsx";
 import ErrorPage from "./pages/ErrorPage.tsx";
 import ReportsPage from "./pages/ReportsPage.tsx";
+import TransactionFormPage from "./pages/TransactionFormPage.tsx";
+import OverviewPage from "./pages/OverviewPage.tsx";
+import LoginPage from "./pages/LoginPage.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/overview",
+    element: <OverviewPage />,
     errorElement: <ErrorPage />,
   },
   {
@@ -21,6 +29,16 @@ const router = createBrowserRouter([
   {
     path: "/reports",
     element: <ReportsPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/transaction",
+    element: <TransactionFormPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
     errorElement: <ErrorPage />,
   },
 ]);

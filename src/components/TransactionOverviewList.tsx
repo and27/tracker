@@ -10,8 +10,8 @@ const TransactionOverviewList: React.FC<TransactionListProps> = ({
   transactions,
 }) => {
   return (
-    <div className="col-span-2 p-6 ">
-      <h2 className="text-3xl mb-6">Last transactions</h2>
+    <div className="col-span-2 px-10 py-8 m-10 bg-white dark:bg-neutral-900 shadow">
+      <h2 className="text-2xl lg:text-3xl mb-6">Last transactions</h2>
       <ul className="flex flex-col gap-3">
         {transactions.map((transaction) => (
           <TransactionOverview

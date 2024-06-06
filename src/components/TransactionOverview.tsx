@@ -10,9 +10,9 @@ const TransactionOverview: React.FC<ITransactionOverview> = (
 ) => {
   const { name, amount, type } = props;
   return (
-    <li className="flex gap-2 items-start justify-between">
+    <li className="flex pb-4 items-center justify-between border-b border-neutral-200">
       <div className="flex flex-col items-start">
-        <p className="text-xl">{name}</p>
+        <p className="font-semibold">{name}</p>
         <p className="text-gray-400">{type}</p>
       </div>
       <p className="font-medium">{amount}</p>

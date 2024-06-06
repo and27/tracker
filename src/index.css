@@ -50,6 +50,10 @@ button:focus-visible {
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ffffff;
+    background-color: #eeeeee72;
   }
+}
+
+.calc-height {
+  height: calc(100vh - 64px);
 }

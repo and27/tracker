@@ -9,6 +9,7 @@ import ReportsPage from "./pages/ReportsPage.tsx";
 import TransactionFormPage from "./pages/TransactionFormPage.tsx";
 import OverviewPage from "./pages/OverviewPage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
+import SettingPage from "./pages/SettingsPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,11 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/settings",
+    element: <SettingPage />,
     errorElement: <ErrorPage />,
   },
 ]);

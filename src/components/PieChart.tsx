@@ -1,3 +1,5 @@
+import { ResponsivePie } from "@nivo/pie";
+
 const data = [
   { id: "java", label: "Java", value: 29 },
   { id: "python", label: "Python", value: 25 },
@@ -5,8 +7,6 @@ const data = [
   { id: "c++", label: "C++", value: 15 },
   { id: "ruby", label: "Ruby", value: 11 },
 ];
-
-import { ResponsivePie } from "@nivo/pie";
 
 const PieChart = () => (
   <ResponsivePie
@@ -18,19 +18,7 @@ const PieChart = () => (
     colors={{ scheme: "nivo" }}
     borderWidth={1}
     borderColor={{ from: "color", modifiers: [["darker", 0.2]] }}
-    radialLabelsSkipAngle={10}
-    radialLabelsTextXOffset={6}
-    radialLabelsTextColor="#333333"
-    radialLabelsLinkOffset={0}
-    radialLabelsLinkDiagonalLength={16}
-    radialLabelsLinkHorizontalLength={24}
-    radialLabelsLinkStrokeWidth={1}
-    radialLabelsLinkColor={{ from: "color" }}
-    slicesLabelsSkipAngle={10}
-    slicesLabelsTextColor="#333333"
     animate={true}
-    motionStiffness={90}
-    motionDamping={15}
     defs={[
       {
         id: "dots",

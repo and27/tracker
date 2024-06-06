@@ -91,7 +91,7 @@ const TransactionForm = () => {
         />
       </label>
 
-      <div className="flex gap-2">
+      <div className="flex gap-3">
         <button
           type="submit"
           className="bg-teal-500 text-white px-5 mt-5 rounded"
@@ -101,7 +101,7 @@ const TransactionForm = () => {
         <Link to="/transactions">
           <button
             type="reset"
-            className="bg-white border border-gray-500 px-5 text-gray-500 p-2 mt-5 rounded"
+            className="bg-white border border-gray-400 px-6 text-gray-500 mt-5 rounded"
           >
             Cancel
           </button>

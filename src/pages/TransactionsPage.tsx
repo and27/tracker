@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Table from "../components/Table";
 import SidebarMenu from "../components/SidebarMenu";
 import LinkButton from "../components/LinkButton";
+import { getTransactions } from "../utils/supabaseDB";
 
 export type Transaction = {
   transactionId: string;
@@ -13,46 +14,32 @@ export type Transaction = {
   paymentMethod: string;
 };
 
-const transactions: Transaction[] = [
-  {
-    transactionId: "1",
-    date: "2024-06-01",
-    description: "Salary Payment",
-    category: "Income",
-    amount: 3000,
-    type: "income",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    transactionId: "2",
-    date: "2024-06-02",
-    description: "Grocery Shopping",
-    category: "Food",
-    amount: 150,
-    type: "expense",
-    paymentMethod: "Credit Card",
-  },
-  {
-    transactionId: "3",
-    date: "2024-06-03",
-    description: "Electricity Bill",
-    category: "Utilities",
-    amount: 75,
-    type: "expense",
-    paymentMethod: "Debit Card",
-  },
-];
-
 const TransactionsPage: React.FC = () => {
-  const transactionsData = React.useMemo(() => transactions, []);
+  const [transactionsData, setTransactions] = React.useState<Transaction[]>([]);
+  // const transactionsData = React.useMemo(() => transactions, []);
+
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      const { data, error } = await getTransactions();
+      if (error) {
+        console.error(error);
+        return;
+      }
+      if (data) {
+        setTransactions(data);
+        console.log(data);
+      }
+    };
+    fetchTransactions();
+  }, []);
 
   const columns = React.useMemo(
     () => [
-      {
-        id: "transactionId",
-        header: "Transaction ID",
-        accessorKey: "transactionId",
-      },
+      // {
+      //   id: "transactionId",
+      //   header: "Transaction ID",
+      //   accessorKey: "transactionId",
+      // },
       {
         id: "description",
         header: "Description",

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Transaction } from "../../pages/TransactionsPage";
 import { Link } from "react-router-dom";
+import { createTransaction } from "../../utils/supabaseDB";
 
 const TransactionForm = () => {
   const [transaction, setTransaction] = useState<Transaction>({
@@ -12,19 +13,26 @@ const TransactionForm = () => {
     type: "income",
     paymentMethod: "",
   });
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setTransaction((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(transaction);
+    const { error } = await createTransaction(transaction);
+    if (error) {
+      console.error(error);
+    } else {
+      console.log("created successfully");
+      formRef.current?.reset();
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4" ref={formRef}>
       <label htmlFor="transactionId" className="flex flex-col text-gray-700">
         Transaction ID
         <input

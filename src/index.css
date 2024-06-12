@@ -15,6 +15,8 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --nav-height: 83px;
 }
 
 body {
@@ -55,5 +57,5 @@ button:focus-visible {
 }
 
 .calc-height {
-  height: calc(100vh - 64px);
+  height: calc(100vh - var(--nav-height));
 }

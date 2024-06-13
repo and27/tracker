@@ -102,7 +102,7 @@ const TransactionForm = () => {
       <div className="flex gap-3">
         <button
           type="submit"
-          className="bg-teal-500 text-white px-5 mt-5 rounded"
+          className="bg-indigo-600 text-white px-5 mt-5 rounded"
         >
           Add transaction
         </button>

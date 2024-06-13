@@ -17,7 +17,7 @@ const SummaryCard = ({ title, value }: SummaryCardProps) => {
 const AccountSummary = () => {
   return (
     <section className="col-span-4 p-6 bg-neutral-50 dark:bg-neutral-900">
-      <h2 className="text-2xl lg:text-3xl mb-6">Account Summary</h2>
+      <h2 className="text-2xl lg:text-3xl mb-6 font-outfit">Account Summary</h2>
       <div className="grid grid-cols-2 gap-4">
         <SummaryCard title="Income" value="$2,000" />
         <SummaryCard title="Expense" value="$1,000" />

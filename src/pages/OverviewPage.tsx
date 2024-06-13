@@ -10,9 +10,9 @@ const transactions: ITransactionOverview[] =
 function OverviewPage() {
   return (
     <>
-      <div className="grid grid-cols-12 bg-neutral-50 dark:bg-neutral-800">
+      <div className="grid grid-cols-12 bg-neutral-50 dark:bg-neutral-900">
         <SidebarMenu />
-        <main className="col-span-10 md:grid md:grid-cols-6 pt-2">
+        <main className="col-span-10 md:grid md:grid-cols-6">
           <AccountSummary />
           <TransactionOverviewList transactions={transactions} />
         </main>

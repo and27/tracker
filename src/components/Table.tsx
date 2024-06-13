@@ -19,14 +19,14 @@ const Table = ({ columns, data }: TableProps) => {
 
   return (
     <>
-      <table className="border border-slate-500 w-full shadow-sm">
+      <table className="w-full">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
-                  className="border border-slate-200 py-3 px-5 bg-slate-100 text-start"
+                  className="border-b border-b-zinc-200/90 dark:border-b-zinc-700 py-3 px-5 bg-slate-100 bg-transparent text-start text-neutral-500 dark:text-zinc-500 text-sm"
                 >
                   {flexRender(
                     header.column.columnDef.header,
@@ -39,11 +39,15 @@ const Table = ({ columns, data }: TableProps) => {
         </thead>
         <tbody>
           {table.getRowModel().rows.map((row) => (
-            <tr key={row.id} className="odd:bg-white even:bg-slate-50">
+            <tr
+              key={row.id}
+              className="odd:bg-zing-100 odd:dark:bg-transparent even:bg-slate-50 even:dark:bg-transparent 
+              hover:bg-zinc-200/30 dark:hover:bg-zinc-950/30 transition-colors duration-100 text-start"
+            >
               {row.getVisibleCells().map((cell) => (
                 <td
                   key={cell.id}
-                  className="border border-slate-100 py-3 px-5 "
+                  className="border-b border-b-zinc-200/70 dark:border-b-zinc-800 py-4 px-5 text-neutral-900 dark:text-zinc-100"
                 >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>

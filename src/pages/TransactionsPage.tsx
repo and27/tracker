@@ -77,7 +77,7 @@ const TransactionsPage: React.FC = () => {
     <>
       <div className="grid grid-cols-12">
         <SidebarMenu />
-        <main className="col-span-10 pt-10 px-8">
+        <main className="col-span-10 pt-10 px-8 dark:bg-zinc-900">
           <div className="flex justify-between">
             <h1 className="text-3xl mb-6">Transactions</h1>
             <LinkButton to="/transaction">New Transaction</LinkButton>

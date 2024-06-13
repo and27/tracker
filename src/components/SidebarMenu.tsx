@@ -8,7 +8,7 @@ import { FaSignOutAlt } from "react-icons/fa";
 
 const SidebarMenu = () => {
   return (
-    <div className="flex flex-col justify-between col-span-2 py-10 px-5  h-full md:h-screen bg-teal-500 text-white">
+    <div className="flex flex-col justify-between col-span-2 py-10 px-5  h-full md:h-screen bg-indigo-600 text-white">
       <div>
         <img
           src="/logo.svg"

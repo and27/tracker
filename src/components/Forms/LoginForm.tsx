@@ -64,9 +64,9 @@ const LoginForm = () => {
           onChange={handleChange}
         />
       </label>
-      <div className="flex gap-2">
-        <Button>Login</Button>
+      <div className="gap-2 text-rose-700">
         {error && <p>{error}</p>}
+        <Button>Login</Button>
       </div>
     </form>
   );

@@ -5,10 +5,35 @@ import { FaChartColumn } from "react-icons/fa6";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { FaGear } from "react-icons/fa6";
 import { FaSignOutAlt } from "react-icons/fa";
+import { useEffect, useState } from "react";
 
-const SidebarMenu = () => {
+interface SidebarMenuProps {
+  isOpen: boolean;
+}
+
+const SidebarMenu = ({ isOpen }: SidebarMenuProps) => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
-    <div className="flex flex-col justify-between col-span-2 py-10 px-5  h-full md:h-screen bg-indigo-600 text-white">
+    <div
+      className={`flex flex-col justify-between col-span-2 py-10 px-5 h-full md:h-screen bg-indigo-600 text-white
+      fixed top-0 left-0 z-10 transition-transform duration-300 transform
+      ${
+        !isMobile ? "relative" : isOpen ? "translate-x-0" : "-translate-x-full"
+      }`}
+    >
       <div>
         <img
           src="/logo.svg"

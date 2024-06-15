@@ -1,28 +1,44 @@
+import { useEffect, useState } from "react";
 import TransactionOverview, {
   ITransactionOverview,
 } from "./TransactionOverview";
+import { getTransactions } from "../utils/supabaseDB";
 
-interface TransactionListProps {
-  transactions: ITransactionOverview[];
-}
+const TransactionOverviewList = () => {
+  const [transactions, setTransactions] = useState<ITransactionOverview[]>([]);
 
-const TransactionOverviewList: React.FC<TransactionListProps> = ({
-  transactions,
-}) => {
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      const { data, error } = await getTransactions();
+      if (error) {
+        console.error(error);
+        return;
+      }
+      if (data) {
+        setTransactions(data);
+        console.log(data);
+      }
+    };
+    fetchTransactions();
+  }, []);
   return (
-    <div className="col-span-2 px-10 py-8 m-10 bg-white dark:bg-neutral-900 shadow">
-      <h2 className="text-2xl lg:text-3xl mb-6">Last transactions</h2>
-      <ul className="flex flex-col gap-3">
-        {transactions.map((transaction) => (
-          <TransactionOverview
-            key={transaction.id}
-            id={transaction.id}
-            name={transaction.name}
-            amount={transaction.amount}
-            type={transaction.type}
-          />
-        ))}
-      </ul>
+    <div className="col-span-2 mr-6">
+      <h2 className="text-lg lg:text-xl mb-4 font-outfit text-neutral-400">
+        Last transactions
+      </h2>
+      <div className="shadow bg-white dark:bg-neutral-800 p-8 rounded">
+        <ul className="flex flex-col gap-3">
+          {transactions.map((transaction) => (
+            <TransactionOverview
+              key={transaction.id}
+              id={transaction.id}
+              description={transaction.description}
+              amount={transaction.amount}
+              type={transaction.type}
+            />
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

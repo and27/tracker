@@ -12,7 +12,7 @@ export const Testimonials = () => {
             key={index}
             className="bg-indigo-800 dark:text-white p-8 rounded-lg"
           >
-            <p className="text-lg mb-4 line-clamp-3 text-neutral-300">
+            <p className="text-base mb-4 line-clamp-3 text-neutral-300">
               {testimonial.text}
             </p>
             <p className="text-sm font-semibold">{testimonial.name}</p>

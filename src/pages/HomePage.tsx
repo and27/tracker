@@ -1,6 +1,7 @@
 import Hero from "../components/Hero";
 import { Testimonials } from "../components/Testimonials";
 import TopMenu from "../components/TopMenu";
+import { Footer } from "../components/Footer";
 
 const HomePage = () => {
   return (
@@ -8,6 +9,7 @@ const HomePage = () => {
       <TopMenu />
       <Hero />
       <Testimonials />
+      <Footer />
     </div>
   );
 };

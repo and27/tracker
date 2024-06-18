@@ -3,7 +3,7 @@ import LinkButton from "./LinkButton";
 
 const TopMenu = () => {
   return (
-    <nav className="grid grid-cols-3 items-center gap-10 px-12 py-4 shadow-sm bg-white dark:bg-neutral-900 dark:text-white z-10 relative border-b border-neutral-800">
+    <nav className="grid grid-cols-3 items-center gap-10 px-12 py-4 shadow-sm bg-white dark:bg-neutral-900 dark:text-white z-10 relative">
       <img src="/logo.svg" alt="logo" width="50" height="50" />
       <ul className="flex justify-around justify-self-stretch">
         <li>

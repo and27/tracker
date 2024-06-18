@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <div className=" calc-height blur-container relative px-5">
-      <div className="z-10 relative text-center flex flex-col gap-5 items-center justify-center h-screen">
-        <p className="text-slate-600 dark:text-slate-100 z-10 tracking-wide">
+    <div className="calc-height blur-container relative px-5 grid items-center">
+      <div className="z-10 relative text-center flex flex-col gap-5 items-center justify-center -mt-8">
+        <p className="text-slate-600 dark:text-slate-100 z-10 tracking-wide bg-neutral-950/60 px-5 py-1 rounded-full">
           The Ultimate Budget Tracking App
         </p>
         <h1 className="font-bold font-outfit text-slate-600 dark:text-slate-100 md:w-[36rem] text-center mx-auto md:text-6xl">

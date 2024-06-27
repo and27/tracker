@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { Transaction } from "../../pages/TransactionsPage";
 import { Link } from "react-router-dom";
 import { createTransaction, getCategories } from "../../utils/supabaseDB";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const TransactionForm = () => {
   const [transaction, setTransaction] = useState<Transaction>({
@@ -46,113 +48,122 @@ const TransactionForm = () => {
     } else {
       console.log("created successfully");
       formRef.current?.reset();
+      toast.success("Transaction created successfully!");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4" ref={formRef}>
-      <label
-        htmlFor="description"
-        className="flex flex-col text-gray-700 dark:text-neutral-200"
+    <>
+      {" "}
+      <ToastContainer />
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-4"
+        ref={formRef}
       >
-        Description
-        <input
-          className="border border-gray-300 p-2 rounded-md"
-          type="text"
-          name="description"
-          onChange={handleChange}
-        />
-      </label>
-      <label
-        htmlFor="date"
-        className="flex flex-col text-gray-700 dark:text-neutral-200 "
-      >
-        Date
-        <input
-          className="border border-gray-300 p-2 rounded-md"
-          type="date"
-          name="date"
-          onChange={handleChange}
-        />
-      </label>
-      <label
-        htmlFor="category"
-        className="flex flex-col text-gray-700 dark:text-neutral-200"
-      >
-        Category
-        <select
-          className="border border-gray-300 p-2 rounded-md"
-          name="category"
-          onChange={handleChange}
+        <label
+          htmlFor="description"
+          className="flex flex-col text-gray-700 dark:text-neutral-200"
         >
-          {categories.map((category) => (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
-      </label>
-      <label
-        htmlFor="amount"
-        className="flex flex-col text-gray-700 dark:text-neutral-200"
-      >
-        Amount
-        <input
-          className="border border-gray-300 p-2 rounded-md"
-          type="number"
-          name="amount"
-          onChange={handleChange}
-        />
-      </label>
-      <label
-        htmlFor="type"
-        className="flex flex-col text-gray-700 dark:text-neutral-200"
-      >
-        Type
-        <select
-          className="border border-gray-300 p-2 rounded-md"
-          name="type"
-          onChange={handleChange}
+          Description
+          <input
+            className="border border-gray-300 p-2 rounded-md"
+            type="text"
+            name="description"
+            onChange={handleChange}
+          />
+        </label>
+        <label
+          htmlFor="date"
+          className="flex flex-col text-gray-700 dark:text-neutral-200 "
         >
-          <option value="income">Income</option>
-          <option value="expense">Expense</option>
-        </select>
-      </label>
-      <label
-        htmlFor="paymentMethod"
-        className="flex flex-col text-gray-700 dark:text-neutral-200"
-      >
-        Payment Method
-        <select
-          className="border border-gray-300 p-2 rounded-md"
-          name="paymentMethod"
-          onChange={handleChange}
+          Date
+          <input
+            className="border border-gray-300 p-2 rounded-md"
+            type="date"
+            name="date"
+            onChange={handleChange}
+          />
+        </label>
+        <label
+          htmlFor="category"
+          className="flex flex-col text-gray-700 dark:text-neutral-200"
         >
-          {paymentMehods.map((method) => (
-            <option key={method} value={method}>
-              {method}
-            </option>
-          ))}
-        </select>
-      </label>
-
-      <div className="flex gap-3">
-        <button
-          type="submit"
-          className="bg-indigo-600 text-white px-5 mt-5 rounded"
-        >
-          Add transaction
-        </button>
-        <Link to="/transactions">
-          <button
-            type="reset"
-            className="bg-white border border-gray-400 px-6 text-gray-500 mt-5 rounded"
+          Category
+          <select
+            className="border border-gray-300 p-2 rounded-md"
+            name="category"
+            onChange={handleChange}
           >
-            Cancel
+            {categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label
+          htmlFor="amount"
+          className="flex flex-col text-gray-700 dark:text-neutral-200"
+        >
+          Amount
+          <input
+            className="border border-gray-300 p-2 rounded-md"
+            type="number"
+            name="amount"
+            onChange={handleChange}
+          />
+        </label>
+        <label
+          htmlFor="type"
+          className="flex flex-col text-gray-700 dark:text-neutral-200"
+        >
+          Type
+          <select
+            className="border border-gray-300 p-2 rounded-md"
+            name="type"
+            onChange={handleChange}
+          >
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+          </select>
+        </label>
+        <label
+          htmlFor="paymentMethod"
+          className="flex flex-col text-gray-700 dark:text-neutral-200"
+        >
+          Payment Method
+          <select
+            className="border border-gray-300 p-2 rounded-md"
+            name="paymentMethod"
+            onChange={handleChange}
+          >
+            {paymentMehods.map((method) => (
+              <option key={method} value={method}>
+                {method}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <div className="flex gap-3">
+          <button
+            type="submit"
+            className="bg-indigo-600 text-white px-5 mt-5 rounded"
+          >
+            Add transaction
           </button>
-        </Link>
-      </div>
-    </form>
+          <Link to="/transactions">
+            <button
+              type="reset"
+              className="bg-white border border-gray-400 px-6 text-gray-500 mt-5 rounded"
+            >
+              Cancel
+            </button>
+          </Link>
+        </div>
+      </form>
+    </>
   );
 };
 

@@ -16,7 +16,6 @@ const TransactionOverviewList = () => {
       }
       if (data) {
         setTransactions(data);
-        console.log(data);
       }
     };
     fetchTransactions();
@@ -26,8 +25,8 @@ const TransactionOverviewList = () => {
       <h2 className="text-lg lg:text-xl mb-4 font-outfit text-neutral-400">
         Last transactions
       </h2>
-      <div className="shadow bg-white dark:bg-neutral-800 p-8 rounded">
-        <ul className="flex flex-col gap-3">
+      <div className="shadow bg-white dark:bg-neutral-800/50 p-8 rounded text-neutral-300">
+        <ul className="flex flex-col gap-2">
           {transactions.map((transaction) => (
             <TransactionOverview
               key={transaction.id}
@@ -35,6 +34,7 @@ const TransactionOverviewList = () => {
               description={transaction.description}
               amount={transaction.amount}
               type={transaction.type}
+              category={transaction.category}
             />
           ))}
         </ul>

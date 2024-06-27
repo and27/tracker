@@ -1,11 +1,11 @@
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import "../styles/SidebarMenu.css";
 import { FaTable } from "react-icons/fa6";
 import { FaChartColumn } from "react-icons/fa6";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { FaGear } from "react-icons/fa6";
 import { FaSignOutAlt } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import "../styles/SidebarMenu.css";
 
 interface SidebarMenuProps {
   isOpen: boolean;
@@ -18,6 +18,8 @@ const SidebarMenu = ({ isOpen }: SidebarMenuProps) => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 1024);
     };
+
+    handleResize();
 
     window.addEventListener("resize", handleResize);
 
@@ -35,13 +37,18 @@ const SidebarMenu = ({ isOpen }: SidebarMenuProps) => {
       }`}
     >
       <div>
-        <img
-          src="/logo.svg"
-          alt="logo"
-          width="60"
-          height="60"
-          className="pl-2 mb-5"
-        />
+        <div className="flex items-center gap-4 pl-2 mb-10">
+          <img
+            src="/logoCard.svg"
+            alt="logo"
+            width="24"
+            height="24"
+            className=""
+          />
+          <p className="font-semibold text-lg uppercase tracking-wider">
+            Tracker
+          </p>
+        </div>
         <ul className="flex flex-col gap-4 items-start w-full">
           <li className="w-full">
             <NavLink
@@ -85,7 +92,7 @@ const SidebarMenu = ({ isOpen }: SidebarMenuProps) => {
           Settings
         </NavLink>
         <NavLink
-          to="/"
+          to="/home"
           className="flex gap-2 items-center block text-start px-4 py-3
             rounded active:bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-gray-5"
         >

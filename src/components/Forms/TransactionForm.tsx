@@ -1,7 +1,7 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Transaction } from "../../pages/TransactionsPage";
 import { Link } from "react-router-dom";
-import { createTransaction } from "../../utils/supabaseDB";
+import { createTransaction, getCategories } from "../../utils/supabaseDB";
 
 const TransactionForm = () => {
   const [transaction, setTransaction] = useState<Transaction>({
@@ -13,7 +13,25 @@ const TransactionForm = () => {
     type: "income",
     paymentMethod: "",
   });
+  const [categories, setCategories] = useState<string[]>([]);
   const formRef = useRef<HTMLFormElement>(null);
+
+  const paymentMehods = ["cash", "card", "bank transfer", "paypal"];
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const { data, error } = await getCategories();
+      console.log(data);
+      if (error) {
+        console.error(error);
+        return;
+      }
+      if (data) {
+        setCategories(data.map((category) => category.name));
+      }
+    };
+    fetchCategories();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -33,16 +51,10 @@ const TransactionForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4" ref={formRef}>
-      <label htmlFor="transactionId" className="flex flex-col text-gray-700">
-        Transaction ID
-        <input
-          className="border border-gray-300 p-2 rounded-md"
-          type="text"
-          name="transactionId"
-          onChange={handleChange}
-        />
-      </label>
-      <label htmlFor="description" className="flex flex-col text-gray-700">
+      <label
+        htmlFor="description"
+        className="flex flex-col text-gray-700 dark:text-neutral-200"
+      >
         Description
         <input
           className="border border-gray-300 p-2 rounded-md"
@@ -51,7 +63,10 @@ const TransactionForm = () => {
           onChange={handleChange}
         />
       </label>
-      <label htmlFor="date" className="flex flex-col text-gray-700 ">
+      <label
+        htmlFor="date"
+        className="flex flex-col text-gray-700 dark:text-neutral-200 "
+      >
         Date
         <input
           className="border border-gray-300 p-2 rounded-md"
@@ -60,16 +75,27 @@ const TransactionForm = () => {
           onChange={handleChange}
         />
       </label>
-      <label htmlFor="category" className="flex flex-col text-gray-700">
+      <label
+        htmlFor="category"
+        className="flex flex-col text-gray-700 dark:text-neutral-200"
+      >
         Category
-        <input
+        <select
           className="border border-gray-300 p-2 rounded-md"
-          type="text"
           name="category"
           onChange={handleChange}
-        />
+        >
+          {categories.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
       </label>
-      <label htmlFor="amount" className="flex flex-col text-gray-700">
+      <label
+        htmlFor="amount"
+        className="flex flex-col text-gray-700 dark:text-neutral-200"
+      >
         Amount
         <input
           className="border border-gray-300 p-2 rounded-md"
@@ -78,7 +104,10 @@ const TransactionForm = () => {
           onChange={handleChange}
         />
       </label>
-      <label htmlFor="type" className="flex flex-col text-gray-700">
+      <label
+        htmlFor="type"
+        className="flex flex-col text-gray-700 dark:text-neutral-200"
+      >
         Type
         <select
           className="border border-gray-300 p-2 rounded-md"
@@ -89,14 +118,22 @@ const TransactionForm = () => {
           <option value="expense">Expense</option>
         </select>
       </label>
-      <label htmlFor="paymentMethod" className="flex flex-col text-gray-700">
+      <label
+        htmlFor="paymentMethod"
+        className="flex flex-col text-gray-700 dark:text-neutral-200"
+      >
         Payment Method
-        <input
+        <select
           className="border border-gray-300 p-2 rounded-md"
-          type="text"
           name="paymentMethod"
           onChange={handleChange}
-        />
+        >
+          {paymentMehods.map((method) => (
+            <option key={method} value={method}>
+              {method}
+            </option>
+          ))}
+        </select>
       </label>
 
       <div className="flex gap-3">

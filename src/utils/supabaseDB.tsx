@@ -27,4 +27,15 @@ const getTransactions = async () => {
   return { data, error };
 };
 
-export { createTransaction, getTransactions };
+const getPaymentMethods = async () => {
+  const { data, error } = await supabase.from("payment_method").select("*");
+  return { data, error };
+};
+
+const getCategories = async () => {
+  const { data, error } = await supabase.from("category").select("*");
+  console.log(data);
+  return { data, error };
+};
+
+export { createTransaction, getTransactions, getPaymentMethods, getCategories };

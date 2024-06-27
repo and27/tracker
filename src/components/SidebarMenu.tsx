@@ -47,7 +47,7 @@ const SidebarMenu = ({ isOpen }: SidebarMenuProps) => {
             <NavLink
               to="/overview"
               className="flex gap-2 items-center block text-start px-4 py-3 
-            rounded active:bg-teal-700 hover:bg-teal-600 focus:outline-none focus:ring focus:ring-gray-5"
+            rounded active:bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-gray-5"
             >
               <FaMoneyCheckDollar />
               Overview
@@ -57,7 +57,7 @@ const SidebarMenu = ({ isOpen }: SidebarMenuProps) => {
             <NavLink
               to="/transactions"
               className="flex gap-2 items-center block text-start px-4 py-3
-            rounded active:bg-teal-700 hover:bg-teal-600 focus:outline-none focus:ring focus:ring-gray-5"
+            rounded active:bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-gray-5"
             >
               <FaTable />
               Transactions
@@ -67,7 +67,7 @@ const SidebarMenu = ({ isOpen }: SidebarMenuProps) => {
             <NavLink
               to="/reports"
               className="flex gap-2 items-center block text-start px-4 py-3
-            rounded active:bg-teal-700 hover:bg-teal-600 focus:outline-none focus:ring focus:ring-gray-5"
+            rounded active:bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-gray-5"
             >
               <FaChartColumn />
               Reports
@@ -79,7 +79,7 @@ const SidebarMenu = ({ isOpen }: SidebarMenuProps) => {
         <NavLink
           to="/settings"
           className="flex gap-2 items-center block text-start px-4 py-3
-            rounded active:bg-teal-700 hover:bg-teal-600 focus:outline-none focus:ring focus:ring-gray-5"
+            rounded active:bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-gray-5"
         >
           <FaGear />
           Settings
@@ -87,7 +87,7 @@ const SidebarMenu = ({ isOpen }: SidebarMenuProps) => {
         <NavLink
           to="/"
           className="flex gap-2 items-center block text-start px-4 py-3
-            rounded active:bg-teal-700 hover:bg-teal-600 focus:outline-none focus:ring focus:ring-gray-5"
+            rounded active:bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-gray-5"
         >
           <FaSignOutAlt />
           Log out

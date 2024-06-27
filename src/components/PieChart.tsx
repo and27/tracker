@@ -22,7 +22,18 @@ const PieChart = ({ data }: PieChartProps) => {
       borderWidth={1}
       borderColor={{ from: "color", modifiers: [["darker", 0.2]] }}
       animate={true}
+      arcLinkLabelsThickness={3}
+      arcLinkLabelsTextColor={{
+        from: "color",
+        modifiers: [["darker", 2]],
+      }}
       defs={[
+        {
+          id: "text",
+          type: "patternDots",
+          background: "inherit",
+          color: "red",
+        },
         {
           id: "dots",
           type: "patternDots",
@@ -75,7 +86,7 @@ const PieChart = ({ data }: PieChartProps) => {
             {
               on: "hover",
               style: {
-                itemTextColor: "#000",
+                itemTextColor: "#ccc",
               },
             },
           ],

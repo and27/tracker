@@ -1,4 +1,4 @@
-import PieChart from "./PieChart";
+import PieChartDataProvider from "./PieChartDataProvider";
 
 type SummaryCardProps = {
   title: string;
@@ -28,7 +28,7 @@ const AccountSummary = () => {
       </div>
 
       <div style={{ height: "500px" }}>
-        <PieChart />
+        <PieChartDataProvider />
       </div>
     </section>
   );

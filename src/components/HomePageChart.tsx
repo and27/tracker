@@ -1,5 +1,12 @@
 import PieChart from "./PieChart";
 
+const dummyData = [
+  { id: "1", label: "Groceries", value: 200 },
+  { id: "2", label: "Transportation", value: 100 },
+  { id: "3", label: "Entertainment", value: 50 },
+  { id: "4", label: "Health", value: 150 },
+];
+
 export const HomePageChart = () => {
   return (
     <section className="mx-auto dark:bg-indigo-950 py-[8rem] text-center">
@@ -10,7 +17,7 @@ export const HomePageChart = () => {
         your budget.
       </p>
       <div style={{ height: "500px" }}>
-        <PieChart />
+        <PieChart data={dummyData} />
       </div>
     </section>
   );

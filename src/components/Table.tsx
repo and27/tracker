@@ -47,7 +47,8 @@ const Table = ({ columns, data }: TableProps) => {
               {row.getVisibleCells().map((cell) => (
                 <td
                   key={cell.id}
-                  className="border-b border-b-zinc-200/70 dark:border-b-zinc-800 py-4 px-5 text-neutral-900 dark:text-zinc-100"
+                  className="border-b border-b-zinc-200/70 dark:border-b-zinc-800 py-2 md:py-4 px-5 
+                  text-neutral-900 dark:text-zinc-100 text-sm md:text-base overflow-hidden whitespace-nowrap"
                 >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
@@ -57,30 +58,30 @@ const Table = ({ columns, data }: TableProps) => {
         </tbody>
       </table>
       <div className="p-3">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3 justify-end">
           <button
-            className="border rounded bg-neutral-900"
+            className="bg-neutral-100 dark:bg-neutral-800 rounded px-2 md:px-4 py-1"
             onClick={() => table.firstPage()}
             disabled={!table.getCanPreviousPage()}
           >
             {"<<"}
           </button>
           <button
-            className="border rounded bg-neutral-900"
+            className="bg-neutral-100 dark:bg-neutral-800 rounded px-2 md:px-4 py-1"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
             {"<"}
           </button>
           <button
-            className="border rounded bg-neutral-900"
+            className="bg-neutral-100 dark:bg-neutral-800 rounded px-2 md:px-4 py-1"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
             {">"}
           </button>
           <button
-            className="border rounded bg-neutral-900"
+            className="bg-neutral-100 dark:bg-neutral-800 rounded px-2 md:px-4 py-1"
             onClick={() => table.lastPage()}
             disabled={!table.getCanNextPage()}
           >
@@ -96,7 +97,7 @@ const Table = ({ columns, data }: TableProps) => {
 
           <select
             value={table.getState().pagination.pageSize}
-            className="border rounded bg-neutral-900 text-neutral-100 dark:bg-neutral-800 dark:text-neutral-100 p-1"
+            className="rounded text-neutral-100 bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-100 px-2 md:px-4 py-2"
             onChange={(e) => {
               table.setPageSize(Number(e.target.value));
             }}

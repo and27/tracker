@@ -57,8 +57,15 @@ const TransactionOverview: React.FC<ITransactionOverview> = (
   }
 
   return (
-    <li className="grid grid-cols-12 pb-3 items-center justify-between border-b border-neutral-700">
-      {Icon && <div className="flex items-center col-span-2">{Icon}</div>}
+    <li
+      className="grid grid-cols-12 pb-3 items-center justify-between 
+    [&:not(:last-child)]:border-b border-neutral-200 dark:border-neutral-700"
+    >
+      {Icon && (
+        <div className="flex items-center col-span-2 text-neutral-400 dark:text-neutral-600">
+          {Icon}
+        </div>
+      )}
       <div className="flex flex-col items-start col-span-6">
         <p className="font-semibold">{description}</p>
         <p className="text-neutral-400 text-sm">{type}</p>

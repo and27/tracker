@@ -102,7 +102,7 @@ const TransactionsPage: React.FC = () => {
   return (
     <main className="col-span-12 lg:col-span-10 pt-5 md:pt-10 px-5 md:px-8 dark:bg-zinc-900">
       <div className="flex justify-between">
-        <h1 className="text-2xl lg:text-3xl mb-6 font-outfit">
+        <h1 className="text-lg lg:text-xl mb-4 font-outfit text-neutral-700 dark:text-neutral-400">
           All your transactions
         </h1>
         <LinkButton to="/transaction">New Transaction</LinkButton>

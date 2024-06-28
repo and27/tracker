@@ -1,4 +1,5 @@
-import { FaB } from "react-icons/fa6";
+import { Fa1, FaB } from "react-icons/fa6";
+import Button from "../components/Button";
 
 type settingsDataType = {
   id: number;
@@ -22,25 +23,29 @@ const settingsData: settingsDataType[] = [
     title: "Account Settings",
     description: "Manage your account settings",
   },
-  {
-    id: 4,
-    title: "Security Settings",
-    description: "Manage your security settings",
-  },
-  {
-    id: 5,
-    title: "Privacy Settings",
-    description: "Manage your privacy settings",
-  },
+];
+
+const categories = [
+  "Groceries",
+  "Rent",
+  "Utilities",
+  "Transportation",
+  "Health",
+  "Entertainment",
+  "Education",
+  "Other",
 ];
 
 const SettingPage = () => {
   return (
     <main className="col-span-10 pt-10 px-8 dark:bg-zinc-900">
       <div>
+        <h2 className="text-lg lg:text-xl mb-2 font-outfit text-neutral-400">
+          Settings
+        </h2>
         <p>Change your account settings here.</p>
         {settingsData.map((setting) => (
-          <div className="flex items-center justify-between mb-4 p-2 border-b border-gray-700">
+          <div className="flex items-center justify-between mb-2 p-2 border-b border-gray-700">
             <div className="flex items-center">
               <FaB className="text-white text-2xl" />
               <div className="ml-4">
@@ -56,6 +61,23 @@ const SettingPage = () => {
                 <span className="absolute left-0 top-0 w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-300 ease-in-out"></span>
               </span>
             </label>
+          </div>
+        ))}
+        <div className="flex justify-end mt-4">
+          <Button>Save</Button>
+        </div>
+      </div>
+      <h2 className="text-lg lg:text-xl mb-2 font-outfit text-neutral-400">
+        Categories
+      </h2>
+      <p>Manage your categories here.</p>
+      <div className="grid grid-cols-2 md:grid-cols-5 my-4 gap-5">
+        {categories.map((category) => (
+          <div className="flex px-3 py-5 bg-neutral-800/30 rounded">
+            <Fa1 className="text-white text-2xl" />
+            <div className="ml-4">
+              <p className="text-white">{category}</p>
+            </div>
           </div>
         ))}
       </div>

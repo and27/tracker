@@ -1,8 +1,3 @@
-#root {
-  width: 100%;
-  --font-outfit: "Outfit", sans-serif;
-}
-
 .font-outfit {
   font-family: var(--font-outfit);
 }

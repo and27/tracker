@@ -1,5 +1,4 @@
 import { FaB } from "react-icons/fa6";
-import SidebarMenu from "../components/SidebarMenu";
 
 type settingsDataType = {
   id: number;
@@ -37,33 +36,30 @@ const settingsData: settingsDataType[] = [
 
 const SettingPage = () => {
   return (
-    <div className="grid grid-cols-12">
-      <SidebarMenu />
-      <main className="col-span-10 pt-10 px-8 dark:bg-zinc-900">
-        <div>
-          <p>Change your account settings here.</p>
-          {settingsData.map((setting) => (
-            <div className="flex items-center justify-between mb-4 p-2 border-b border-gray-700">
-              <div className="flex items-center">
-                <FaB className="text-white text-2xl" />
-                <div className="ml-4">
-                  <h3 className="text-white text-lg font-semibold">
-                    {setting.title}
-                  </h3>
-                  <p className="text-gray-400 text-sm">{setting.description}</p>
-                </div>
+    <main className="col-span-10 pt-10 px-8 dark:bg-zinc-900">
+      <div>
+        <p>Change your account settings here.</p>
+        {settingsData.map((setting) => (
+          <div className="flex items-center justify-between mb-4 p-2 border-b border-gray-700">
+            <div className="flex items-center">
+              <FaB className="text-white text-2xl" />
+              <div className="ml-4">
+                <h3 className="text-white text-lg font-semibold">
+                  {setting.title}
+                </h3>
+                <p className="text-gray-400 text-sm">{setting.description}</p>
               </div>
-              <label className="flex items-center cursor-pointer">
-                <input type="checkbox" className="toggle-checkbox hidden" />
-                <span className="toggle-label relative inline-block w-10 h-6 bg-gray-300 rounded-full transition-colors duration-300 ease-in-out">
-                  <span className="absolute left-0 top-0 w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-300 ease-in-out"></span>
-                </span>
-              </label>
             </div>
-          ))}
-        </div>
-      </main>
-    </div>
+            <label className="flex items-center cursor-pointer">
+              <input type="checkbox" className="toggle-checkbox hidden" />
+              <span className="toggle-label relative inline-block w-10 h-6 bg-gray-300 rounded-full transition-colors duration-300 ease-in-out">
+                <span className="absolute left-0 top-0 w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-300 ease-in-out"></span>
+              </span>
+            </label>
+          </div>
+        ))}
+      </div>
+    </main>
   );
 };
 

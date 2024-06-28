@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import Table from "../components/Table";
-import SidebarMenu from "../components/SidebarMenu";
 import LinkButton from "../components/LinkButton";
 import { getTransactions } from "../utils/supabaseDB";
 
@@ -77,25 +76,19 @@ const TransactionsPage: React.FC = () => {
   );
 
   return (
-    <>
-      <div className="grid grid-cols-12">
-        <SidebarMenu isOpen />
-
-        <main className="col-span-10 pt-10 px-8 dark:bg-zinc-900">
-          <div className="flex justify-between">
-            <h1 className="text-3xl mb-6">Transactions</h1>
-            <LinkButton to="/transaction">New Transaction</LinkButton>
-          </div>
-          {isLoading ? (
-            <div className="flex justify-center items-center h-96">
-              <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-zinc-400"></div>
-            </div>
-          ) : (
-            <Table columns={columns} data={transactionsData} />
-          )}
-        </main>
+    <main className="col-span-12 lg:col-span-10 pt-10 px-8 dark:bg-zinc-900">
+      <div className="flex justify-between">
+        <h1 className="text-3xl mb-6">Transactions</h1>
+        <LinkButton to="/transaction">New Transaction</LinkButton>
       </div>
-    </>
+      {isLoading ? (
+        <div className="flex justify-center items-center h-96">
+          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-zinc-400"></div>
+        </div>
+      ) : (
+        <Table columns={columns} data={transactionsData} />
+      )}
+    </main>
   );
 };
 

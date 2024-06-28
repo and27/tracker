@@ -11,6 +11,8 @@
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
 
+  --font-outfit: "Outfit", sans-serif;
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -25,6 +27,10 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+}
+
+#root {
+  width: 100%;
 }
 
 h1 {

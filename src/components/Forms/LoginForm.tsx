@@ -40,8 +40,7 @@ const LoginForm = () => {
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       <label
         htmlFor="email"
-        className="flex flex-col text-gray-700 
-      font-semibold text-lg"
+        className="flex flex-col text-gray-700 dark:text-neutral-200 font-semibold text-lg"
       >
         Email
         <input
@@ -53,8 +52,7 @@ const LoginForm = () => {
       </label>
       <label
         htmlFor="password"
-        className="flex flex-col text-gray-700
-            font-semibold text-lg"
+        className="flex flex-col text-gray-700 dark:text-neutral-200 font-semibold text-lg"
       >
         Password
         <input

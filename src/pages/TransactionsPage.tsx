@@ -13,6 +13,13 @@ export type Transaction = {
   paymentMethod: string;
 };
 
+function formatCurrency(value: number) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(value);
+}
+
 const TransactionsPage: React.FC = () => {
   const [transactionsData, setTransactions] = React.useState<Transaction[]>([]);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -60,16 +67,29 @@ const TransactionsPage: React.FC = () => {
         id: "amount",
         header: "Amount",
         accessorKey: "amount",
+        cell: (info: { getValue: <T>() => T }) => {
+          const value = info.getValue<number>();
+          const formattedValue = formatCurrency(value);
+          return formattedValue;
+        },
       },
       {
         id: "type",
         header: "Type",
         accessorKey: "type",
+        cell: (info: { getValue: <T>() => T }) => {
+          const value = info.getValue<"income" | "expense">();
+          return value === "income" ? (
+            <span className="bg-green-700 rounded px-2 text-sm">Income</span>
+          ) : (
+            <span className="bg-red-800 rounded px-2 text-sm">Expense</span>
+          );
+        },
       },
       {
         id: "paymentMethod",
         header: "Payment Method",
-        accessorKey: "paymentMethod",
+        accessorKey: "payment_method",
       },
     ],
     []

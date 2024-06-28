@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@nivo/core": "^0.87.0",
+    "@nivo/line": "^0.87.0",
     "@nivo/pie": "^0.87.0",
     "@supabase/supabase-js": "^2.43.4",
     "@tanstack/react-table": "^8.17.3",

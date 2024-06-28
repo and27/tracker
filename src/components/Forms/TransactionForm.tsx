@@ -31,6 +31,12 @@ const TransactionForm = () => {
       }
       if (data) {
         setCategories(data.map((category) => category.name));
+        setTransaction((prev) => ({
+          ...prev,
+          category: data[0].name,
+          paymentMethod: paymentMehods[0],
+          date: new Date().toISOString().split("T")[0],
+        }));
       }
     };
     fetchCategories();
@@ -86,6 +92,7 @@ const TransactionForm = () => {
             className="border border-gray-300 p-2 rounded-md"
             type="date"
             name="date"
+            defaultValue={new Date().toISOString().split("T")[0]}
             onChange={handleChange}
           />
         </label>

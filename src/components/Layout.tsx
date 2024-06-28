@@ -8,19 +8,26 @@ const Layout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="bg-neutral-50 dark:bg-neutral-900 flex flex-col w-full">
-      <button
-        className="static lg:hidden bg-indigo-500 text-white px-4 py-2 my-5 mx-9 self-end"
-        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-      >
-        {isSidebarOpen ? <FaX /> : <FaBars />}
-      </button>
-      <div className="grid grid-cols-12 w-full">
-        <SidebarMenu isOpen={isSidebarOpen} />
-        <Outlet />
+    <>
+      <div
+        className={`bg-neutral-900 opacity-70 lg:hidden absolute w-full h-full
+        ${isSidebarOpen ? "block" : "hidden transition-all duration-300 z-10"}
+      `}
+      ></div>
+      <div className="bg-neutral-50 dark:bg-neutral-900 flex flex-col w-full">
+        <button
+          className="relative static lg:hidden bg-indigo-700 text-white px-4 py-2 mt-2 mx-9 self-end"
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+        >
+          {isSidebarOpen ? <FaX /> : <FaBars />}
+        </button>
+        <div className="grid grid-cols-12 w-full">
+          <SidebarMenu isOpen={isSidebarOpen} />
+          <Outlet />
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </>
   );
 };
 

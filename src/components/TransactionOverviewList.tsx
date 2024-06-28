@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import TransactionOverview, {
   ITransactionOverview,
 } from "./TransactionOverview";
-import { getTransactions } from "../utils/supabaseDB";
+import { getLastTransactions } from "../utils/supabaseDB";
 
 const TransactionOverviewList = () => {
   const [transactions, setTransactions] = useState<ITransactionOverview[]>([]);
 
   useEffect(() => {
     const fetchTransactions = async () => {
-      const { data, error } = await getTransactions();
+      const { data, error } = await getLastTransactions(8);
       if (error) {
         console.error(error);
         return;

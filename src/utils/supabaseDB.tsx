@@ -27,6 +27,15 @@ const getTransactions = async () => {
   return { data, error };
 };
 
+const getLastTransactions = async (limit: number) => {
+  const { data, error } = await supabase
+    .from("transaction")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .limit(limit);
+  return { data, error };
+};
+
 const getPaymentMethods = async () => {
   const { data, error } = await supabase.from("payment_method").select("*");
   return { data, error };
@@ -34,8 +43,13 @@ const getPaymentMethods = async () => {
 
 const getCategories = async () => {
   const { data, error } = await supabase.from("category").select("*");
-  console.log(data);
   return { data, error };
 };
 
-export { createTransaction, getTransactions, getPaymentMethods, getCategories };
+export {
+  createTransaction,
+  getTransactions,
+  getPaymentMethods,
+  getCategories,
+  getLastTransactions,
+};

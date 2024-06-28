@@ -80,9 +80,13 @@ const TransactionsPage: React.FC = () => {
         cell: (info: { getValue: <T>() => T }) => {
           const value = info.getValue<"income" | "expense">();
           return value === "income" ? (
-            <span className="bg-green-700 rounded px-2 text-sm">Income</span>
+            <span className="bg-green-300 dark:bg-green-800 text-neutral-900 dark:text-neutral-100 rounded px-2 text-sm">
+              Income
+            </span>
           ) : (
-            <span className="bg-red-800 rounded px-2 text-sm">Expense</span>
+            <span className="bg-rose-300 dark:bg-rose-800 text-neutral-900 dark:text-neutral-100 rounded px-2 text-sm">
+              Expense
+            </span>
           );
         },
       },
@@ -96,9 +100,11 @@ const TransactionsPage: React.FC = () => {
   );
 
   return (
-    <main className="col-span-12 lg:col-span-10 pt-10 px-8 dark:bg-zinc-900">
+    <main className="col-span-12 lg:col-span-10 pt-5 md:pt-10 px-5 md:px-8 dark:bg-zinc-900">
       <div className="flex justify-between">
-        <h1 className="text-3xl mb-6">Transactions</h1>
+        <h1 className="text-2xl lg:text-3xl mb-6 font-outfit">
+          All your transactions
+        </h1>
         <LinkButton to="/transaction">New Transaction</LinkButton>
       </div>
       {isLoading ? (

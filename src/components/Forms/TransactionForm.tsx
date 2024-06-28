@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { createTransaction, getCategories } from "../../utils/supabaseDB";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Button from "../Button";
 
 const TransactionForm = () => {
   const [transaction, setTransaction] = useState<Transaction>({
@@ -35,7 +36,11 @@ const TransactionForm = () => {
     fetchCategories();
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setTransaction((prev) => ({ ...prev, [name]: value }));
   };
@@ -54,7 +59,6 @@ const TransactionForm = () => {
 
   return (
     <>
-      {" "}
       <ToastContainer />
       <form
         onSubmit={handleSubmit}
@@ -147,12 +151,7 @@ const TransactionForm = () => {
         </label>
 
         <div className="flex gap-3">
-          <button
-            type="submit"
-            className="bg-indigo-600 text-white px-5 mt-5 rounded"
-          >
-            Add transaction
-          </button>
+          <Button>Add transaction</Button>
           <Link to="/transactions">
             <button
               type="reset"

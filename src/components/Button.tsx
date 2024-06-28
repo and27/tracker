@@ -4,7 +4,7 @@ interface ButtonProps {
 
 const Button = ({ children }: ButtonProps) => {
   return (
-    <button className="bg-indigo-600 text-white px-5 mt-5 rounded">
+    <button className="bg-indigo-600 text-white px-5 mt-5 rounded hover:bg-indigo-700">
       {children}
     </button>
   );

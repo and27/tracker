@@ -18,7 +18,7 @@ const Table = ({ columns, data }: TableProps) => {
   });
 
   return (
-    <>
+    <div className="overflow-x-auto">
       <table className="w-full">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -56,7 +56,7 @@ const Table = ({ columns, data }: TableProps) => {
           ))}
         </tbody>
       </table>
-    </>
+    </div>
   );
 };
 

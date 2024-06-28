@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import LinkButton from "./LinkButton";
 
 const Hero = () => {
   return (
@@ -14,11 +15,7 @@ const Hero = () => {
           Gain control over your spending and achieve your financial goals with
           our intuitive app.
         </p>
-        <Link to="/login">
-          <button className="bg-indigo-600 rounded px-5 text-white w-48">
-            Start tracking now
-          </button>
-        </Link>
+        <LinkButton to="/login">Start tracking now</LinkButton>
       </div>
     </div>
   );

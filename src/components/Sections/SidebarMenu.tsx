@@ -5,7 +5,7 @@ import { FaChartColumn } from "react-icons/fa6";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { FaGear } from "react-icons/fa6";
 import { FaSignOutAlt } from "react-icons/fa";
-import "../styles/SidebarMenu.css";
+import "../../styles/SidebarMenu.css";
 
 interface SidebarMenuProps {
   isOpen: boolean;

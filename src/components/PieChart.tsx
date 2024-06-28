@@ -1,4 +1,5 @@
 import { ResponsivePie } from "@nivo/pie";
+import { useEffect, useState } from "react";
 
 export type PieChartDataType = {
   id: string;
@@ -11,6 +12,17 @@ type PieChartProps = {
 };
 
 const PieChart = ({ data }: PieChartProps) => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <ResponsivePie
       data={data}
@@ -69,11 +81,11 @@ const PieChart = ({ data }: PieChartProps) => {
       ]}
       legends={[
         {
-          anchor: "bottom",
-          direction: "row",
+          anchor: isMobile ? "top-left" : "bottom",
+          direction: isMobile ? "column" : "row",
           justify: false,
           translateX: 0,
-          translateY: 56,
+          translateY: isMobile ? 0 : 56,
           itemsSpacing: 0,
           itemWidth: 100,
           itemHeight: 18,

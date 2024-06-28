@@ -7,9 +7,10 @@ type LinkButtonProps = {
 
 const LinkButton = ({ children, to, className }: LinkButtonProps) => {
   return (
-    <Link to={to} className={className}>
+    <Link to={to}>
       <button
-        className={`bg-indigo-600 text-white px-5 rounded hover:bg-indigo-700 font-bold`}
+        className={`bg-indigo-600 text-white px-5 rounded hover:bg-indigo-700 font-bold
+          text-sm md:text-base ${className}"`}
       >
         {children}
       </button>

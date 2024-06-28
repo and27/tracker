@@ -1,16 +1,12 @@
-import PieChart from "../components/PieChart";
-import SidebarMenu from "../components/SidebarMenu";
+import PieChartDataProvider from "../components/PieChartDataProvider";
 
 const ReportsPage = () => {
   return (
-    <div className="grid grid-cols-12">
-      <SidebarMenu />
-      <main className="col-span-10 p-6">
-        <div style={{ height: "500px" }}>
-          <PieChart />
-        </div>
-      </main>
-    </div>
+    <main className="col-span-10 p-6">
+      <div style={{ height: "500px" }}>
+        <PieChartDataProvider />
+      </div>
+    </main>
   );
 };
 

@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import { Footer } from "./Footer";
-import SidebarMenu from "./SidebarMenu";
+import { Footer } from "./Sections/Footer";
+import SidebarMenu from "./Sections/SidebarMenu";
 import { useState } from "react";
 import { FaBars, FaX } from "react-icons/fa6";
 

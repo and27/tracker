@@ -1,7 +1,7 @@
-import Hero from "../components/Hero";
+import Hero from "../components/Sections/Hero";
 import TopMenu from "../components/TopMenu";
-import { Testimonials } from "../components/Testimonials";
-import { Footer } from "../components/Footer";
+import { Testimonials } from "../components/Sections/Testimonials";
+import { Footer } from "../components/Sections/Footer";
 import { HomePageChart } from "../components/HomePageChart";
 
 const HomePage = () => {

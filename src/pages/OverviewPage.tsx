@@ -1,5 +1,5 @@
 import AccountSummary from "../components/AccountSummary";
-import TransactionOverviewList from "../components/TransactionOverviewList";
+import TransactionOverviewList from "../components/Sections/TransactionOverviewList";
 
 function OverviewPage() {
   return (

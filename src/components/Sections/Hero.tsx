@@ -1,4 +1,5 @@
 import LinkButton from "../LinkButton";
+import "../../styles/Hero.css";
 
 const Hero = () => {
   return (
@@ -7,12 +8,12 @@ const Hero = () => {
         src="heroImage1.svg"
         alt="hero"
         className="absolute hidden md:block
-         -left-[10rem] bottom-0 object-cover"
+         -left-[10rem] bottom-0 object-cover slide-in-left"
       />
       <img
         src="heroImage2.svg"
         alt="hero"
-        className="absolute -right-[10rem] top-10 object-cover"
+        className="absolute -right-[10rem] top-10 object-cover slide-in-right opacity-0"
       />
       <div className="z-10 relative text-center flex flex-col gap-5 items-center justify-center -mt-8">
         <p className="text-slate-600 dark:text-slate-100 z-10 tracking-wide bg-neutral-950/60 px-5 py-1 rounded-full">

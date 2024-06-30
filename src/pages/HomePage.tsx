@@ -3,6 +3,7 @@ import TopMenu from "../components/TopMenu";
 import { Testimonials } from "../components/Sections/Testimonials";
 import { Footer } from "../components/Sections/Footer";
 import { HomePageChart } from "../components/HomePageChart";
+import Scurve from "../components/Sections/SCurve";
 
 const HomePage = () => {
   return (
@@ -11,6 +12,7 @@ const HomePage = () => {
       <Hero />
       <HomePageChart />
       <Testimonials />
+      <Scurve />
       <Footer />
     </div>
   );

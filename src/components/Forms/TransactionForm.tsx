@@ -1,88 +1,72 @@
 import { useEffect, useRef, useState } from "react";
-import { Transaction } from "../../pages/TransactionsPage";
 import { Link } from "react-router-dom";
-import { createTransaction, getCategories } from "../../utils/supabaseDB";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { createTransaction, getCategories } from "../../utils/supabaseDB";
+import { TransactionType } from "../../pages/TransactionsPage";
 import Button from "../Button";
 
 const TransactionForm = () => {
-  const [transaction, setTransaction] = useState<Transaction>({
-    transactionId: "",
-    description: "",
-    date: "",
-    category: "",
-    amount: 0,
-    type: "income",
-    paymentMethod: "",
-  });
   const [categories, setCategories] = useState<string[]>([]);
   const formRef = useRef<HTMLFormElement>(null);
-
   const paymentMehods = ["cash", "card", "bank transfer", "paypal"];
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TransactionType>();
+
+  const onSubmit: SubmitHandler<TransactionType> = async (data) => {
+    const { error } = await createTransaction(data);
+    if (error) {
+    } else {
+      formRef.current?.reset();
+      toast.success("Transaction created successfully!");
+    }
+  };
 
   useEffect(() => {
     const fetchCategories = async () => {
       const { data, error } = await getCategories();
-      console.log(data);
       if (error) {
         console.error(error);
         return;
       }
       if (data) {
         setCategories(data.map((category) => category.name));
-        setTransaction((prev) => ({
-          ...prev,
-          category: data[0].name,
-          paymentMethod: paymentMehods[0],
-          date: new Date().toISOString().split("T")[0],
-        }));
       }
     };
     fetchCategories();
   }, []);
 
-  const handleChange = (
-    e:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    setTransaction((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const { error } = await createTransaction(transaction);
-    if (error) {
-      console.error(error);
-    } else {
-      console.log("created successfully");
-      formRef.current?.reset();
-      toast.success("Transaction created successfully!");
-    }
-  };
-
   return (
     <>
       <ToastContainer />
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-4"
         ref={formRef}
       >
-        <label
-          htmlFor="description"
-          className="flex flex-col text-gray-700 dark:text-neutral-200"
-        >
-          Description
-          <input
-            className="border border-gray-300 p-2 rounded-md"
-            type="text"
-            name="description"
-            onChange={handleChange}
-          />
-        </label>
+        <div>
+          <label
+            htmlFor="description"
+            className="flex flex-col text-gray-700 dark:text-neutral-200"
+          >
+            Description
+            <input
+              className="border border-gray-300 p-2 rounded-md"
+              type="text"
+              {...register("description", { required: true })}
+            />
+          </label>
+          {errors.description && (
+            <span className="text-rose-600 text-sm ">
+              This field is required
+            </span>
+          )}
+        </div>
         <label
           htmlFor="date"
           className="flex flex-col text-gray-700 dark:text-neutral-200 "
@@ -91,9 +75,8 @@ const TransactionForm = () => {
           <input
             className="border border-gray-300 p-2 rounded-md"
             type="date"
-            name="date"
             defaultValue={new Date().toISOString().split("T")[0]}
-            onChange={handleChange}
+            {...register("date", { required: true })}
           />
         </label>
         <label
@@ -103,8 +86,7 @@ const TransactionForm = () => {
           Category
           <select
             className="border border-gray-300 p-2 rounded-md"
-            name="category"
-            onChange={handleChange}
+            {...register("category", { required: true })}
           >
             {categories.map((category) => (
               <option key={category} value={category}>
@@ -113,18 +95,24 @@ const TransactionForm = () => {
             ))}
           </select>
         </label>
-        <label
-          htmlFor="amount"
-          className="flex flex-col text-gray-700 dark:text-neutral-200"
-        >
-          Amount
-          <input
-            className="border border-gray-300 p-2 rounded-md"
-            type="number"
-            name="amount"
-            onChange={handleChange}
-          />
-        </label>
+        <div>
+          <label
+            htmlFor="amount"
+            className="flex flex-col text-gray-700 dark:text-neutral-200"
+          >
+            Amount
+            <input
+              className="border border-gray-300 p-2 rounded-md"
+              type="number"
+              {...register("amount", { required: true })}
+            />
+          </label>
+          {errors.amount && (
+            <span className="text-rose-600 text-sm">
+              This field is required
+            </span>
+          )}
+        </div>
         <label
           htmlFor="type"
           className="flex flex-col text-gray-700 dark:text-neutral-200"
@@ -132,8 +120,7 @@ const TransactionForm = () => {
           Type
           <select
             className="border border-gray-300 p-2 rounded-md"
-            name="type"
-            onChange={handleChange}
+            {...register("type", { required: true })}
           >
             <option value="income">Income</option>
             <option value="expense">Expense</option>
@@ -146,8 +133,7 @@ const TransactionForm = () => {
           Payment Method
           <select
             className="border border-gray-300 p-2 rounded-md"
-            name="paymentMethod"
-            onChange={handleChange}
+            {...register("paymentMethod", { required: true })}
           >
             {paymentMehods.map((method) => (
               <option key={method} value={method}>

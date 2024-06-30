@@ -3,7 +3,7 @@ import Table from "../components/Table";
 import LinkButton from "../components/LinkButton";
 import { getTransactions } from "../utils/supabaseDB";
 
-export type Transaction = {
+export type TransactionType = {
   transactionId: string;
   description: string;
   date: string;
@@ -21,7 +21,9 @@ function formatCurrency(value: number) {
 }
 
 const TransactionsPage: React.FC = () => {
-  const [transactionsData, setTransactions] = React.useState<Transaction[]>([]);
+  const [transactionsData, setTransactions] = React.useState<TransactionType[]>(
+    []
+  );
   const [isLoading, setIsLoading] = React.useState(false);
   // const transactionsData = React.useMemo(() => transactions, []);
 

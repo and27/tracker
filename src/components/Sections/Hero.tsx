@@ -16,7 +16,7 @@ const Hero = () => {
         className="absolute -right-[10rem] top-10 object-cover slide-in-right opacity-0"
       />
       <div className="z-10 relative text-center flex flex-col gap-5 items-center justify-center -mt-8">
-        <p className="text-slate-600 dark:text-slate-100 z-10 tracking-wide bg-neutral-950/60 px-5 py-1 rounded-full">
+        <p className="text-sm md:text-base text-slate-600 dark:text-slate-100 z-10 tracking-wide bg-neutral-950/60 px-5 py-1 rounded-full">
           The Ultimate Budget Tracking App
         </p>
         <h1 className="font-bold font-outfit text-slate-600 dark:text-slate-100 md:w-[36rem] text-center mx-auto md:text-6xl">

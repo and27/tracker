@@ -3,11 +3,11 @@ import {
   getCoreRowModel,
   flexRender,
 } from "@tanstack/react-table";
-import { Transaction } from "../pages/TransactionsPage";
+import { TransactionType } from "../pages/TransactionsPage";
 
 type TableProps = {
   columns: any[];
-  data: Transaction[];
+  data: TransactionType[];
 };
 
 const Table = ({ columns, data }: TableProps) => {

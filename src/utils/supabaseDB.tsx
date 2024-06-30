@@ -1,7 +1,7 @@
-import { Transaction } from "../pages/TransactionsPage";
+import { TransactionType } from "../pages/TransactionsPage";
 import { supabase } from "./supabase";
 
-const mapTransactionToDb = (transaction: Transaction) => {
+const mapTransactionToDb = (transaction: TransactionType) => {
   return {
     description: transaction.description,
     date: transaction.date,
@@ -12,7 +12,7 @@ const mapTransactionToDb = (transaction: Transaction) => {
   };
 };
 
-const createTransaction = async (transaction: Transaction) => {
+const createTransaction = async (transaction: TransactionType) => {
   const transactionWithDBFormat = mapTransactionToDb(transaction);
   const { data, error } = await supabase
     .from("transaction")

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PieChart, { PieChartDataType } from "./PieChart";
 import { getTransactions } from "../utils/supabaseDB";
-import { Transaction } from "../pages/TransactionsPage";
+import { TransactionType } from "../pages/TransactionsPage";
 
 const PieChartDataProvider = () => {
   const [data, setData] = useState<PieChartDataType[]>([]);
@@ -15,7 +15,7 @@ const PieChartDataProvider = () => {
       }
       if (transactions) {
         const data = transactions.reduce(
-          (acc: PieChartDataType[], transaction: Transaction) => {
+          (acc: PieChartDataType[], transaction: TransactionType) => {
             const existingCategory = acc.find(
               (category) => category.id === transaction.category
             );

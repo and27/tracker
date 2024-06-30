@@ -1,27 +1,37 @@
-import { Fa1, FaB } from "react-icons/fa6";
+import { Fa1, FaBell, FaMoon } from "react-icons/fa6";
 import Button from "../components/Button";
+import { FaCog } from "react-icons/fa";
+import Toggle from "../components/Toggle";
 
 type settingsDataType = {
   id: number;
   title: string;
+  name: "darkTheme" | "notifications" | "accountSettings";
   description: string;
+  icon: string;
 };
 
 const settingsData: settingsDataType[] = [
   {
     id: 1,
-    title: "Beer Settings",
-    description: "Manage your beer preferences",
+    title: "Dark Theme",
+    name: "darkTheme",
+    description: "Enable dark theme",
+    icon: "FaMoon",
   },
   {
     id: 2,
     title: "Notifications",
+    name: "notifications",
     description: "Manage your notifications",
+    icon: "FaBell",
   },
   {
     id: 3,
     title: "Account Settings",
+    name: "accountSettings",
     description: "Manage your account settings",
+    icon: "FaCog",
   },
 ];
 
@@ -36,7 +46,17 @@ const categories = [
   "Other",
 ];
 
+type iconsType = {
+  [key: string]: React.ElementType;
+};
+
 const SettingPage = () => {
+  const icons: iconsType = {
+    FaMoon: FaMoon,
+    FaBell: FaBell,
+    FaCog: FaCog,
+  };
+
   return (
     <main className="col-span-10 pt-10 px-8 dark:bg-zinc-900">
       <div>
@@ -44,25 +64,23 @@ const SettingPage = () => {
           Settings
         </h2>
         <p>Change your account settings here.</p>
-        {settingsData.map((setting) => (
-          <div className="flex items-center justify-between mb-2 p-2 border-b border-gray-700">
-            <div className="flex items-center">
-              <FaB className="text-white text-2xl" />
-              <div className="ml-4">
-                <h3 className="text-white text-lg font-semibold">
-                  {setting.title}
-                </h3>
-                <p className="text-gray-400 text-sm">{setting.description}</p>
+        {settingsData.map((setting) => {
+          const Icon = icons[setting.icon];
+          return (
+            <div className="flex items-center justify-between mb-2 p-2 border-b border-gray-700">
+              <div className="flex items-center">
+                <Icon className="text-white text-2xl" />
+                <div className="ml-4">
+                  <h3 className="text-white text-lg font-semibold">
+                    {setting.title}
+                  </h3>
+                  <p className="text-gray-400 text-sm">{setting.description}</p>
+                </div>
               </div>
+              <Toggle name={setting.name} />
             </div>
-            <label className="flex items-center cursor-pointer">
-              <input type="checkbox" className="toggle-checkbox hidden" />
-              <span className="toggle-label relative inline-block w-10 h-6 bg-gray-300 rounded-full transition-colors duration-300 ease-in-out">
-                <span className="absolute left-0 top-0 w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-300 ease-in-out"></span>
-              </span>
-            </label>
-          </div>
-        ))}
+          );
+        })}
         <div className="flex justify-end mt-4">
           <Button>Save</Button>
         </div>

@@ -4,6 +4,7 @@ import { FaCog } from "react-icons/fa";
 import Toggle from "../components/Toggle";
 import { useTheme } from "../context/ThemeContext";
 import Subtitle from "../components/Subtitle";
+import { categories } from "../data/categories";
 
 type settingsDataType = {
   id: number;
@@ -13,17 +14,6 @@ type settingsDataType = {
   icon: string;
   handler: () => void;
 };
-
-const categories = [
-  "Groceries",
-  "Rent",
-  "Utilities",
-  "Transportation",
-  "Health",
-  "Entertainment",
-  "Education",
-  "Other",
-];
 
 type iconsType = {
   [key: string]: React.ElementType;
@@ -96,9 +86,11 @@ const SettingPage = () => {
         Manage your categories here.
       </p>
       <div className="grid grid-cols-2 md:grid-cols-5 my-4 gap-5">
-        {categories.map((category) => (
+        {Object.keys(categories).map((category) => (
           <div className="flex shadow-lg dark:shadow-none p-5 bg-white/80 dark:bg-neutral-800/50 rounded-lg ">
-            <Fa1 className="text-2xl" />
+            <div className="flex items-center my-2">
+              {categories[category].icon}
+            </div>
             <div className="ml-4">
               <p className="">{category}</p>
             </div>

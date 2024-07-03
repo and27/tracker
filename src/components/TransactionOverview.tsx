@@ -1,14 +1,4 @@
-import {
-  FaCar,
-  FaShoppingCart,
-  FaUtensils,
-  FaBolt,
-  FaShieldAlt,
-  FaHeartbeat,
-  FaFilm,
-  FaBook,
-  FaQuestion,
-} from "react-icons/fa";
+import { categories } from "../data/categories";
 
 export interface ITransactionOverview {
   id: number;
@@ -22,32 +12,7 @@ const TransactionOverview: React.FC<ITransactionOverview> = (
   props: ITransactionOverview
 ) => {
   const { description, amount, type, category } = props;
-  const Icon = getCategoryIcon(category);
-
-  function getCategoryIcon(category: string) {
-    switch (category) {
-      case "other":
-        return <FaQuestion />;
-      case "transport":
-        return <FaCar />;
-      case "shopping":
-        return <FaShoppingCart />;
-      case "food":
-        return <FaUtensils />;
-      case "utilities":
-        return <FaBolt />;
-      case "insurance":
-        return <FaShieldAlt />;
-      case "health":
-        return <FaHeartbeat />;
-      case "entertainment":
-        return <FaFilm />;
-      case "education":
-        return <FaBook />;
-      default:
-        return <FaQuestion />;
-    }
-  }
+  const Icon = categories[category].icon;
 
   function formatCurrency(value: number) {
     return new Intl.NumberFormat("en-US", {

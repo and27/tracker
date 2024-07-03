@@ -4,7 +4,7 @@ type optionsType = {
   [key in options]: boolean;
 };
 
-const Toggle = ({ name }: { name: options }) => {
+const Toggle = ({ name, handler }: { name: options; handler: () => void }) => {
   const [isOn, setIsOn] = useState<optionsType>({
     darkTheme: false,
     notifications: false,
@@ -14,6 +14,7 @@ const Toggle = ({ name }: { name: options }) => {
   const toggleSwitch = (e: any) => {
     const name = e.target.name as options;
     setIsOn((prev) => ({ ...prev, [name]: !prev[name] }));
+    handler();
   };
 
   return (

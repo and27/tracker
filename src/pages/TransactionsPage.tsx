@@ -45,25 +45,35 @@ const TransactionsPage: React.FC = () => {
 
   const columns = React.useMemo(
     () => [
-      // {
-      //   id: "transactionId",
-      //   header: "Transaction ID",
-      //   accessorKey: "transactionId",
-      // },
       {
         id: "description",
         header: "Description",
         accessorKey: "description",
+        cell: (info: { getValue: <T>() => T }) => (
+          <span className="font-semibold text-neutral-600 dark:text-neutral-400 dark:text-neutral-400">
+            {info.getValue<string>()}
+          </span>
+        ),
       },
       {
         id: "date",
         header: "Date",
         accessorKey: "date",
+        cell: (info: { getValue: <T>() => T }) => (
+          <span className="text-neutral-600 dark:text-neutral-400">
+            {info.getValue<string>()}
+          </span>
+        ),
       },
       {
         id: "category",
         header: "Category",
         accessorKey: "category",
+        cell: (info: { getValue: <T>() => T }) => (
+          <span className="text-neutral-600 dark:text-neutral-400">
+            {info.getValue<string>()}
+          </span>
+        ),
       },
       {
         id: "amount",
@@ -72,7 +82,11 @@ const TransactionsPage: React.FC = () => {
         cell: (info: { getValue: <T>() => T }) => {
           const value = info.getValue<number>();
           const formattedValue = formatCurrency(value);
-          return formattedValue;
+          return (
+            <span className="text-neutral-600 dark:text-neutral-400">
+              {formattedValue}
+            </span>
+          );
         },
       },
       {
@@ -96,14 +110,19 @@ const TransactionsPage: React.FC = () => {
         id: "paymentMethod",
         header: "Payment Method",
         accessorKey: "payment_method",
+        cell: (info: { getValue: <T>() => T }) => (
+          <span className="text-neutral-600 dark:text-neutral-400">
+            {info.getValue<string>()}
+          </span>
+        ),
       },
     ],
     []
   );
 
   return (
-    <main className="col-span-12 lg:col-span-10 pt-5 md:pt-10 px-5 md:px-8 dark:bg-zinc-900">
-      <div className="flex justify-between">
+    <main className="col-span-12 lg:col-span-10 pt-5 md:pt-10 px-5 md:px-8 dark:bg-zinc-900 min-h-screen">
+      <div className="flex justify-between mb-4">
         <h1 className="text-lg lg:text-xl mb-4 font-outfit text-neutral-700 dark:text-neutral-400">
           All your transactions
         </h1>

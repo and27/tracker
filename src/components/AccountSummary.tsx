@@ -8,9 +8,9 @@ type SummaryCardProps = {
 
 const SummaryCard = ({ title, value }: SummaryCardProps) => {
   return (
-    <div className="shadow p-5 bg-white dark:bg-neutral-800/50 rounded">
-      <p className="text-sm text-gray-600 dark:text-gray-400">{title}</p>
-      <p className="text-lg font-semibold">{value}</p>
+    <div className="shadow-lg dark:shadow-none p-5 bg-white/80 dark:bg-neutral-800/50 rounded-lg flex flex-col gap-1">
+      <p className="text-sm text-gray-500 dark:text-gray-400">{title}</p>
+      <p className="text-xl font-semibold">{value}</p>
     </div>
   );
 };

@@ -52,11 +52,11 @@ const TransactionForm = () => {
         <div>
           <label
             htmlFor="description"
-            className="flex flex-col text-gray-700 dark:text-neutral-200"
+            className="flex flex-col text-neutral-700 dark:text-neutral-200"
           >
             Description
             <input
-              className="border border-gray-300 p-2 rounded-md"
+              className="border border-gray-300 p-2 rounded-md bg-neutral-100 dark:bg-neutral-800"
               type="text"
               {...register("description", { required: true })}
             />
@@ -73,7 +73,7 @@ const TransactionForm = () => {
         >
           Date
           <input
-            className="border border-gray-300 p-2 rounded-md"
+            className="border border-gray-300 p-2 rounded-md bg-neutral-100 dark:bg-neutral-800"
             type="date"
             defaultValue={new Date().toISOString().split("T")[0]}
             {...register("date", { required: true })}
@@ -85,7 +85,7 @@ const TransactionForm = () => {
         >
           Category
           <select
-            className="border border-gray-300 p-2 rounded-md"
+            className="border border-gray-300 p-2 rounded-md bg-neutral-100 dark:bg-neutral-800"
             {...register("category", { required: true })}
           >
             {categories.map((category) => (
@@ -102,7 +102,7 @@ const TransactionForm = () => {
           >
             Amount
             <input
-              className="border border-gray-300 p-2 rounded-md"
+              className="border border-gray-300 p-2 rounded-md bg-neutral-100 dark:bg-neutral-800"
               type="number"
               {...register("amount", { required: true })}
             />
@@ -119,7 +119,7 @@ const TransactionForm = () => {
         >
           Type
           <select
-            className="border border-gray-300 p-2 rounded-md"
+            className="border border-gray-300 p-2 rounded-md bg-neutral-100 dark:bg-neutral-800"
             {...register("type", { required: true })}
           >
             <option value="income">Income</option>
@@ -132,7 +132,7 @@ const TransactionForm = () => {
         >
           Payment Method
           <select
-            className="border border-gray-300 p-2 rounded-md"
+            className="border border-gray-300 p-2 rounded-md bg-neutral-100 dark:bg-neutral-800"
             {...register("paymentMethod", { required: true })}
           >
             {paymentMehods.map((method) => (

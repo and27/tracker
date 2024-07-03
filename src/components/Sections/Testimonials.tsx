@@ -2,7 +2,7 @@ import { testimonials } from "../../data/testimonials";
 
 export const Testimonials = () => {
   return (
-    <section className="mx-auto dark:bg-indigo-950 py-[8rem]">
+    <section className="mx-auto bg-indigo-950 py-[8rem]">
       <h2 className="text-3xl font-bold text-center mb-[4rem] mx-auto">
         What Our Users Say
       </h2>

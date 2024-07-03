@@ -24,7 +24,7 @@ const TransactionOverviewList = () => {
   return (
     <div className="col-span-2 mr-6">
       <Subtitle title="Last transactions" />
-      <div className="shadow bg-white dark:bg-neutral-800/50 p-8 rounded">
+      <div className="dark:bg-neutral-800/50 pt-4 dark:p-8 rounded-lg">
         <ul className="flex flex-col gap-2">
           {transactions.map((transaction) => (
             <TransactionOverview

@@ -26,7 +26,7 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (user) {
-      navigate("/overview");
+      navigate("/account/overview");
     }
   }, [user]);
 

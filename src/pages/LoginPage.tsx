@@ -1,8 +1,18 @@
+import { useEffect } from "react";
 import LoginForm from "../components/Forms/LoginForm";
+import { supabaseLogout } from "../utils/supabaseLogin";
 
 const LoginPage = () => {
+  const handleLogout = () => {
+    supabaseLogout();
+  };
+
+  useEffect(() => {
+    handleLogout();
+  }, []);
+
   return (
-    <section className="h-screen pattern bg-neutral-50 dark:bg-neutral-900 grid items-center">
+    <section className="h-screen bg-neutral-50 dark:bg-neutral-900 grid items-center">
       <div>
         <img
           src="/logoCard.svg"

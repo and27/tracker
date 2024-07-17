@@ -26,7 +26,7 @@ const Table = ({ columns, data }: TableProps) => {
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
-                  className="border-b border-b-zinc-200/90 dark:border-b-zinc-700 py-3 px-5 bg-slate-100 bg-transparent text-start text-neutral-500 dark:text-zinc-500 text-sm"
+                  className="border-b border-b-zinc-200/90 dark:border-b-zinc-700 py-3 px-5 bg-slate-100 bg-transparent text-start text-neutral-500 dark:text-zinc-500"
                 >
                   {flexRender(
                     header.column.columnDef.header,

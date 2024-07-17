@@ -30,7 +30,7 @@ const SidebarMenu = ({ isOpen }: SidebarMenuProps) => {
 
   return (
     <div
-      className={`flex flex-col justify-between col-span-2 py-10 px-5 h-full md:h-screen bg-indigo-700 text-white
+      className={`flex flex-col justify-between col-span-2 py-10 px-5 h-full md:h-auto bg-indigo-700 text-white
       fixed top-0 left-0 z-10 transition-transform duration-300 transform w-56 lg:w-auto
       ${
         !isMobile ? "relative" : isOpen ? "translate-x-0" : "-translate-x-full"
@@ -45,14 +45,16 @@ const SidebarMenu = ({ isOpen }: SidebarMenuProps) => {
             height="24"
             className=""
           />
-          <p className="font-semibold text-lg uppercase tracking-wider">
+          <p
+            className={`font-bold text-lg uppercase tracking-wide  font-outfit`}
+          >
             Tracker
           </p>
         </div>
         <ul className="flex flex-col gap-4 items-start w-full">
           <li className="w-full">
             <NavLink
-              to="/overview"
+              to="/account/overview"
               className="flex gap-2 items-center block text-start px-4 py-3 
             rounded active:bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-gray-5"
             >
@@ -62,7 +64,7 @@ const SidebarMenu = ({ isOpen }: SidebarMenuProps) => {
           </li>
           <li className="w-full ">
             <NavLink
-              to="/transactions"
+              to="/account/transactions"
               className="flex gap-2 items-center block text-start px-4 py-3
             rounded active:bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-gray-5"
             >
@@ -72,7 +74,7 @@ const SidebarMenu = ({ isOpen }: SidebarMenuProps) => {
           </li>
           <li className="w-full">
             <NavLink
-              to="/reports"
+              to="/account/reports"
               className="flex gap-2 items-center block text-start px-4 py-3
             rounded active:bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-gray-5"
             >
@@ -84,7 +86,7 @@ const SidebarMenu = ({ isOpen }: SidebarMenuProps) => {
       </div>
       <div>
         <NavLink
-          to="/settings"
+          to="/account/settings"
           className="flex gap-2 items-center block text-start px-4 py-3
             rounded active:bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-gray-5"
         >
@@ -92,12 +94,12 @@ const SidebarMenu = ({ isOpen }: SidebarMenuProps) => {
           Settings
         </NavLink>
         <NavLink
-          to="/home"
+          to="/logout"
           className="flex gap-2 items-center block text-start px-4 py-3
             rounded active:bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-gray-5"
         >
           <FaSignOutAlt />
-          Log out
+          Logout
         </NavLink>
       </div>
     </div>

@@ -27,4 +27,8 @@ const supabaseSignup = () => {
     });
 };
 
-export { supabaseLogin, supabaseSignup };
+const supabaseLogout = () => {
+  supabase.auth.signOut();
+};
+
+export { supabaseLogin, supabaseSignup, supabaseLogout };

@@ -15,7 +15,7 @@ import { ThemeProvider } from "./context/ThemeContext.tsx";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/account",
     element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
@@ -42,12 +42,17 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "home",
+    path: "/",
     element: <App />,
     errorElement: <ErrorPage />,
   },
   {
     path: "login",
+    element: <LoginPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "logout",
     element: <LoginPage />,
     errorElement: <ErrorPage />,
   },

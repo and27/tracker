@@ -1,4 +1,4 @@
-import { Fa1, FaBell, FaMoon } from "react-icons/fa6";
+import { FaBell, FaMoon } from "react-icons/fa6";
 import Button from "../components/Button";
 import { FaCog } from "react-icons/fa";
 import Toggle from "../components/Toggle";

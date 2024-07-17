@@ -7,7 +7,7 @@ import Scurve from "../components/Sections/SCurve";
 
 const HomePage = () => {
   return (
-    <div className="h-screen pattern text-white bg-neutral-900 dark:bg-neutral-900">
+    <div className="h-screen pattern text-white bg-neutral-50 dark:bg-neutral-900">
       <TopMenu />
       <Hero />
       <HomePageChart />

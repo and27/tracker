@@ -1,7 +1,7 @@
 import LinkButton from "../LinkButton";
 
 const Scurve = () => (
-  <section className="mx-auto py-[8rem] bg-neutral-900">
+  <section className="mx-auto py-[8rem] bg-neutral-900 px-5">
     <div className="grid grid-cols-1 md:grid-cols-2 max-w-[1280px] mx-auto items-center">
       <div className="flex flex-col gap-5">
         <h2 className="text-3xl font-bold">Why people join to tracker</h2>

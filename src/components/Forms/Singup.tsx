@@ -3,13 +3,13 @@ import useAuth from "../../utils/useAuth";
 import Button from "../Button";
 import { useNavigate } from "react-router-dom";
 
-type LoginData = {
+type SignupData = {
   email: string;
   password: string;
 };
 
-const LoginForm = () => {
-  const [loginData, setLoginData] = useState<LoginData>({} as LoginData);
+const SignupForm = () => {
+  const [loginData, setLoginData] = useState<SignupData>({} as SignupData);
   const { loginUser, error, user } = useAuth();
   const navigate = useNavigate();
 
@@ -62,12 +62,24 @@ const LoginForm = () => {
           onChange={handleChange}
         />
       </label>
+      <label
+        htmlFor="password"
+        className="flex flex-col text-gray-700 dark:text-neutral-200 font-semibold text-lg"
+      >
+        Confirm Password
+        <input
+          className="bg-transparent border border-gray-300 p-2 rounded-md mt-1"
+          type="password"
+          name="password"
+          onChange={handleChange}
+        />
+      </label>
       <div className="gap-2 text-rose-700">
         {error && <p>{error}</p>}
-        <Button>Login</Button>
+        <Button>Sign up</Button>
       </div>
     </form>
   );
 };
 
-export default LoginForm;
+export default SignupForm;

@@ -12,6 +12,7 @@ import LoginPage from "./pages/LoginPage.tsx";
 import SettingPage from "./pages/SettingsPage.tsx";
 import App from "./App.tsx";
 import { ThemeProvider } from "./context/ThemeContext.tsx";
+import SignupPage from "./pages/SignupPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,11 @@ const router = createBrowserRouter([
   {
     path: "login",
     element: <LoginPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "signup",
+    element: <SignupPage />,
     errorElement: <ErrorPage />,
   },
   {

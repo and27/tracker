@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import LoginForm from "../components/Forms/LoginForm";
 import { supabaseLogout } from "../utils/supabaseLogin";
+import SignupForm from "../components/Forms/Singup";
 
-const LoginPage = () => {
+const SignupPage = () => {
   const handleLogout = () => {
     supabaseLogout();
   };
@@ -23,16 +23,16 @@ const LoginPage = () => {
         />
         <div className="bg-white dark:bg-neutral-800 shadow p-10 rounded sm:w-1/2 lg:w-1/3 sm:mx-auto mx-5">
           <h1 className="text-center text-3xl font-bold font-outfit">
-            Sign in
+            Welcome
           </h1>
           <p className="text-center text-neutral-500 dark:text-neutral-400 pt-1 pb-4 text-lg">
-            to continue to Tracker
+            let's create your account
           </p>
-          <LoginForm />
+          <SignupForm />
           <p className="mt-3">
-            Don't have an account?{" "}
-            <a className="underline" href="/signup">
-              Sign up
+            Already have an account?{" "}
+            <a className="underline" href="/login">
+              Sign in
             </a>
           </p>
         </div>
@@ -41,4 +41,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignupPage;

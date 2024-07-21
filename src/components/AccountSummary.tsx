@@ -26,7 +26,7 @@ const AccountSummary = () => {
         <SummaryCard title="Total Transactions" value="10" />
       </div>
 
-      <div className="mt-10 overflow-scroll">
+      <div className="mt-10 overflow-auto">
         <Subtitle title="Expenses by category" />
         <div className="lg:w-[70%] w-[110%]" style={{ height: "500px" }}>
           <PieChartDataProvider />

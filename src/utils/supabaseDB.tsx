@@ -36,6 +36,11 @@ const getLastTransactions = async (limit: number) => {
   return { data, error };
 };
 
+const deleteTransaction = async (id: string) => {
+  const { error } = await supabase.from("transaction").delete().match({ id });
+  return { error };
+};
+
 const getPaymentMethods = async () => {
   const { data, error } = await supabase.from("payment_method").select("*");
   return { data, error };
@@ -52,4 +57,5 @@ export {
   getPaymentMethods,
   getCategories,
   getLastTransactions,
+  deleteTransaction,
 };

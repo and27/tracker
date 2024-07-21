@@ -4,13 +4,16 @@ import {
   flexRender,
 } from "@tanstack/react-table";
 import { TransactionType } from "../pages/TransactionsPage";
+import { FaTrashCan } from "react-icons/fa6";
+import { FaEdit } from "react-icons/fa";
 
 type TableProps = {
   columns: any[];
   data: TransactionType[];
+  handleDeleteRow: (id: string) => void;
 };
 
-const Table = ({ columns, data }: TableProps) => {
+const Table = ({ columns, data, handleDeleteRow }: TableProps) => {
   const table = useReactTable({
     data,
     columns,
@@ -23,6 +26,9 @@ const Table = ({ columns, data }: TableProps) => {
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
+              <th className="border-b border-b-zinc-200/90 dark:border-b-zinc-700 py-3 px-5 bg-slate-100 bg-transparent text-start text-neutral-500 dark:text-zinc-500">
+                Action
+              </th>
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
@@ -44,6 +50,19 @@ const Table = ({ columns, data }: TableProps) => {
               className="odd:bg-zing-100 odd:dark:bg-transparent even:bg-slate-50 even:dark:bg-transparent 
               hover:bg-zinc-200/30 dark:hover:bg-zinc-950/30 transition-colors duration-100 text-start"
             >
+              <td className="border-b border-b-zinc-200/70 dark:border-b-zinc-800 py-2 md:py-4 px-5">
+                <div className="flex gap-4">
+                  <button
+                    className="m-0 p-0 bg-transparent"
+                    onClick={() => handleDeleteRow(row.original.id)}
+                  >
+                    <FaTrashCan color="#888" />
+                  </button>
+                  <button className="m-0 p-0 bg-transparent">
+                    <FaEdit color="#888" />
+                  </button>
+                </div>
+              </td>
               {row.getVisibleCells().map((cell) => (
                 <td
                   key={cell.id}
@@ -57,6 +76,13 @@ const Table = ({ columns, data }: TableProps) => {
           ))}
         </tbody>
       </table>
+      {data.length === 0 && (
+        <div className="flex justify-center items-center h-96">
+          <p className="text-neutral-500 dark:text-neutral-400 text-lg">
+            No transactions found
+          </p>
+        </div>
+      )}
       <div className="p-3">
         <div className="flex items-center gap-3 justify-end">
           <button

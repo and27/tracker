@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -144,15 +143,7 @@ const TransactionForm = () => {
         </label>
 
         <div className="flex gap-3">
-          <Button>Add transaction</Button>
-          <Link to="/transactions">
-            <button
-              type="reset"
-              className="bg-white border border-gray-400 px-6 text-gray-500 mt-5 rounded"
-            >
-              Cancel
-            </button>
-          </Link>
+          <Button type="submit">Add transaction</Button>
         </div>
       </form>
     </>

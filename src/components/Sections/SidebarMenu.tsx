@@ -4,7 +4,7 @@ import { FaTable } from "react-icons/fa6";
 import { FaChartColumn } from "react-icons/fa6";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { FaGear } from "react-icons/fa6";
-import { FaSignOutAlt } from "react-icons/fa";
+import { FaPlusCircle, FaSignOutAlt } from "react-icons/fa";
 import "../../styles/SidebarMenu.css";
 
 interface SidebarMenuProps {
@@ -70,6 +70,16 @@ const SidebarMenu = ({ isOpen }: SidebarMenuProps) => {
             >
               <FaTable />
               Transactions
+            </NavLink>
+          </li>
+          <li className="w-full">
+            <NavLink
+              to="/account/transaction"
+              className="flex gap-2 items-center block text-start px-4 py-3
+            rounded active:bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-gray-5"
+            >
+              <FaPlusCircle />
+              New transaction
             </NavLink>
           </li>
           <li className="w-full">

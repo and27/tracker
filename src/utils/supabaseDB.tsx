@@ -9,6 +9,7 @@ const mapTransactionToDb = (transaction: TransactionType) => {
     amount: transaction.amount,
     type: transaction.type,
     payment_method: transaction.paymentMethod,
+    user_id: transaction.user_id,
   };
 };
 
@@ -22,8 +23,11 @@ const createTransaction = async (transaction: TransactionType) => {
   return { data, error };
 };
 
-const getTransactions = async () => {
-  const { data, error } = await supabase.from("transaction").select("*");
+const getTransactions = async (user: string) => {
+  const { data, error } = await supabase
+    .from("transaction")
+    .select("*")
+    .eq("user_id", user);
   return { data, error };
 };
 

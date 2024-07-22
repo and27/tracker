@@ -18,6 +18,8 @@ const TransactionForm = () => {
   } = useForm<TransactionType>();
 
   const onSubmit: SubmitHandler<TransactionType> = async (data) => {
+    const user_id = localStorage.getItem("userId") as string;
+    data.user_id = user_id;
     const { error } = await createTransaction(data);
     if (error) {
     } else {

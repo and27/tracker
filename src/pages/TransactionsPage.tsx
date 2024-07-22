@@ -15,6 +15,7 @@ export type TransactionType = {
   amount: number;
   type: "income" | "expense";
   paymentMethod: string;
+  user_id: string;
 };
 
 function formatCurrency(value: number) {
@@ -55,7 +56,8 @@ const TransactionsPage: React.FC = () => {
   useEffect(() => {
     const fetchTransactions = async () => {
       setIsLoading(true);
-      const { data, error } = await getTransactions();
+      const user = localStorage.getItem("userId") as string;
+      const { data, error } = await getTransactions(user);
       if (error) {
         console.error(error);
         return;

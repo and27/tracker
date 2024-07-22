@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AuthError, supabaseLogin } from "./supabaseLogin";
+import { AuthError, supabaseLogin, supabaseSignup } from "./supabaseLogin";
 import { User } from "@supabase/supabase-js";
 
 type AuthUser = {
@@ -32,10 +32,28 @@ const useAuth = () => {
     }
   };
 
+  const signupUser = async (user: AuthUser) => {
+    const { email, password } = user;
+    const { data, error } = await supabaseSignup(email, password);
+
+    if (error) {
+      if (isAuthError(error)) {
+        setError(error.message);
+        return null;
+      }
+    }
+
+    if (data) {
+      setUser(data.user);
+      setError(null);
+    }
+  };
+
   return {
     user,
     error,
     loginUser,
+    signupUser,
   };
 };
 

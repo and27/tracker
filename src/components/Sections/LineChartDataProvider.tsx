@@ -37,7 +37,8 @@ const LineChartDataProvider = () => {
 
   useEffect(() => {
     const fetchTransactions = async () => {
-      const { data: transactions, error } = await getTransactions();
+      const user = localStorage.getItem("userId") as string;
+      const { data: transactions, error } = await getTransactions(user);
       if (error) {
         console.error(error);
         return;

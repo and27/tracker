@@ -1,5 +1,4 @@
 import { Outlet } from "react-router-dom";
-import { Footer } from "./Sections/Footer";
 import SidebarMenu from "./Sections/SidebarMenu";
 import { useState } from "react";
 import { FaBars, FaX } from "react-icons/fa6";
@@ -25,7 +24,6 @@ const Layout = () => {
           <SidebarMenu isOpen={isSidebarOpen} />
           <Outlet />
         </div>
-        <Footer />
       </div>
     </>
   );

@@ -22,8 +22,17 @@ const supabaseSignup = async (email: string, password: string) => {
   return { data: data, error: error };
 };
 
+const createSupabaseUser = async (uid: string, email: string) => {
+  const { data, error } = await supabase.from("user").insert({
+    id: uid,
+    email,
+  });
+
+  return { data, error };
+};
+
 const supabaseLogout = () => {
   supabase.auth.signOut();
 };
 
-export { supabaseLogin, supabaseSignup, supabaseLogout };
+export { supabaseLogin, supabaseSignup, supabaseLogout, createSupabaseUser };

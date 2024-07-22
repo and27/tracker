@@ -10,7 +10,7 @@ type SignupData = {
 
 const SignupForm = () => {
   const [loginData, setLoginData] = useState<SignupData>({} as SignupData);
-  const { loginUser, error, user } = useAuth();
+  const { signupUser, error, user } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,7 +21,7 @@ const SignupForm = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     const { email, password } = loginData;
     e.preventDefault();
-    await loginUser({ email, password });
+    await signupUser({ email, password });
   };
 
   useEffect(() => {

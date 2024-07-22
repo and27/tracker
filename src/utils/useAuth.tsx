@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { AuthError, supabaseLogin, supabaseSignup } from "./supabaseLogin";
+import {
+  AuthError,
+  createSupabaseUser,
+  supabaseLogin,
+  supabaseSignup,
+} from "./supabaseLogin";
 import { User } from "@supabase/supabase-js";
 
 type AuthUser = {
@@ -27,6 +32,7 @@ const useAuth = () => {
     } else if (data?.user) {
       setUser(data.user);
       localStorage.setItem("userId", data.user.id);
+      createSupabaseUser(data.user.id, email);
       setError(null);
     }
   };
@@ -43,6 +49,7 @@ const useAuth = () => {
     } else if (data?.user) {
       setUser(data.user);
       localStorage.setItem("userId", data.user.id);
+      createSupabaseUser(data.user.id, email);
       setError(null);
     }
   };

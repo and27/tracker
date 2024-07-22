@@ -1,4 +1,4 @@
-import { categories } from "../data/categories";
+import { useCategories } from "../context/CategoriesContext";
 
 export interface ITransactionOverview {
   id: number;
@@ -12,7 +12,8 @@ const TransactionOverview: React.FC<ITransactionOverview> = (
   props: ITransactionOverview
 ) => {
   const { description, amount, type, category } = props;
-  const Icon = categories[category].icon;
+  const { categories } = useCategories();
+  const Icon = categories[category]?.icon;
 
   function formatCurrency(value: number) {
     return new Intl.NumberFormat("en-US", {

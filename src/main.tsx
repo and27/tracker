@@ -13,6 +13,7 @@ import SettingPage from "./pages/SettingsPage.tsx";
 import App from "./App.tsx";
 import { ThemeProvider } from "./context/ThemeContext.tsx";
 import SignupPage from "./pages/SignupPage.tsx";
+import { CategoriesProvider } from "./context/CategoriesContext.tsx";
 
 const router = createBrowserRouter([
   {
@@ -67,7 +68,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ThemeProvider>
-      <RouterProvider router={router} />
+      <CategoriesProvider>
+        <RouterProvider router={router} />
+      </CategoriesProvider>
     </ThemeProvider>
   </React.StrictMode>
 );

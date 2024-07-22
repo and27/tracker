@@ -1,10 +1,14 @@
+import { useState } from "react";
 import { FaBell, FaMoon } from "react-icons/fa6";
+import { FaCog, FaTimes } from "react-icons/fa";
 import Button from "../components/Button";
-import { FaCog } from "react-icons/fa";
 import Toggle from "../components/Toggle";
-import { useTheme } from "../context/ThemeContext";
 import Subtitle from "../components/Subtitle";
-import { categories } from "../data/categories";
+import Modal from "../components/Modal";
+import NewCategory from "../components/Forms/NewCategory";
+import { useTheme } from "../context/ThemeContext";
+import { useCategories } from "../context/CategoriesContext";
+import { removeCategoryByName } from "../utils/supabaseDB";
 
 type settingsDataType = {
   id: number;
@@ -24,9 +28,43 @@ const icons: iconsType = {
   FaBell: FaBell,
   FaCog: FaCog,
 };
+const isCategoryRequired = (category: string) => {
+  return [
+    "food",
+    "rent",
+    "transport",
+    "travel",
+    "shopping",
+    "education",
+    "entertainment",
+    "insurance",
+    "health",
+    "other",
+  ].includes(category);
+};
 
 const SettingPage = () => {
+  const { categories, addCategory, removeCategory } = useCategories();
   const { toggleTheme } = useTheme();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleModal = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleAddCategory = (categoryName: string) => {
+    handleModal();
+    addCategory(categoryName);
+  };
+
+  const handleRemoveCategory = async (category: string) => {
+    removeCategory(category);
+    const { error } = await removeCategoryByName(category);
+    if (error) {
+      console.error(error);
+      return;
+    }
+  };
 
   const settingsData: settingsDataType[] = [
     {
@@ -77,26 +115,41 @@ const SettingPage = () => {
             </div>
           );
         })}
-        <div className="flex justify-end mt-4">
-          <Button>Save</Button>
+      </div>
+      <div className="mt-10">
+        <div className="flex justify-between items-center">
+          <div>
+            <Subtitle title="Categories" />
+            <p className="mb-4 text-neutral-600 dark:text-neutral-400">
+              Manage your categories here.
+            </p>
+          </div>
+          <Button onClick={handleModal}>Add Category</Button>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-5 my-4 gap-5">
+          {Object.keys(categories).map((category) => (
+            <div className="relative flex shadow-lg dark:shadow-none p-5 bg-white/80 dark:bg-neutral-800/50 rounded-lg ">
+              {!isCategoryRequired(category) && (
+                <button
+                  className="absolute top-0 right-0 m-0 p-2 bg-transparent"
+                  onClick={() => handleRemoveCategory(category)}
+                >
+                  <FaTimes color="#888" size="12" />
+                </button>
+              )}
+              <div className="flex items-center my-2">
+                {categories[category].icon}
+              </div>
+              <div className="ml-4">
+                <p className="">{category}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-      <Subtitle title="Categories" />
-      <p className="mb-4 text-neutral-600 dark:text-neutral-400">
-        Manage your categories here.
-      </p>
-      <div className="grid grid-cols-2 md:grid-cols-5 my-4 gap-5">
-        {Object.keys(categories).map((category) => (
-          <div className="flex shadow-lg dark:shadow-none p-5 bg-white/80 dark:bg-neutral-800/50 rounded-lg ">
-            <div className="flex items-center my-2">
-              {categories[category].icon}
-            </div>
-            <div className="ml-4">
-              <p className="">{category}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+      <Modal isOpen={isOpen} onClose={handleModal} title="Add a new category">
+        <NewCategory handleAddCategory={handleAddCategory} />
+      </Modal>
     </main>
   );
 };

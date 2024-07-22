@@ -51,11 +51,29 @@ const getCategories = async () => {
   return { data, error };
 };
 
+const addCategory = async (name: string, user_id: string) => {
+  const { data, error } = await supabase
+    .from("category")
+    .insert([{ name, user_id }])
+    .select();
+  return { data, error };
+};
+
+const removeCategoryByName = async (name: string) => {
+  const { data, error } = await supabase
+    .from("category")
+    .delete()
+    .match({ name });
+  return { data, error };
+};
+
 export {
   createTransaction,
   getTransactions,
   getPaymentMethods,
   getCategories,
+  addCategory,
+  removeCategoryByName,
   getLastTransactions,
   deleteTransaction,
 };

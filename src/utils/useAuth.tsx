@@ -24,10 +24,9 @@ const useAuth = () => {
         setError(error.message);
         return null;
       }
-    }
-
-    if (data) {
+    } else if (data?.user) {
       setUser(data.user);
+      localStorage.setItem("userId", data.user.id);
       setError(null);
     }
   };
@@ -41,10 +40,9 @@ const useAuth = () => {
         setError(error.message);
         return null;
       }
-    }
-
-    if (data) {
+    } else if (data?.user) {
       setUser(data.user);
+      localStorage.setItem("userId", data.user.id);
       setError(null);
     }
   };

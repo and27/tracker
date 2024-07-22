@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import LoginForm from "../components/Forms/LoginForm";
 import { supabaseLogout } from "../utils/supabaseLogin";
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
   const handleLogout = () => {
@@ -31,9 +32,9 @@ const LoginPage = () => {
           <LoginForm />
           <p className="mt-3">
             Don't have an account?{" "}
-            <a className="underline" href="/signup">
+            <Link to="/signup" className="text-indigo-600 dark:text-indigo-400">
               Sign up
-            </a>
+            </Link>
           </p>
         </div>
       </div>

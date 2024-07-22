@@ -10,7 +10,8 @@ const TransactionOverviewList = () => {
 
   useEffect(() => {
     const fetchTransactions = async () => {
-      const { data, error } = await getLastTransactions(8);
+      const user = localStorage.getItem("userId") as string;
+      const { data, error } = await getLastTransactions({ user, limit: 5 });
       if (error) {
         console.error(error);
         return;

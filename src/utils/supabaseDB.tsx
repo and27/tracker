@@ -31,10 +31,17 @@ const getTransactions = async (user: string) => {
   return { data, error };
 };
 
-const getLastTransactions = async (limit: number) => {
+const getLastTransactions = async ({
+  user,
+  limit,
+}: {
+  user: string;
+  limit: number;
+}) => {
   const { data, error } = await supabase
     .from("transaction")
     .select("*")
+    .eq("user_id", user)
     .order("created_at", { ascending: false })
     .limit(limit);
   return { data, error };

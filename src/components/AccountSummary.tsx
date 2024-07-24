@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { getTransactions } from "../utils/supabaseDB";
 import PieChartDataProvider from "./PieChartDataProvider";
 import Subtitle from "./Subtitle";
 
@@ -15,7 +17,18 @@ const SummaryCard = ({ title, value }: SummaryCardProps) => {
   );
 };
 
-const AccountSummary = () => {
+const AccountSummary = async () => {
+  const [totalTransactions, setTotalTransactions] = useState<number>(0);
+  const user = localStorage.getItem("userId") as string;
+
+  useEffect(() => {
+    const fetchTotalTransactions = async () => {
+      const { data } = await getTransactions(user);
+      if (data) setTotalTransactions(data.length);
+    };
+    fetchTotalTransactions();
+  }, [user]);
+
   return (
     <section className="col-span-4 bg-neutral-50 dark:bg-neutral-900">
       <Subtitle title="Account summary" />
@@ -23,7 +36,10 @@ const AccountSummary = () => {
         <SummaryCard title="Income" value="$2,000" />
         <SummaryCard title="Expense" value="$1,000" />
         <SummaryCard title="Balance" value="$1,000" />
-        <SummaryCard title="Total Transactions" value="10" />
+        <SummaryCard
+          title="Total Transactions"
+          value={totalTransactions.toString()}
+        />
       </div>
 
       <div className="mt-10 overflow-auto">

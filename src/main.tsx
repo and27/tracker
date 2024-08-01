@@ -14,6 +14,8 @@ import App from "./App.tsx";
 import { ThemeProvider } from "./context/ThemeContext.tsx";
 import SignupPage from "./pages/SignupPage.tsx";
 import { CategoriesProvider } from "./context/CategoriesContext.tsx";
+import PasswordReset from "./pages/PasswordReset.tsx";
+import PasswordRecovery from "./pages/PasswordRecoverys.tsx";
 
 const router = createBrowserRouter([
   {
@@ -49,18 +51,28 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "login",
+    path: "/login",
     element: <LoginPage />,
     errorElement: <ErrorPage />,
   },
   {
-    path: "signup",
+    path: "/signup",
     element: <SignupPage />,
     errorElement: <ErrorPage />,
   },
   {
-    path: "logout",
+    path: "/logout",
     element: <LoginPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/password-recovery",
+    element: <PasswordRecovery />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/reset-password",
+    element: <PasswordReset />,
     errorElement: <ErrorPage />,
   },
 ]);

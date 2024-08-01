@@ -31,6 +31,14 @@ const LoginPage = () => {
           </p>
           <LoginForm />
           <p className="mt-3">
+            <Link
+              to="/password-recovery"
+              className="text-indigo-600 dark:text-indigo-400"
+            >
+              Forgot my password
+            </Link>
+          </p>
+          <p className="mt-3">
             Don't have an account?{" "}
             <Link to="/signup" className="text-indigo-600 dark:text-indigo-400">
               Sign up

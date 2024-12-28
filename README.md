@@ -1,31 +1,50 @@
-# React + TypeScript + Vite
+# Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Project Status](https://img.shields.io/badge/Project%20Status-Development-yellow)
 
-Currently, two official plugins are available:
+![Captura de pantalla de la interfaz principal de Tracker](public/screenshot.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Tracker is an intuitive budget tracking app designed to help you master your finances and achieve your financial goals by providing control over your spending.
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+*   React
+*   TypeScript
+*   Vite
+*   Supabase
+*   Nivo
+*   React Table
+*   React Hook Form
+*   React Icons
+*   React Router
+*   React Toastify
+*   Tailwind CSS
 
-- Configure the top-level `parserOptions` property like this:
+## Installation
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+To install and run the Tracker project locally, follow these steps:
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
-# tracker
+1.  Clone the repository:
+
+    ```bash
+    git clone <URL_DEL_REPOSITORIO>
+    ```
+
+2.  Navigate to the project directory:
+
+    ```bash
+    cd tracker
+    ```
+
+3.  Install dependencies:
+
+    ```bash
+    npm install
+    ```
+
+## Usage
+
+To start the development server:
+
+```bash
+npm run dev

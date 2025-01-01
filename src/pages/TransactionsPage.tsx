@@ -3,20 +3,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Table from "../components/Table";
 import LinkButton from "../components/LinkButton";
-import { deleteTransaction, getTransactions } from "../utils/supabaseDB";
 import Modal from "../components/Modal";
-
-export type TransactionType = {
-  id: string;
-  transactionId: string;
-  description: string;
-  date: string;
-  category: string;
-  amount: number;
-  type: "income" | "expense";
-  paymentMethod: string;
-  user_id: string;
-};
+import { deleteTransaction, getTransactions } from "../utils/api/transactions";
+import { Transaction } from "../data/types/transactions";
 
 function formatCurrency(value: number) {
   return new Intl.NumberFormat("en-US", {
@@ -28,9 +17,7 @@ function formatCurrency(value: number) {
 const TransactionsPage: React.FC = () => {
   const [showModal, setShowModal] = React.useState(false);
   const [selectedRow, setSelectedRow] = React.useState<string>("");
-  const [transactionsData, setTransactions] = React.useState<TransactionType[]>(
-    []
-  );
+  const [transactionsData, setTransactions] = React.useState<Transaction[]>([]);
   const [isLoading, setIsLoading] = React.useState(false);
   // const transactionsData = React.useMemo(() => transactions, []);
 
@@ -56,10 +43,11 @@ const TransactionsPage: React.FC = () => {
   useEffect(() => {
     const fetchTransactions = async () => {
       setIsLoading(true);
-      const user = localStorage.getItem("userId") as string;
+      const user = "user1"; //todo get user from auth
       const { data, error } = await getTransactions(user);
       if (error) {
         console.error(error);
+        setIsLoading(false);
         return;
       }
       if (data) {

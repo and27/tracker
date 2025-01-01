@@ -2,12 +2,11 @@ export interface Transaction {
   id: string;
   description: string;
   date: string;
-  category: string;
+  category?: string;
   amount: number;
-  type: string;
-  paymentMethod: string;
+  type: "income" | "expense";
+  paymentMethod?: string;
   userId: string;
-  createdAt?: string;
 }
 
 export type TransactionCreate = Omit<Transaction, "id" | "createdAt">;

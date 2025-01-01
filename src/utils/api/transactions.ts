@@ -109,7 +109,7 @@ export const updateTransaction = async (
     const response = await fetch(
       `${API_BASE_URL}${API_ENDPOINTS.transactions}/${id}`,
       {
-        method: "PUT", // O PATCH si prefieres actualizaciones parciales
+        method: "PUT",
         headers: API_HEADERS,
         body: JSON.stringify(transaction),
       }
@@ -130,8 +130,23 @@ export const deleteTransaction = async (
         method: "DELETE",
       }
     );
-    return handleResponse<null>(response);
+
+    if (response.status === 204) {
+      return { data: null, error: null };
+    } else if (response.status === 404) {
+      const errorData = await response.json();
+      return { data: null, error: errorData.error };
+    } else {
+      const errorData = await response.json();
+      return {
+        data: null,
+        error:
+          errorData.error ||
+          `Error deleting transaction. Status code: ${response.status}`,
+      };
+    }
   } catch (error) {
+    console.error("Error deleting transaction", error);
     return { data: null, error: "Network error" };
   }
 };

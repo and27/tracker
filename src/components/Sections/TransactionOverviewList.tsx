@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
-import TransactionOverview, {
-  ITransactionOverview,
-} from "../TransactionOverview";
-import { getLastTransactions } from "../../utils/supabaseDB";
+import TransactionOverview from "../TransactionOverview";
 import Subtitle from "../Subtitle";
+import { getLastTransactions } from "../../utils/api/transactions";
+import { Transaction } from "../../data/types/transactions";
 
 const TransactionOverviewList = () => {
-  const [transactions, setTransactions] = useState<ITransactionOverview[]>([]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   useEffect(() => {
     const fetchTransactions = async () => {
       const user = localStorage.getItem("userId") as string;
-      const { data, error } = await getLastTransactions({ user, limit: 5 });
+      const { data, error } = await getLastTransactions(user, 5);
       if (error) {
         console.error(error);
         return;
@@ -34,7 +33,7 @@ const TransactionOverviewList = () => {
               description={transaction.description}
               amount={transaction.amount}
               type={transaction.type}
-              category={transaction.category}
+              category={transaction.category || "unknown"}
             />
           ))}
         </ul>

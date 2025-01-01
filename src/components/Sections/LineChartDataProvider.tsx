@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { TransactionType } from "../../pages/TransactionsPage";
-import { getTransactions } from "../../utils/supabaseDB";
 import LineChart from "../LineChart";
+import { getTransactions } from "../../utils/api/transactions";
+import { Transaction } from "../../data/types/transactions";
 
 type LineChartDataType = {
   id: string;
@@ -45,7 +45,7 @@ const LineChartDataProvider = () => {
       }
       if (transactions) {
         const data = transactions.reduce(
-          (acc: LineChartDataType, transaction: TransactionType) => {
+          (acc: LineChartDataType, transaction: Transaction) => {
             const existingCategory = acc.find(
               (category) => category.id === transaction.category
             );
@@ -56,7 +56,7 @@ const LineChartDataProvider = () => {
               });
             } else {
               acc.push({
-                id: transaction.category,
+                id: transaction.category || "unknown",
                 color: "hsl(11, 70%, 50%)",
                 data: [
                   {

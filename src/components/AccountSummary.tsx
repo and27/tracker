@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getTransactions } from "../utils/supabaseDB";
 import PieChartDataProvider from "./PieChartDataProvider";
 import Subtitle from "./Subtitle";
+import { getTransactions } from "../utils/api/transactions";
 
 type SummaryCardProps = {
   title: string;

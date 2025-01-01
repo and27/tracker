@@ -1,4 +1,4 @@
-import { testimonials } from "../../data/testimonials";
+import { testimonials } from "../../data/mocks/testimonials";
 
 export const Testimonials = () => {
   return (

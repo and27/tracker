@@ -2,10 +2,10 @@ export interface Transaction {
   id: string;
   description: string;
   date: string;
-  category?: string;
+  categoryId?: number;
   amount: number;
   type: "income" | "expense";
-  paymentMethod?: string;
+  paymentMethodId?: number;
   userId: string;
 }
 

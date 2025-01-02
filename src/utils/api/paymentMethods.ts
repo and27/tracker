@@ -29,12 +29,12 @@ async function handleResponse<T>(
   }
 }
 
-export const getPaymentMethods = async (
-  userId: string
-): Promise<ApiResponsePaymentMethods<PaymentMethod[]>> => {
+export const getPaymentMethods = async (): Promise<
+  ApiResponsePaymentMethods<PaymentMethod[]>
+> => {
   try {
     const response = await fetch(
-      `${API_BASE_URL}${API_ENDPOINTS.paymentMethods}?userId=${userId}`
+      `${API_BASE_URL}${API_ENDPOINTS.paymentMethods}`
     );
     return handleResponse<PaymentMethod[]>(response);
   } catch (error) {

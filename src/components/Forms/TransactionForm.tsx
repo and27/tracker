@@ -2,26 +2,37 @@ import { useEffect, useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { createTransaction, getCategories } from "../../utils/supabaseDB";
-import { TransactionType } from "../../pages/TransactionsPage";
 import Button from "../Button";
+import { Transaction } from "../../data/types/transactions";
+import { createTransaction } from "../../utils/api/transactions";
+import { getCategories } from "../../utils/api/categories";
+import { Category } from "../../data/types/categories";
+import { getPaymentMethods } from "../../utils/api/paymentMethods";
+import { PaymentMethod } from "../../data/types/paymentMethods";
 
 const TransactionForm = () => {
-  const [categories, setCategories] = useState<string[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [paymentMehods, setPaymentMethods] = useState<PaymentMethod[]>([]);
   const formRef = useRef<HTMLFormElement>(null);
-  const paymentMehods = ["cash", "card", "bank transfer", "paypal"];
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<TransactionType>();
+  } = useForm<Transaction>();
 
-  const onSubmit: SubmitHandler<TransactionType> = async (data) => {
+  const onSubmit: SubmitHandler<Transaction> = async (data) => {
     const user_id = localStorage.getItem("userId") as string;
-    data.user_id = user_id;
+    data.userId = user_id;
+    if (typeof data.amount === "string") data.amount = parseInt(data.amount);
+    if (typeof data.categoryId === "string")
+      data.categoryId = parseInt(data.categoryId);
+    if (typeof data.paymentMethodId === "string")
+      data.paymentMethodId = parseInt(data.paymentMethodId);
+
     const { error } = await createTransaction(data);
     if (error) {
+      console.log(error);
     } else {
       formRef.current?.reset();
       toast.success("Transaction created successfully!");
@@ -30,16 +41,25 @@ const TransactionForm = () => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const { data, error } = await getCategories();
+      const { data, error } = await getCategories("system");
       if (error) {
         console.error(error);
         return;
       }
       if (data) {
-        setCategories(data.map((category) => category.name));
+        setCategories(data);
       }
     };
     fetchCategories();
+  }, []);
+
+  useEffect(() => {
+    const fetchPaymentMehods = async () => {
+      const methods = await getPaymentMethods();
+      setPaymentMethods(methods.data || []);
+    };
+
+    fetchPaymentMehods();
   }, []);
 
   return (
@@ -87,11 +107,11 @@ const TransactionForm = () => {
           Category
           <select
             className="border border-gray-300 p-2 rounded-md bg-neutral-100 dark:bg-neutral-800"
-            {...register("category", { required: true })}
+            {...register("categoryId", { required: true })}
           >
             {categories.map((category) => (
-              <option key={category} value={category}>
-                {category}
+              <option key={category.id} value={category.id}>
+                {category.name}
               </option>
             ))}
           </select>
@@ -134,11 +154,11 @@ const TransactionForm = () => {
           Payment Method
           <select
             className="border border-gray-300 p-2 rounded-md bg-neutral-100 dark:bg-neutral-800"
-            {...register("paymentMethod", { required: true })}
+            {...register("paymentMethodId", { required: true })}
           >
             {paymentMehods.map((method) => (
-              <option key={method} value={method}>
-                {method}
+              <option key={method.id} value={method.id}>
+                {method.name}
               </option>
             ))}
           </select>

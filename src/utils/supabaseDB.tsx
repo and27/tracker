@@ -5,10 +5,10 @@ const mapTransactionToDb = (transaction: Transaction) => {
   return {
     description: transaction.description,
     date: transaction.date,
-    category: transaction.category,
+    // category: transaction.category,
     amount: transaction.amount,
     type: transaction.type,
-    payment_method: transaction.paymentMethod,
+    // payment_method: transaction.paymentMethod,
     user_id: transaction.userId,
   };
 };

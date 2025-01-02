@@ -14,8 +14,8 @@ import {
   FaQuestion,
   FaHome,
 } from "react-icons/fa";
-import { getCategories } from "../utils/supabaseDB";
 import { FaHeartCircleCheck, FaIceCream, FaTrain } from "react-icons/fa6";
+import { getCategories } from "../utils/api/categories";
 
 type IconType = ReactNode;
 
@@ -58,7 +58,8 @@ export const CategoriesProvider = ({ children }: CategoriesProviderProps) => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const { data, error } = await getCategories();
+      const { data, error } = await getCategories("user1");
+
       if (error) {
         console.error(error);
         return;
@@ -67,7 +68,7 @@ export const CategoriesProvider = ({ children }: CategoriesProviderProps) => {
         const fetchedCategories = data.reduce(
           (acc: { [key: string]: Category }, category: { name: string }) => {
             acc[category.name] = {
-              icon: iconsMap[category.name] || <FaQuestion />,
+              icon: iconsMap[category.name.toLowerCase()] || <FaQuestion />,
             };
             return acc;
           },

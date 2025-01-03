@@ -16,6 +16,7 @@ const Layout = () => {
       <div className="bg-neutral-50 dark:bg-neutral-900 flex flex-col w-full">
         <button
           className="relative static lg:hidden bg-indigo-700 text-white px-4 py-2 mt-2 mx-9 self-end"
+          aria-label="Menu"
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
         >
           {isSidebarOpen ? <FaX /> : <FaBars />}

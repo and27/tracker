@@ -3,6 +3,11 @@ import PieChart, { PieChartDataType } from "./PieChart";
 import { getTransactions } from "../utils/api/transactions";
 import { Transaction } from "../data/types/transactions";
 
+interface EnrichedTransaction extends Transaction {
+  categoryName: string;
+  paymentMethodName: string;
+}
+
 const PieChartDataProvider = () => {
   const [data, setData] = useState<PieChartDataType[]>([]);
 
@@ -15,17 +20,18 @@ const PieChartDataProvider = () => {
         return;
       }
       if (transactions) {
-        const data = transactions.reduce(
-          (acc: PieChartDataType[], transaction: Transaction) => {
+        const data = (transactions as unknown as EnrichedTransaction[]).reduce(
+          (acc: PieChartDataType[], transaction: EnrichedTransaction) => {
             const existingCategory = acc.find(
-              (category) => category.id === transaction.category
+              (category) =>
+                category.label === transaction.categoryName?.toString()
             );
             if (existingCategory) {
               existingCategory.value += transaction.amount;
             } else {
               acc.push({
-                id: transaction.category || "unknown",
-                label: transaction.category || "unknown",
+                id: transaction.categoryName?.toString() || "unknown",
+                label: transaction.categoryName || "unknown",
                 value: transaction.amount,
               });
             }

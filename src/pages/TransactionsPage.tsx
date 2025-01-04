@@ -83,7 +83,7 @@ const TransactionsPage: React.FC = () => {
       {
         id: "category",
         header: "Category",
-        accessorKey: "category",
+        accessorKey: "categoryName",
         cell: (info: { getValue: <T>() => T }) => (
           <span className="text-neutral-600 dark:text-neutral-400">
             {info.getValue<string>()}
@@ -124,7 +124,7 @@ const TransactionsPage: React.FC = () => {
       {
         id: "paymentMethod",
         header: "Payment Method",
-        accessorKey: "payment_method",
+        accessorKey: "paymentMethodName",
         cell: (info: { getValue: <T>() => T }) => (
           <span className="text-neutral-600 dark:text-neutral-400">
             {info.getValue<string>()}

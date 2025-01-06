@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import LineChart from "../LineChart";
 import { getTransactions } from "../../utils/api/transactions";
-import { Transaction } from "../../data/types/transactions";
+import { EnrichedTransaction } from "../PieChartDataProvider";
 
 type LineChartDataType = {
   id: string;
@@ -38,16 +38,18 @@ const LineChartDataProvider = () => {
   useEffect(() => {
     const fetchTransactions = async () => {
       const user = localStorage.getItem("userId") as string;
-      const { data: transactions, error } = await getTransactions(user);
+      const { data: transactions, error } = await getTransactions({
+        userId: user,
+      });
       if (error) {
         console.error(error);
         return;
       }
       if (transactions) {
-        const data = transactions.reduce(
-          (acc: LineChartDataType, transaction: Transaction) => {
+        const data = (transactions as unknown as EnrichedTransaction[]).reduce(
+          (acc: LineChartDataType, transaction: EnrichedTransaction) => {
             const existingCategory = acc.find(
-              (category) => category.id === transaction.category
+              (category) => category.id === transaction.categoryName
             );
             if (existingCategory) {
               existingCategory.data.push({
@@ -56,7 +58,7 @@ const LineChartDataProvider = () => {
               });
             } else {
               acc.push({
-                id: transaction.category || "unknown",
+                id: transaction.categoryName || "unknown",
                 color: "hsl(11, 70%, 50%)",
                 data: [
                   {

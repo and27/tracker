@@ -2,22 +2,35 @@ import {
   useReactTable,
   getCoreRowModel,
   flexRender,
+  getPaginationRowModel,
 } from "@tanstack/react-table";
-import { TransactionType } from "../pages/TransactionsPage";
 import { FaTrashCan } from "react-icons/fa6";
 import { FaEdit } from "react-icons/fa";
+import { Transaction } from "../data/types/transactions";
+import { useState } from "react";
 
 type TableProps = {
   columns: any[];
-  data: TransactionType[];
+  data: Transaction[];
   handleDeleteRow: (id: string) => void;
 };
 
 const Table = ({ columns, data, handleDeleteRow }: TableProps) => {
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 5,
+  });
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    onPaginationChange: setPagination,
+    rowCount: data.length,
+    state: {
+      pagination,
+    },
   });
 
   return (

@@ -25,7 +25,7 @@ const AccountSummary = () => {
   useEffect(() => {
     const setupAccountInfo = async () => {
       const user = localStorage.getItem("userId") as string;
-      const { data, error } = await getTransactions(user);
+      const { data, error } = await getTransactions({ userId: user });
       if (error) {
         console.error(error);
         return;

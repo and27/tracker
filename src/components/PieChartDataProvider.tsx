@@ -3,7 +3,7 @@ import PieChart, { PieChartDataType } from "./PieChart";
 import { getTransactions } from "../utils/api/transactions";
 import { Transaction } from "../data/types/transactions";
 
-interface EnrichedTransaction extends Transaction {
+export interface EnrichedTransaction extends Transaction {
   categoryName: string;
   paymentMethodName: string;
 }
@@ -14,7 +14,9 @@ const PieChartDataProvider = () => {
   useEffect(() => {
     const fetchTransactions = async () => {
       const user = localStorage.getItem("userId") as string;
-      const { data: transactions, error } = await getTransactions(user);
+      const { data: transactions, error } = await getTransactions({
+        userId: user,
+      });
       if (error) {
         console.error(error);
         return;

@@ -48,23 +48,26 @@ export const createTransaction = async (
   }
 };
 
+interface GetTransactionsParams {
+  userId: string;
+  page?: number;
+  limit?: number;
+  sortBy?: string;
+  sortOrder?: "asc" | "desc";
+}
 //Obatain all transactions from a user with pagination and sorting
 export const getTransactions = async (
-  userId: string,
-  page?: number,
-  limit?: number,
-  sortBy?: string,
-  sortOrder?: "asc" | "desc"
+  params: GetTransactionsParams
 ): Promise<ApiResponseTransactions<Transaction[]>> => {
   try {
-    let url = `${API_BASE_URL}${API_ENDPOINTS.transactions}?userId=${userId}`;
+    let url = `${API_BASE_URL}${API_ENDPOINTS.transactions}?userId=${params.userId}`;
 
-    if (page && limit) {
-      url += `&_page=${page}&_limit=${limit}`;
+    if (params.page && params.limit) {
+      url += `&_page=${params.page}&_limit=${params.limit}`;
     }
 
-    if (sortBy && sortOrder) {
-      url += `&_sort=${sortBy}&_order=${sortOrder}`;
+    if (params.sortBy && params.sortOrder) {
+      url += `&_sort=${params.sortBy}&_order=${params.sortOrder}`;
     }
 
     const response = await fetch(url);

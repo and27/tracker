@@ -44,7 +44,9 @@ const TransactionsPage: React.FC = () => {
     const fetchTransactions = async () => {
       setIsLoading(true);
       const user = "user1"; //todo get user from auth
-      const { data, error } = await getTransactions(user);
+      const { data, error } = await getTransactions({
+        userId: user,
+      });
       if (error) {
         console.error(error);
         setIsLoading(false);

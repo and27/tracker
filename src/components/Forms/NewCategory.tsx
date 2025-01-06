@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Button from "../Button";
-import { addCategory } from "../../utils/supabaseDB";
+import { createCategory } from "../../utils/api/categories";
 
 interface NewCategoryProps {
   handleAddCategory: (categoryName: string) => void;
@@ -21,10 +21,10 @@ const NewCategory = ({ handleAddCategory }: NewCategoryProps) => {
       setError("Category is required");
       return;
     }
-    const { error } = await addCategory(category, uid);
+    const { error } = await createCategory({ name: category, userId: uid });
 
     if (error) {
-      setError(error.message);
+      setError(error);
       return;
     } else {
       handleAddCategory(category);

@@ -8,8 +8,9 @@ import Modal from "../components/Modal";
 import NewCategory from "../components/Forms/NewCategory";
 import { useTheme } from "../context/ThemeContext";
 import { useCategories } from "../context/CategoriesContext";
-import { removeCategoryByName } from "../utils/supabaseDB";
 import { Footer } from "../components/Sections/Footer";
+import { deleteCategoryByName } from "../utils/api/categories";
+import { defaultCategories } from "../data/defaultCategories";
 
 type settingsDataType = {
   id: number;
@@ -30,18 +31,7 @@ const icons: iconsType = {
   FaCog: FaCog,
 };
 const isCategoryRequired = (category: string) => {
-  return [
-    "food",
-    "rent",
-    "transport",
-    "travel",
-    "shopping",
-    "education",
-    "entertainment",
-    "insurance",
-    "health",
-    "other",
-  ].includes(category);
+  return defaultCategories.includes(category);
 };
 
 const SettingPage = () => {
@@ -60,7 +50,7 @@ const SettingPage = () => {
 
   const handleRemoveCategory = async (category: string) => {
     removeCategory(category);
-    const { error } = await removeCategoryByName(category);
+    const { error } = await deleteCategoryByName("user1", category);
     if (error) {
       console.error(error);
       return;
@@ -100,10 +90,13 @@ const SettingPage = () => {
         <div>
           <Subtitle title="Settings" />
 
-          {settingsData.map((setting) => {
+          {settingsData.map((setting, idx) => {
             const Icon = icons[setting.icon];
             return (
-              <div className="flex items-center justify-between mb-2 p-2 border-b border-gray-200 dark:border-gray-700">
+              <div
+                key={idx}
+                className="flex items-center justify-between mb-2 p-2 border-b border-gray-200 dark:border-gray-700"
+              >
                 <div className="flex items-center my-2">
                   <Icon className="text-xl" />
                   <div className="ml-4">
@@ -130,7 +123,10 @@ const SettingPage = () => {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-5 my-4 gap-5">
             {Object.keys(categories).map((category) => (
-              <div className="relative flex shadow-lg dark:shadow-none p-5 bg-white/80 dark:bg-neutral-800/50 rounded-lg ">
+              <div
+                key={category}
+                className="relative flex shadow-lg dark:shadow-none p-5 bg-white/80 dark:bg-neutral-800/50 rounded-lg "
+              >
                 {!isCategoryRequired(category) && (
                   <button
                     className="absolute top-0 right-0 m-0 p-2 bg-transparent"

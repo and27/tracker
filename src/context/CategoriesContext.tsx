@@ -42,10 +42,10 @@ interface CategoriesProviderProps {
 
 const iconsMap: { [key: string]: IconType } = {
   food: <FaIceCream />,
-  rent: <FaHome />,
+  housing: <FaHome />,
   transport: <FaCar />,
   travel: <FaTrain />,
-  shopping: <FaShoppingCart />,
+  clothing: <FaShoppingCart />,
   health: <FaHeartCircleCheck />,
   insurance: <FaHeartbeat />,
   entertainment: <FaFilm />,
@@ -53,6 +53,7 @@ const iconsMap: { [key: string]: IconType } = {
   other: <FaQuestion />,
 };
 
+//This is used to handle local state for categories
 export const CategoriesProvider = ({ children }: CategoriesProviderProps) => {
   const [categories, setCategories] = useState<{ [key: string]: Category }>({});
 

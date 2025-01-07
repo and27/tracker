@@ -66,21 +66,11 @@ const TransactionsPage: React.FC = () => {
         id: "description",
         header: "Description",
         accessorKey: "description",
-        cell: (info: { getValue: <T>() => T }) => (
-          <span className="font-semibold text-neutral-600 dark:text-neutral-400 dark:text-neutral-400">
-            {info.getValue<string>()}
-          </span>
-        ),
       },
       {
         id: "date",
         header: "Date",
         accessorKey: "date",
-        cell: (info: { getValue: <T>() => T }) => (
-          <span className="text-neutral-600 dark:text-neutral-400">
-            {info.getValue<string>()}
-          </span>
-        ),
       },
       {
         id: "category",
@@ -127,11 +117,6 @@ const TransactionsPage: React.FC = () => {
         id: "paymentMethod",
         header: "Payment Method",
         accessorKey: "paymentMethodName",
-        cell: (info: { getValue: <T>() => T }) => (
-          <span className="text-neutral-600 dark:text-neutral-400">
-            {info.getValue<string>()}
-          </span>
-        ),
       },
     ],
     []
@@ -177,6 +162,7 @@ const TransactionsPage: React.FC = () => {
           columns={columns}
           data={transactionsData}
           handleDeleteRow={handleDeleteConfirmation}
+          setData={setTransactions}
         />
       )}
     </main>

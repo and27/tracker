@@ -34,9 +34,9 @@ const TransactionOverview: React.FC<ITransactionOverview> = (
       )}
       <div className="flex flex-col items-start col-span-6">
         <p className="font-semibold">{description}</p>
-        <p className="text-neutral-500 text-sm">{type}</p>
+        <p className="text-sm text-neutral-800 dark:text-neutral-400">{type}</p>
       </div>
-      <p className="font-medium col-span-4 text-lg text-neutral-500">
+      <p className="font-medium col-span-4 text-lg text-neutral-800 dark:text-neutral-400 text-right">
         {formatCurrency(amount)}
       </p>
     </li>

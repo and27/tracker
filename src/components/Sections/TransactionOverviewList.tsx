@@ -29,11 +29,11 @@ const TransactionOverviewList = () => {
           {transactions.map((transaction) => (
             <TransactionOverview
               key={transaction.id}
-              id={transaction.id}
+              id={parseInt(transaction.id)}
               description={transaction.description}
               amount={transaction.amount}
               type={transaction.type}
-              category={transaction.category || "unknown"}
+              category={transaction.categoryId?.toString() || "unknown"}
             />
           ))}
         </ul>

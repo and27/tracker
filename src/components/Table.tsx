@@ -56,13 +56,17 @@ const Table = ({ columns, data, setData, handleDeleteRow }: TableProps) => {
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
-              <th className="border-b border-b-zinc-200/90 dark:border-b-zinc-700 py-3 px-5 bg-slate-100 bg-transparent text-start text-neutral-500 dark:text-zinc-500">
+              <th
+                scope="col"
+                className="border-b border-b-zinc-200/90 dark:border-b-zinc-700 py-3 px-5 bg-slate-100 bg-transparent text-start text-neutral-600 dark:text-zinc-400"
+              >
                 Action
               </th>
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
-                  className="border-b border-b-zinc-200/90 dark:border-b-zinc-700 py-3 px-5 bg-slate-100 bg-transparent text-start text-neutral-500 dark:text-zinc-500"
+                  scope="col"
+                  className="border-b border-b-zinc-200/90 dark:border-b-zinc-700 py-3 px-5 bg-slate-100 bg-transparent text-start text-neutral-600 dark:text-zinc-400"
                 >
                   {flexRender(
                     header.column.columnDef.header,

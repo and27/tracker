@@ -5,17 +5,13 @@ import {
   getPaginationRowModel,
 } from "@tanstack/react-table";
 import { FaTrashCan } from "react-icons/fa6";
-import { FaEdit } from "react-icons/fa";
-import { Transaction } from "../data/types/transactions";
+import { FaEdit, FaSave, FaTimes } from "react-icons/fa";
 import { useState } from "react";
+import { defaultColumn } from "./TableDefaultColumn";
+import { TableProps } from "../data/types/tableProps";
 
-type TableProps = {
-  columns: any[];
-  data: Transaction[];
-  handleDeleteRow: (id: string) => void;
-};
-
-const Table = ({ columns, data, handleDeleteRow }: TableProps) => {
+const Table = ({ columns, data, setData, handleDeleteRow }: TableProps) => {
+  const [editingRowId, setEditingRowId] = useState<string | null>(null);
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 5,
@@ -24,6 +20,8 @@ const Table = ({ columns, data, handleDeleteRow }: TableProps) => {
   const table = useReactTable({
     data,
     columns,
+    defaultColumn: defaultColumn,
+    getRowId: (row) => row.id.toString(),
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onPaginationChange: setPagination,
@@ -31,7 +29,26 @@ const Table = ({ columns, data, handleDeleteRow }: TableProps) => {
     state: {
       pagination,
     },
+    meta: {
+      editingRowId,
+      updateData: (rowIndex: number, columnId: string, value: string) => {
+        setData((old) =>
+          old.map((row, index) =>
+            index === rowIndex
+              ? {
+                  ...row,
+                  [columnId]: value,
+                }
+              : row
+          )
+        );
+      },
+    },
   });
+
+  const handleSave = (rowId: string) => {
+    setEditingRowId(null);
+  };
 
   return (
     <div className="overflow-x-auto">
@@ -65,26 +82,55 @@ const Table = ({ columns, data, handleDeleteRow }: TableProps) => {
             >
               <td className="border-b border-b-zinc-200/70 dark:border-b-zinc-800 py-2 md:py-4 px-5">
                 <div className="flex gap-4">
-                  <button
-                    className="m-0 p-0 bg-transparent"
-                    onClick={() => handleDeleteRow(row.original.id)}
-                  >
-                    <FaTrashCan color="#888" />
-                  </button>
-                  <button className="m-0 p-0 bg-transparent">
-                    <FaEdit color="#888" />
-                  </button>
+                  {editingRowId === row.original.id ? (
+                    // Buttons to save and cancel when the row is in edit mode
+                    <>
+                      <button
+                        className="m-0 p-0 bg-transparent"
+                        onClick={() => handleSave(row.original.id)}
+                      >
+                        <FaSave color="#4CAF50" />
+                      </button>
+                      <button
+                        className="m-0 p-0 bg-transparent"
+                        onClick={() => setEditingRowId(null)}
+                      >
+                        <FaTimes color="#FF5722" />
+                      </button>
+                    </>
+                  ) : (
+                    // Buttons to edit and delete when the row is not in edit mode
+                    <>
+                      <button
+                        className="m-0 p-0 bg-transparent"
+                        onClick={() => {
+                          setEditingRowId(row.original.id);
+                        }}
+                      >
+                        <FaEdit color="#888" />
+                      </button>
+                      <button
+                        className="m-0 p-0 bg-transparent"
+                        onClick={() => handleDeleteRow(row.original.id)}
+                      >
+                        <FaTrashCan color="#888" />
+                      </button>
+                    </>
+                  )}
                 </div>
               </td>
-              {row.getVisibleCells().map((cell) => (
-                <td
-                  key={cell.id}
-                  className="border-b border-b-zinc-200/70 dark:border-b-zinc-800 py-2 md:py-4 px-5 
-                  text-neutral-900 dark:text-zinc-100 text-sm md:text-base overflow-hidden whitespace-nowrap"
-                >
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
+              {row.getVisibleCells().map((cell) => {
+                return (
+                  <td
+                    key={cell.id}
+                    className="border-b border-b-zinc-200/70 dark:border-b-zinc-800 py-2 md:py-4 px-5
+                  text-neutral-900 dark:text-zinc-100 text-sm md:text-base overflow-hidden whitespace-nowrap
+                  w-min"
+                  >
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                );
+              })}
             </tr>
           ))}
         </tbody>

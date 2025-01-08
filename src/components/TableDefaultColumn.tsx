@@ -5,7 +5,7 @@ interface IColumn {
 }
 
 export const defaultColumn: IColumn = {
-  cell: ({ getValue, row, column: { id }, table }) => {
+  cell: ({ getValue, row, column, table }) => {
     const initialValue = getValue();
     const [value, setValue] = useState(initialValue);
     const isEditing = table.options.meta?.editingRowId === parseInt(row.id);
@@ -16,7 +16,7 @@ export const defaultColumn: IColumn = {
     }, [initialValue]);
 
     const onBlur = () => {
-      table.options.meta?.updateData(row.id, id, value);
+      table.options.meta?.updateData(row.id, column.id, value);
     };
 
     if (isEditing)
@@ -25,6 +25,13 @@ export const defaultColumn: IColumn = {
           value={value || ""}
           onChange={(e) => setValue(e.target.value)}
           onBlur={onBlur}
+          ref={(el) => {
+            if (column.getIndex() === 0) {
+              if (table.options.meta?.rowRefs.current) {
+                table.options.meta.rowRefs.current[row.id] = el;
+              }
+            }
+          }}
           className="w-full bg-transparent border-none text-neutral-600 dark:text-neutral-400"
         />
       );

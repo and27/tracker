@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-table";
 import { FaTrashCan } from "react-icons/fa6";
 import { FaEdit, FaSave, FaTimes } from "react-icons/fa";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { defaultColumn } from "./TableDefaultColumn";
 import { TableProps } from "../data/types/tableProps";
 
@@ -16,6 +16,7 @@ const Table = ({ columns, data, setData, handleDeleteRow }: TableProps) => {
     pageIndex: 0,
     pageSize: 5,
   });
+  const rowRefs = useRef<Record<string, HTMLButtonElement | null>>({});
 
   const table = useReactTable({
     data,
@@ -30,6 +31,7 @@ const Table = ({ columns, data, setData, handleDeleteRow }: TableProps) => {
       pagination,
     },
     meta: {
+      rowRefs,
       editingRowId,
       updateData: (rowIndex: number, columnId: string, value: string) => {
         setData((old) =>
@@ -46,8 +48,25 @@ const Table = ({ columns, data, setData, handleDeleteRow }: TableProps) => {
     },
   });
 
+  const handleEdit = (rowId: string) => {
+    setEditingRowId(rowId);
+    //move focus to the first input in the row
+    setTimeout(() => {
+      if (rowRefs.current[rowId]) {
+        rowRefs.current[rowId].focus();
+      }
+    }, 0);
+  };
+
   const handleSave = (rowId: string) => {
     setEditingRowId(null);
+
+    //return focus to the edit button
+    setTimeout(() => {
+      if (rowRefs.current[`edit-${rowId}`]) {
+        rowRefs.current[`edit-${rowId}`]?.focus();
+      }
+    }, 0);
   };
 
   return (
@@ -78,65 +97,79 @@ const Table = ({ columns, data, setData, handleDeleteRow }: TableProps) => {
           ))}
         </thead>
         <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <tr
-              key={row.id}
-              className="odd:bg-zing-100 odd:dark:bg-transparent even:bg-slate-50 even:dark:bg-transparent 
+          {table.getRowModel().rows.map((row) => {
+            return (
+              <tr
+                key={row.id}
+                className="odd:bg-zing-100 odd:dark:bg-transparent even:bg-slate-50 even:dark:bg-transparent 
               hover:bg-zinc-200/30 dark:hover:bg-zinc-950/30 transition-colors duration-100 text-start"
-            >
-              <td className="border-b border-b-zinc-200/70 dark:border-b-zinc-800 py-2 md:py-4 px-5">
-                <div className="flex gap-4">
-                  {editingRowId === row.original.id ? (
-                    // Buttons to save and cancel when the row is in edit mode
-                    <>
-                      <button
-                        className="m-0 p-0 bg-transparent"
-                        onClick={() => handleSave(row.original.id)}
-                      >
-                        <FaSave color="#4CAF50" />
-                      </button>
-                      <button
-                        className="m-0 p-0 bg-transparent"
-                        onClick={() => setEditingRowId(null)}
-                      >
-                        <FaTimes color="#FF5722" />
-                      </button>
-                    </>
-                  ) : (
-                    // Buttons to edit and delete when the row is not in edit mode
-                    <>
-                      <button
-                        className="m-0 p-0 bg-transparent"
-                        onClick={() => {
-                          setEditingRowId(row.original.id);
-                        }}
-                      >
-                        <FaEdit color="#888" />
-                      </button>
-                      <button
-                        className="m-0 p-0 bg-transparent"
-                        onClick={() => handleDeleteRow(row.original.id)}
-                      >
-                        <FaTrashCan color="#888" />
-                      </button>
-                    </>
-                  )}
-                </div>
-              </td>
-              {row.getVisibleCells().map((cell) => {
-                return (
-                  <td
-                    key={cell.id}
-                    className="border-b border-b-zinc-200/70 dark:border-b-zinc-800 py-2 md:py-4 px-5
+              >
+                <td className="border-b border-b-zinc-200/70 dark:border-b-zinc-800 py-2 md:py-4 px-5">
+                  <div className="flex gap-4">
+                    {editingRowId === row.original.id ? (
+                      // Buttons to save and cancel when the row is in edit mode
+                      <>
+                        <button
+                          className="m-0 p-0 bg-transparent"
+                          onClick={() => handleSave(row.original.id)}
+                          aria-label="Save changes for this row"
+                        >
+                          <FaSave color="#4CAF50" />
+                        </button>
+                        <button
+                          className="m-0 p-0 bg-transparent"
+                          onClick={() => setEditingRowId(null)}
+                          aria-label="Cancel changes for this row"
+                        >
+                          <FaTimes color="#FF5722" />
+                        </button>
+                      </>
+                    ) : (
+                      // Buttons to edit and delete when the row is not in edit mode
+                      <>
+                        <button
+                          className="m-0 p-0 bg-transparent"
+                          onClick={() => {
+                            handleEdit(row.original.id);
+                          }}
+                          key={`edit-${row.original.id}`}
+                          ref={(el) => {
+                            if (el !== null)
+                              rowRefs.current[`edit-${row.original.id}`] = el;
+                          }}
+                          aria-label="Edit this row"
+                        >
+                          <FaEdit color="#888" />
+                        </button>
+                        <button
+                          className="m-0 p-0 bg-transparent"
+                          onClick={() => handleDeleteRow(row.original.id)}
+                          aria-label="Delete this row"
+                        >
+                          <FaTrashCan color="#888" />
+                        </button>
+                      </>
+                    )}
+                  </div>
+                </td>
+                {row.getVisibleCells().map((cell) => {
+                  return (
+                    <td
+                      key={cell.id}
+                      className="border-b border-b-zinc-200/70 dark:border-b-zinc-800 py-2 md:py-4 px-5
                   text-neutral-900 dark:text-zinc-100 text-sm md:text-base overflow-hidden whitespace-nowrap
                   w-min"
-                  >
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                );
-              })}
-            </tr>
-          ))}
+                    >
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
         </tbody>
       </table>
       {data.length === 0 && (

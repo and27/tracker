@@ -29,7 +29,8 @@ const SidebarMenu = ({ isOpen }: SidebarMenuProps) => {
   }, []);
 
   return (
-    <div
+    <nav
+      aria-label="Barra lateral de navegación"
       className={`flex flex-col justify-between col-span-2 py-10 px-5 h-full md:h-screen bg-indigo-700 text-white
       sticky top-0 left-0 z-10 transition-transform duration-300 transform w-56 lg:w-auto
       ${
@@ -40,7 +41,8 @@ const SidebarMenu = ({ isOpen }: SidebarMenuProps) => {
         <div className="flex items-center gap-4 pl-2 mb-10">
           <img
             src="/logoCard.svg"
-            alt="logo"
+            alt=""
+            aria-hidden="true"
             width="24"
             height="24"
             className=""
@@ -112,7 +114,7 @@ const SidebarMenu = ({ isOpen }: SidebarMenuProps) => {
           Logout
         </NavLink>
       </div>
-    </div>
+    </nav>
   );
 };
 

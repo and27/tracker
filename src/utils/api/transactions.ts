@@ -123,6 +123,25 @@ export const updateTransaction = async (
   }
 };
 
+export const patchTransaction = async (
+  id: string,
+  transaction: Partial<TransactionCreate>
+): Promise<ApiResponseTransactions<Transaction>> => {
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}${API_ENDPOINTS.transactions}/${id}`,
+      {
+        method: "PATCH",
+        headers: API_HEADERS,
+        body: JSON.stringify(transaction),
+      }
+    );
+    return handleResponse<Transaction>(response);
+  } catch (error) {
+    return { data: null, error: "Network error" };
+  }
+};
+
 export const deleteTransaction = async (
   id: string
 ): Promise<ApiResponseTransactions<null>> => {

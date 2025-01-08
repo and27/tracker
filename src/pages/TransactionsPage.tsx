@@ -35,10 +35,15 @@ const TransactionsPage: React.FC = () => {
     const updatedTransactions = transactionsData.filter(
       (transaction) => transaction.id !== id
     );
+
     setTransactions(updatedTransactions);
     setShowModal(false);
     toast.success("Transaction deleted successfully!");
   };
+
+  useEffect(() => {
+    console.log(transactionsData);
+  }, [transactionsData]);
 
   useEffect(() => {
     const fetchTransactions = async () => {

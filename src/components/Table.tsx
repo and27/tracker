@@ -5,10 +5,11 @@ import {
   getPaginationRowModel,
 } from "@tanstack/react-table";
 import { FaTrashCan } from "react-icons/fa6";
-import { FaEdit, FaSave, FaTimes } from "react-icons/fa";
+import { FaEdit, FaSave } from "react-icons/fa";
 import { useRef, useState } from "react";
 import { defaultColumn } from "./TableDefaultColumn";
 import { TableProps } from "../data/types/tableProps";
+import { patchTransaction } from "../utils/api/transactions";
 
 const Table = ({ columns, data, setData, handleDeleteRow }: TableProps) => {
   const [editingRowId, setEditingRowId] = useState<string | null>(null);
@@ -33,17 +34,24 @@ const Table = ({ columns, data, setData, handleDeleteRow }: TableProps) => {
     meta: {
       rowRefs,
       editingRowId,
-      updateData: (rowIndex: number, columnId: string, value: string) => {
-        setData((old) =>
-          old.map((row, index) =>
-            index === rowIndex
+      updateData: (
+        updatedRowIndex: string,
+        columnId: string,
+        value: string
+      ) => {
+        patchTransaction(updatedRowIndex, {
+          [columnId]: value,
+        });
+        setData((old) => {
+          return old.map((row) => {
+            return row.id.toString() === updatedRowIndex
               ? {
                   ...row,
                   [columnId]: value,
                 }
-              : row
-          )
-        );
+              : row;
+          });
+        });
       },
     },
   });
@@ -107,7 +115,7 @@ const Table = ({ columns, data, setData, handleDeleteRow }: TableProps) => {
                 <td className="border-b border-b-zinc-200/70 dark:border-b-zinc-800 py-2 md:py-4 px-5">
                   <div className="flex gap-4">
                     {editingRowId === row.original.id ? (
-                      // Buttons to save and cancel when the row is in edit mode
+                      // Button to save changes when the row is in edit mode
                       <>
                         <button
                           className="m-0 p-0 bg-transparent"
@@ -115,13 +123,6 @@ const Table = ({ columns, data, setData, handleDeleteRow }: TableProps) => {
                           aria-label="Save changes for this row"
                         >
                           <FaSave color="#4CAF50" />
-                        </button>
-                        <button
-                          className="m-0 p-0 bg-transparent"
-                          onClick={() => setEditingRowId(null)}
-                          aria-label="Cancel changes for this row"
-                        >
-                          <FaTimes color="#FF5722" />
                         </button>
                       </>
                     ) : (

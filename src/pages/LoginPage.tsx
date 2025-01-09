@@ -1,16 +1,25 @@
 import { useEffect } from "react";
 import LoginForm from "../components/Forms/LoginForm";
-import { supabaseLogout } from "../utils/supabaseLogin";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../utils/useAuth";
 
 const LoginPage = () => {
+  const { loginUser, error, user } = useAuth();
+  const navigate = useNavigate();
+
   const handleLogout = () => {
-    supabaseLogout();
+    localStorage.removeItem("userId");
   };
 
   useEffect(() => {
     handleLogout();
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      navigate("/account/overview");
+    }
+  }, [user]);
 
   return (
     <section className="h-screen bg-neutral-50 dark:bg-neutral-900 grid items-center">
@@ -29,7 +38,7 @@ const LoginPage = () => {
           <p className="text-center text-neutral-500 dark:text-neutral-400 pt-1 pb-4 text-lg">
             to continue to Tracker
           </p>
-          <LoginForm />
+          <LoginForm loginError={error} loginUser={loginUser} />
           <p className="mt-3">
             <Link
               to="/password-recovery"

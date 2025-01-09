@@ -1,17 +1,18 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useAuth from "../../utils/useAuth";
 import Button from "../Button";
-import { useNavigate } from "react-router-dom";
 
 type LoginData = {
   email: string;
   password: string;
 };
+interface loginFormProps {
+  loginUser: (user: LoginData) => void;
+  loginError: string | null;
+}
 
-const LoginForm = () => {
+const LoginForm: React.FC<loginFormProps> = ({ loginUser, loginError }) => {
   const [loginData, setLoginData] = useState<LoginData>({} as LoginData);
-  const { loginUser, error, user } = useAuth();
-  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -23,18 +24,6 @@ const LoginForm = () => {
     e.preventDefault();
     await loginUser({ email, password });
   };
-
-  useEffect(() => {
-    if (user) {
-      navigate("/account/overview");
-    }
-  }, [user]);
-
-  useEffect(() => {
-    if (error) {
-      console.log(error);
-    }
-  }, [error]);
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -63,7 +52,7 @@ const LoginForm = () => {
         />
       </label>
       <div className="gap-2 text-rose-700">
-        {error && <p>{error}</p>}
+        {loginError && <p>{loginError}</p>}
         <Button>Login</Button>
       </div>
     </form>

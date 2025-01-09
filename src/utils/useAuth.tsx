@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   AuthError,
   createSupabaseUser,
@@ -17,12 +17,17 @@ const isAuthError = (error: unknown): error is AuthError => {
 };
 
 const useAuth = () => {
-  const [user, setUser] = useState<User | null>(null);
+  //todo: interact with db, define User interface and use User instead of Partial<User>
+  const [user, setUser] = useState<Partial<User> | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const loginUser = async (user: AuthUser) => {
     const { email, password } = user;
-    const { data, error } = await supabaseLogin(email, password);
+    if (password !== "12345")
+      //temporal password
+      return;
+    // const { data, error } = await supabaseLogin(email, password);
+    const data = { user: { id: "user1", email: "andres@gmail.com" } };
 
     if (error) {
       if (isAuthError(error)) {
@@ -31,8 +36,9 @@ const useAuth = () => {
       }
     } else if (data?.user) {
       setUser(data.user);
+      console.log(data.user);
       localStorage.setItem("userId", data.user.id);
-      createSupabaseUser(data.user.id, email);
+      // createSupabaseUser(data.user.id, email);
       setError(null);
     }
   };

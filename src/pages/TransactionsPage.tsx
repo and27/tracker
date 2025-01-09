@@ -42,10 +42,6 @@ const TransactionsPage: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log(transactionsData);
-  }, [transactionsData]);
-
-  useEffect(() => {
     const fetchTransactions = async () => {
       setIsLoading(true);
       const user = "user1"; //todo get user from auth

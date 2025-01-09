@@ -35,7 +35,9 @@ const TransactionForm = () => {
       console.log(error);
     } else {
       formRef.current?.reset();
-      toast.success("Transaction created successfully!");
+      toast.success("Transaction created successfully!", {
+        position: "top-center",
+      });
     }
   };
 
@@ -66,33 +68,32 @@ const TransactionForm = () => {
     <>
       <ToastContainer />
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onSubmit, (errors) => {
+          console.log(errors);
+        })}
         className="flex flex-col gap-4"
         ref={formRef}
       >
         <div>
-          <label
-            htmlFor="description"
-            className="flex flex-col text-neutral-700 dark:text-neutral-200"
-          >
-            Description
+          <label className="flex flex-col text-neutral-700 dark:text-neutral-200">
+            Description *<span className="sr-only">Required field</span>
             <input
               className="border border-gray-300 p-2 rounded-md bg-neutral-100 dark:bg-neutral-800"
               type="text"
               {...register("description", { required: true })}
+              aria-describedby={
+                errors.description ? "description-error" : undefined
+              }
             />
           </label>
           {errors.description && (
-            <span className="text-rose-600 text-sm ">
+            <span id="description-error" className="text-rose-600 text-sm ">
               This field is required
             </span>
           )}
         </div>
-        <label
-          htmlFor="date"
-          className="flex flex-col text-gray-700 dark:text-neutral-200 "
-        >
-          Date
+        <label className="flex flex-col text-gray-700 dark:text-neutral-200 ">
+          Date *<span className="sr-only">Required field</span>
           <input
             className="border border-gray-300 p-2 rounded-md bg-neutral-100 dark:bg-neutral-800"
             type="date"
@@ -100,45 +101,51 @@ const TransactionForm = () => {
             {...register("date", { required: true })}
           />
         </label>
-        <label
-          htmlFor="category"
-          className="flex flex-col text-gray-700 dark:text-neutral-200"
-        >
-          Category
-          <select
-            className="border border-gray-300 p-2 rounded-md bg-neutral-100 dark:bg-neutral-800"
-            {...register("categoryId", { required: true })}
-          >
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </select>
-        </label>
         <div>
-          <label
-            htmlFor="amount"
-            className="flex flex-col text-gray-700 dark:text-neutral-200"
-          >
-            Amount
-            <input
+          <label className="flex flex-col text-gray-700 dark:text-neutral-200">
+            Category *<span className="sr-only">Required field</span>
+            <select
               className="border border-gray-300 p-2 rounded-md bg-neutral-100 dark:bg-neutral-800"
-              type="number"
-              {...register("amount", { required: true })}
-            />
+              {...register("categoryId", { required: true })}
+              aria-describedby={
+                errors.categoryId ? "category-error" : undefined
+              }
+            >
+              {categories.map((category) => (
+                <>
+                  <option value="">Select a category</option>
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                </>
+              ))}
+            </select>
           </label>
-          {errors.amount && (
-            <span className="text-rose-600 text-sm">
+
+          {errors.categoryId && (
+            <span id="category-error" className="text-rose-600 text-sm ">
               This field is required
             </span>
           )}
         </div>
-        <label
-          htmlFor="type"
-          className="flex flex-col text-gray-700 dark:text-neutral-200"
-        >
-          Type
+        <div>
+          <label className="flex flex-col text-gray-700 dark:text-neutral-200">
+            Amount *<span className="sr-only">Required field</span>
+            <input
+              className="border border-gray-300 p-2 rounded-md bg-neutral-100 dark:bg-neutral-800"
+              type="number"
+              {...register("amount", { required: true })}
+              aria-describedby={errors.amount ? "amount-error" : undefined}
+            />
+          </label>
+          {errors.amount && (
+            <span id="amount-error" className="text-rose-600 text-sm">
+              This field is required
+            </span>
+          )}
+        </div>
+        <label className="flex flex-col text-gray-700 dark:text-neutral-200">
+          Type *<span className="sr-only">Required field</span>
           <select
             className="border border-gray-300 p-2 rounded-md bg-neutral-100 dark:bg-neutral-800"
             {...register("type", { required: true })}
@@ -147,22 +154,32 @@ const TransactionForm = () => {
             <option value="expense">Expense</option>
           </select>
         </label>
-        <label
-          htmlFor="paymentMethod"
-          className="flex flex-col text-gray-700 dark:text-neutral-200"
-        >
-          Payment Method
-          <select
-            className="border border-gray-300 p-2 rounded-md bg-neutral-100 dark:bg-neutral-800"
-            {...register("paymentMethodId", { required: true })}
-          >
-            {paymentMehods.map((method) => (
-              <option key={method.id} value={method.id}>
-                {method.name}
-              </option>
-            ))}
-          </select>
-        </label>
+        <div>
+          <label className="flex flex-col text-gray-700 dark:text-neutral-200">
+            Payment Method *<span className="sr-only">Required field</span>
+            <select
+              className="border border-gray-300 p-2 rounded-md bg-neutral-100 dark:bg-neutral-800"
+              {...register("paymentMethodId", { required: true })}
+              aria-describedby={
+                errors.paymentMethodId ? "payment-method-error" : undefined
+              }
+            >
+              {paymentMehods.map((method) => (
+                <>
+                  <option value="">Select a payment method</option>
+                  <option key={method.id} value={method.id}>
+                    {method.name}
+                  </option>
+                </>
+              ))}
+            </select>
+          </label>
+          {errors.paymentMethodId && (
+            <span id="payment-method-error" className="text-rose-600 text-sm ">
+              This field is required
+            </span>
+          )}
+        </div>
 
         <div className="flex gap-3">
           <Button type="submit">Add transaction</Button>

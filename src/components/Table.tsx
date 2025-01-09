@@ -61,7 +61,7 @@ const Table = ({ columns, data, setData, handleDeleteRow }: TableProps) => {
     //move focus to the first input in the row
     setTimeout(() => {
       if (rowRefs.current[rowId]) {
-        rowRefs.current[rowId].focus();
+        rowRefs.current[rowId]?.focus();
       }
     }, 0);
   };

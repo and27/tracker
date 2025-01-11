@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import LineChart from "../LineChart";
+import LineChart from "../Graphs/LineChart";
 import { getTransactions } from "../../utils/api/transactions";
-import { EnrichedTransaction } from "../PieChartDataProvider";
+import { EnrichedTransaction } from "./PieChartDataProvider";
 
 type LineChartDataType = {
   id: string;
@@ -13,27 +13,7 @@ type LineChartDataType = {
 }[];
 
 const LineChartDataProvider = () => {
-  const [data, setData] = useState<LineChartDataType>([
-    {
-      id: "japan",
-      color: "hsl(11, 70%, 50%)",
-      data: [
-        {
-          x: "plane",
-          y: 69,
-        },
-
-        {
-          x: "car",
-          y: 257,
-        },
-        {
-          x: "moto",
-          y: 62,
-        },
-      ],
-    },
-  ]);
+  const [data, setData] = useState<LineChartDataType>([]);
 
   useEffect(() => {
     const fetchTransactions = async () => {

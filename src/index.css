@@ -14,7 +14,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --nav-height: 83px;
+  /* --nav-height: 83px; */
+  --nav-height: 1px;
 }
 
 body {

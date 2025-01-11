@@ -1,5 +1,8 @@
-import PieChartDataProvider from "../components/PieChartDataProvider";
+import PieChartDataProvider from "../components/Sections/PieChartDataProvider";
 import LineChartDataProvider from "../components/Sections/LineChartDataProvider";
+import BarChart from "../components/Graphs/BarChart";
+import BarChartDataProvider from "../components/Sections/BarChartDataProvider";
+import HeatMapDataProvider from "../components/Sections/HeatMapDataProvider";
 
 const ReportsPage = () => {
   return (
@@ -8,15 +11,18 @@ const ReportsPage = () => {
         Reports
       </h1>
       <h3>What categories are you spending on?</h3>
-      <div
-        style={{ height: "500px" }}
-        className="grid grid-cols-1 md:grid-cols-2"
-      >
-        <PieChartDataProvider />
+      <div style={{ height: "500px" }}>
+        <BarChartDataProvider />
       </div>
 
+      <h3>How much are you spending?</h3>
       <div style={{ height: "500px" }}>
         <LineChartDataProvider />
+      </div>
+
+      <h3 className="mt-10">What are your top expenses?</h3>
+      <div style={{ height: "500px" }}>
+        <HeatMapDataProvider />
       </div>
     </main>
   );

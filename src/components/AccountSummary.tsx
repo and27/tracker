@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import PieChartDataProvider from "./PieChartDataProvider";
+import PieChartDataProvider from "./Sections/PieChartDataProvider";
 import Subtitle from "./Subtitle";
 import { getTransactions } from "../utils/api/transactions";
 

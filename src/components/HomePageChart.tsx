@@ -1,4 +1,4 @@
-import PieChart from "./PieChart";
+import PieChart from "./Graphs/PieChart";
 
 const dummyData = [
   { id: "1", label: "Groceries", value: 200 },

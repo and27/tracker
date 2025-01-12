@@ -2,14 +2,15 @@ import { useEffect, useState } from "react";
 import HeatMap from "../Graphs/HeatMap";
 import { getTransactions } from "../../utils/api/transactions";
 import { EnrichedTransaction } from "./PieChartDataProvider";
+import { DefaultHeatMapDatum, HeatMapSerie } from "@nivo/heatmap";
 
 interface HeatmapCategory {
   id: string;
-  [key: string]: number | string;
+  data: { [key: string]: number };
 }
 
 const HeatMapDataProvider = () => {
-  const [data, setData] = useState<HeatmapCategory[]>([]);
+  const [data, setData] = useState<HeatMapSerie<DefaultHeatMapDatum, {}>[]>([]);
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -23,12 +24,8 @@ const HeatMapDataProvider = () => {
         return;
       }
 
-      console.log("Transacciones originales:", transactions);
-
       const heatmapData = (transactions as EnrichedTransaction[])?.reduce(
         (acc: HeatmapCategory[], transaction: EnrichedTransaction) => {
-          console.log("Procesando transacción:", transaction);
-
           if (
             !transaction.categoryName ||
             !transaction.date ||
@@ -44,15 +41,17 @@ const HeatMapDataProvider = () => {
           const date = new Date(transaction.date).toISOString().split("T")[0];
 
           if (category) {
-            category[date] = (Number(category[date]) || 0) + transaction.amount;
-            console.log("Actualizando categoría existente:", category);
+            if (category.data[date]) {
+              category.data[date] += transaction.amount;
+            } else {
+              category.data[date] = transaction.amount;
+            }
           } else {
             const newCategory = {
               id: transaction.categoryName,
-              [date]: transaction.amount,
+              data: { [date]: transaction.amount },
             };
             acc.push(newCategory);
-            console.log("Agregando nueva categoría:", newCategory);
           }
 
           return acc;
@@ -60,8 +59,14 @@ const HeatMapDataProvider = () => {
         []
       );
 
-      console.log("Datos procesados para HeatMap:", heatmapData);
-      setData(heatmapData);
+      const formattedData = heatmapData.map((category) => ({
+        id: category.id,
+        data: Object.entries(category.data).map(([key, value]) => ({
+          x: key,
+          y: value,
+        })),
+      }));
+      setData(formattedData as HeatMapSerie<DefaultHeatMapDatum, {}>[]);
     };
 
     fetchTransactions();
@@ -72,7 +77,7 @@ const HeatMapDataProvider = () => {
     return <p>No hay datos suficientes para mostrar el gráfico</p>;
   }
 
-  return <HeatMap />;
+  return <HeatMap data={data} />;
 };
 
 export default HeatMapDataProvider;

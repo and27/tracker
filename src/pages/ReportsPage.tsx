@@ -1,6 +1,4 @@
-import PieChartDataProvider from "../components/Sections/PieChartDataProvider";
 import LineChartDataProvider from "../components/Sections/LineChartDataProvider";
-import BarChart from "../components/Graphs/BarChart";
 import BarChartDataProvider from "../components/Sections/BarChartDataProvider";
 import HeatMapDataProvider from "../components/Sections/HeatMapDataProvider";
 

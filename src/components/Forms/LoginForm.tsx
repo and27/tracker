@@ -1,5 +1,4 @@
 import { useState } from "react";
-import useAuth from "../../utils/useAuth";
 import Button from "../Button";
 
 type LoginData = {

@@ -22,7 +22,10 @@ const Layout = () => {
           {isSidebarOpen ? <FaX /> : <FaBars />}
         </button>
         <div className="grid grid-cols-12 w-full">
-          <SidebarMenu isOpen={isSidebarOpen} />
+          <SidebarMenu
+            isOpen={isSidebarOpen}
+            setIsSidebarOpen={setIsSidebarOpen}
+          />
           <Outlet />
         </div>
       </div>

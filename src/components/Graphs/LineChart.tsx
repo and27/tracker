@@ -1,10 +1,13 @@
 import { ResponsiveLine } from "@nivo/line";
+import { useTheme } from "../../context/ThemeContext";
+import { darkTheme, lightTheme } from "../../utils/themeGraphColors";
 
 interface LineChartProps {
   data: any;
 }
 
 const LineChart = ({ data }: LineChartProps) => {
+  const { theme } = useTheme();
   return (
     <ResponsiveLine
       data={data}
@@ -43,6 +46,7 @@ const LineChart = ({ data }: LineChartProps) => {
         legendPosition: "middle",
         truncateTickAt: 0,
       }}
+      theme={theme === "dark" ? darkTheme : lightTheme}
       pointSize={10}
       pointColor={{ theme: "background" }}
       pointBorderWidth={2}

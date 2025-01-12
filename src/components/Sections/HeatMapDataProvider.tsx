@@ -73,7 +73,6 @@ const HeatMapDataProvider = () => {
   }, []);
 
   if (!data || data.length === 0) {
-    console.log("Datos no disponibles o incorrectos:", data);
     return <p>No hay datos suficientes para mostrar el gráfico</p>;
   }
 

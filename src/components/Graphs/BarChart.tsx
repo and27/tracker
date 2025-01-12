@@ -1,10 +1,13 @@
 import { ResponsiveBar } from "@nivo/bar";
+import { useTheme } from "../../context/ThemeContext";
+import { darkTheme, lightTheme } from "../../utils/themeGraphColors";
 
 interface BarChartProps {
   data: any[];
 }
 
 const BarChart = ({ data }: BarChartProps) => {
+  const { theme } = useTheme();
   const generateColorMap = (data: any[]) => {
     const categories = [...new Set(data.map((item) => item.label))]; // Extraer categorías únicas
     const colors = [
@@ -56,6 +59,7 @@ const BarChart = ({ data }: BarChartProps) => {
           legendPosition: "middle",
           legendOffset: -40,
         }}
+        theme={theme === "dark" ? darkTheme : lightTheme}
         labelSkipWidth={12}
         labelSkipHeight={12}
         labelTextColor={{ from: "color", modifiers: [["darker", 1.6]] }}

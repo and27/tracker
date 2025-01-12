@@ -31,8 +31,9 @@ const SidebarMenu = ({ isOpen }: SidebarMenuProps) => {
   return (
     <nav
       aria-label="Barra lateral de navegación"
-      className={`flex flex-col justify-between col-span-2 py-10 px-5 h-full md:h-screen bg-indigo-700 text-white
-      sticky top-0 left-0 z-10 transition-transform duration-300 transform w-56 lg:w-auto
+      className={`absolute lg:static
+      flex flex-col justify-between col-span-2 py-10 px-5 h-full md:h-screen bg-indigo-700 text-white
+      top-0 left-0 z-10 transition-transform duration-300 transform w-56 lg:w-auto
       ${
         !isMobile ? "relative" : isOpen ? "translate-x-0" : "-translate-x-full"
       }`}

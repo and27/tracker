@@ -33,6 +33,12 @@ const TransactionForm = () => {
     const { error } = await createTransaction(data);
     if (error) {
       console.log(error);
+      toast.error(
+        `An error occurred while creating the transaction: ${error}`,
+        {
+          position: "top-center",
+        }
+      );
     } else {
       formRef.current?.reset();
       toast.success("Transaction created successfully!", {
@@ -111,13 +117,11 @@ const TransactionForm = () => {
                 errors.categoryId ? "category-error" : undefined
               }
             >
+              <option value="">Select a category</option>
               {categories.map((category) => (
-                <>
-                  <option value="">Select a category</option>
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                </>
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
               ))}
             </select>
           </label>
@@ -164,13 +168,11 @@ const TransactionForm = () => {
                 errors.paymentMethodId ? "payment-method-error" : undefined
               }
             >
+              <option value="">Select a payment method</option>
               {paymentMehods.map((method) => (
-                <>
-                  <option value="">Select a payment method</option>
-                  <option key={method.id} value={method.id}>
-                    {method.name}
-                  </option>
-                </>
+                <option key={method.id} value={method.id}>
+                  {method.name}
+                </option>
               ))}
             </select>
           </label>

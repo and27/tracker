@@ -29,7 +29,7 @@ const LoginPage = () => {
           alt="logo"
           width="50"
           height="50"
-          className="mx-auto mb-5 size-[2rem] lg:size-[3rem]"
+          className="mx-auto mb-5 size-[2rem] lg:size-[3rem] filter brightness-75 dark:brightness-100"
         />
         <div className="bg-white dark:bg-neutral-800 shadow p-5 mx-3 sm:p-10 md:mx-auto rounded md:w-1/2 xl:w-1/3">
           <h1 className="text-center text-3xl font-bold font-outfit">

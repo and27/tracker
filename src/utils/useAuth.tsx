@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { AuthError, createSupabaseUser, supabaseSignup } from "./supabaseLogin";
+import {
+  AuthError,
+  createSupabaseUser,
+  supabaseLogin,
+  supabaseSignup,
+} from "./supabaseLogin";
 import { User } from "@supabase/supabase-js";
 
 type AuthUser = {
@@ -17,22 +22,20 @@ const useAuth = () => {
   const [error, setError] = useState<string | null>(null);
 
   const loginUser = async (user: AuthUser) => {
-    const { password } = user;
-    if (password !== "12345")
-      //temporal password
-      return;
-    // const { data, error } = await supabaseLogin(email, password);
-    const data = { user: { id: "user1", email: "andres@gmail.com" } };
-
+    const { email, password } = user;
+    console.log("loginUser", email, password);
+    const { data, error } = await supabaseLogin(email, password);
+    console.log("loginUser", data, error);
     if (error) {
       if (isAuthError(error)) {
         setError(error.message);
         return null;
       }
     } else if (data?.user) {
+      console.log("else if", data.user);
       setUser(data.user);
       localStorage.setItem("userId", data.user.id);
-      // createSupabaseUser(data.user.id, email);
+      createSupabaseUser(data.user.id, email);
       setError(null);
     }
   };

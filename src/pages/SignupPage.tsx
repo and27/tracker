@@ -13,16 +13,16 @@ const SignupPage = () => {
   }, []);
 
   return (
-    <section className="h-screen bg-neutral-50 dark:bg-neutral-900 grid items-center">
+    <section className="min-h-screen bg-neutral-50 dark:bg-neutral-900 grid items-center">
       <div>
         <img
           src="/logoCard.svg"
           alt="logo"
           width="50"
           height="50"
-          className="mx-auto mb-5"
+          className="mx-auto mb-5 filter brightness-75 dark:brightness-100 size-[2rem] lg:size-[3rem]"
         />
-        <div className="bg-white dark:bg-neutral-800 shadow p-10 rounded sm:w-1/2 lg:w-1/3 sm:mx-auto mx-5">
+        <div className="bg-white dark:bg-neutral-800 shadow p-5 mx-3 sm:p-10 md:mx-auto rounded md:w-1/2 xl:w-1/3">
           <h1 className="text-center text-3xl font-bold font-outfit">
             Welcome
           </h1>

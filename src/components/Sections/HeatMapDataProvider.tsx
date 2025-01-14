@@ -10,7 +10,9 @@ interface HeatmapCategory {
 }
 
 const HeatMapDataProvider = () => {
-  const [data, setData] = useState<HeatMapSerie<DefaultHeatMapDatum, {}>[]>([]);
+  const [data, setData] = useState<
+    HeatMapSerie<DefaultHeatMapDatum, Record<string, unknown>>[]
+  >([]);
 
   useEffect(() => {
     const fetchTransactions = async () => {

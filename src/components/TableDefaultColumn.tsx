@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 
+type cellProps = {
+  getValue: () => string;
+  row: { id: string };
+  column: { id: string; getIndex: () => number };
+  table: { options: { meta: any } };
+};
 interface IColumn {
-  cell: ({ getValue, row, column, table }: any) => JSX.Element;
+  cell: ({ getValue, row, column, table }: cellProps) => JSX.Element;
 }
 
 export const defaultColumn: IColumn = {

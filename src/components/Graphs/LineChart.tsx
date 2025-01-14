@@ -3,7 +3,10 @@ import { useTheme } from "../../context/ThemeContext";
 import { darkTheme, lightTheme } from "../../utils/themeGraphColors";
 
 interface LineChartProps {
-  data: any;
+  data: {
+    id: string;
+    data: { x: string; y: number }[];
+  }[];
 }
 
 const LineChart = ({ data }: LineChartProps) => {

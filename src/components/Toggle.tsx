@@ -11,18 +11,20 @@ const Toggle = ({ name, handler }: { name: options; handler: () => void }) => {
     accountSettings: false,
   });
 
-  const toggleSwitch = (e: any) => {
+  const toggleSwitch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name as options;
     setIsOn((prev) => ({ ...prev, [name]: !prev[name] }));
     handler();
   };
 
   return (
-    <label className="flex items-center cursor-pointer">
+    <label className="flex items-center cursor-pointer" htmlFor={name}>
+      {name}
       <div className="relative">
         <input
           type="checkbox"
           className="sr-only"
+          id="name"
           name={name}
           checked={isOn.darkTheme}
           onChange={(e) => toggleSwitch(e)}

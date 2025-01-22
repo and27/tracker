@@ -4,14 +4,22 @@ type cellProps = {
   getValue: () => string;
   row: { id: string };
   column: { id: string; getIndex: () => number };
-  table: { options: { meta: any } };
+  table: {
+    options: {
+      meta: {
+        editingRowId: number;
+        updateData: (arg0: string, arg1: string, arg2: string) => void;
+        rowRefs: { current: { [x: string]: HTMLInputElement | null } };
+      };
+    };
+  };
 };
 interface IColumn {
-  cell: ({ getValue, row, column, table }: cellProps) => JSX.Element;
+  Cell: ({ getValue, row, column, table }: cellProps) => JSX.Element;
 }
 
 export const defaultColumn: IColumn = {
-  cell: ({ getValue, row, column, table }) => {
+  Cell: ({ getValue, row, column, table }) => {
     const initialValue = getValue();
     const [value, setValue] = useState(initialValue);
     const isEditing = table.options.meta?.editingRowId === parseInt(row.id);

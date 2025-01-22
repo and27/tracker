@@ -9,7 +9,7 @@ import { useTheme } from "../../context/ThemeContext";
 const MyResponsiveHeatMap = ({
   data,
 }: {
-  data: HeatMapSerie<DefaultHeatMapDatum, {}>[];
+  data: HeatMapSerie<DefaultHeatMapDatum, Record<string, unknown>>[];
 }) => {
   const { theme } = useTheme();
 

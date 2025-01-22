@@ -87,10 +87,10 @@ export const CategoriesProvider = ({ children }: CategoriesProviderProps) => {
       [key]: { icon: <FaQuestion /> },
     }));
   };
-
   const removeCategory = (key: string) => {
     setCategories((prevCategories) => {
-      const { [key]: _, ...rest } = prevCategories;
+      const rest = { ...prevCategories };
+      delete rest[key];
       return rest;
     });
   };

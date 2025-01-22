@@ -2,14 +2,18 @@ import { ResponsiveBar } from "@nivo/bar";
 import { useTheme } from "../../context/ThemeContext";
 import { darkTheme, lightTheme } from "../../utils/themeGraphColors";
 
+type dataPoint = {
+  label: string;
+  value: number;
+};
 interface BarChartProps {
-  data: any[];
+  data: dataPoint[];
 }
 
 const BarChart = ({ data }: BarChartProps) => {
   const { theme } = useTheme();
-  const generateColorMap = (data: any[]) => {
-    const categories = [...new Set(data.map((item) => item.label))]; // Extraer categorías únicas
+  const generateColorMap = (data: dataPoint[]) => {
+    const categories = [...new Set(data.map((item) => item.label))];
     const colors = [
       "#7D9FDD",
       "#A5B8D8",
@@ -31,6 +35,8 @@ const BarChart = ({ data }: BarChartProps) => {
     return colorMap;
   };
   const colorMap = generateColorMap(data); // Crear el mapa de colores dinámico
+  if (!data.length) return <p>No information to display</p>;
+
   return (
     <div style={{ height: 400 }}>
       <ResponsiveBar

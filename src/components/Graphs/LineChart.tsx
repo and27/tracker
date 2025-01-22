@@ -11,6 +11,9 @@ interface LineChartProps {
 
 const LineChart = ({ data }: LineChartProps) => {
   const { theme } = useTheme();
+
+  if (!data.length) return <p>No information to display</p>;
+
   return (
     <ResponsiveLine
       data={data}

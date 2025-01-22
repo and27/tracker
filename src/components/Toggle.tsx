@@ -15,11 +15,12 @@ const Toggle = ({ name, handler }: { name: options; handler: () => void }) => {
     const name = e.target.name as options;
     setIsOn((prev) => ({ ...prev, [name]: !prev[name] }));
     handler();
+    console.log(isOn);
   };
 
   return (
-    <label className="flex items-center cursor-pointer" htmlFor={name}>
-      {name}
+    <label className="flex items-center cursor-pointer">
+      <span className="sr-only">{`Toggle ${name}`}</span>
       <div className="relative">
         <input
           type="checkbox"

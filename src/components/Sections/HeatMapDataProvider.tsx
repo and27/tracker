@@ -68,7 +68,12 @@ const HeatMapDataProvider = () => {
           y: value,
         })),
       }));
-      setData(formattedData as HeatMapSerie<DefaultHeatMapDatum, {}>[]);
+      setData(
+        formattedData as HeatMapSerie<
+          DefaultHeatMapDatum,
+          Record<string, unknown>
+        >[]
+      );
     };
 
     fetchTransactions();

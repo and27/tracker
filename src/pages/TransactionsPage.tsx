@@ -6,6 +6,7 @@ import LinkButton from "../components/LinkButton";
 import Modal from "../components/Modal";
 import { deleteTransaction, getTransactions } from "../utils/api/transactions";
 import { Transaction } from "../data/types/transactions";
+import { CellContext } from "@tanstack/react-table";
 
 function formatCurrency(value: number) {
   return new Intl.NumberFormat("en-US", {
@@ -77,7 +78,7 @@ const TransactionsPage: React.FC = () => {
         id: "category",
         header: "Category",
         accessorKey: "categoryName",
-        cell: (info: { getValue: <T>() => T }) => (
+        cell: (info: CellContext<Transaction, unknown>) => (
           <span className="text-neutral-600 dark:text-neutral-400">
             {info.getValue<string>()}
           </span>
@@ -87,7 +88,7 @@ const TransactionsPage: React.FC = () => {
         id: "amount",
         header: "Amount",
         accessorKey: "amount",
-        cell: (info: { getValue: <T>() => T }) => {
+        cell: (info: CellContext<Transaction, unknown>) => {
           const value = info.getValue<number>();
           const formattedValue = formatCurrency(value);
           return (
@@ -101,7 +102,7 @@ const TransactionsPage: React.FC = () => {
         id: "type",
         header: "Type",
         accessorKey: "type",
-        cell: (info: { getValue: <T>() => T }) => {
+        cell: (info: CellContext<Transaction, unknown>) => {
           const value = info.getValue<"income" | "expense">();
           return value === "income" ? (
             <span className="bg-green-300 dark:bg-green-800 text-neutral-900 dark:text-neutral-100 rounded px-2 text-sm">

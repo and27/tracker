@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import TransactionOverview from "../TransactionOverview";
 import Subtitle from "../Subtitle";
 import { getLastTransactions } from "../../utils/api/transactions";
 import { Transaction } from "../../data/types/transactions";
+import TransactionOverviewItem from "../TransactionOverviewItem";
 
 const TransactionOverviewList = () => {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [transactions, setTransactions] = useState<Transaction[]>();
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -26,8 +26,8 @@ const TransactionOverviewList = () => {
       <Subtitle title="Last transactions" />
       <div className="dark:bg-neutral-800/50 pt-4 dark:p-8 rounded-lg">
         <ul className="flex flex-col gap-2">
-          {transactions.map((transaction) => (
-            <TransactionOverview
+          {transactions?.map((transaction) => (
+            <TransactionOverviewItem
               key={transaction.id}
               id={parseInt(transaction.id)}
               description={transaction.description}

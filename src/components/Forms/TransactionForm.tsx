@@ -4,11 +4,13 @@ import "react-toastify/dist/ReactToastify.css";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Button from "../Button";
 import { Transaction } from "../../data/types/transactions";
-import { createTransaction } from "../../utils/api/transactions";
-import { getCategories } from "../../utils/api/categories";
 import { Category } from "../../data/types/categories";
-import { getPaymentMethods } from "../../utils/api/paymentMethods";
 import { PaymentMethod } from "../../data/types/paymentMethods";
+import {
+  createTransaction,
+  getCategories,
+  getPaymentMethods,
+} from "../../utils/supabaseDB";
 
 const TransactionForm = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -49,7 +51,7 @@ const TransactionForm = () => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const { data, error } = await getCategories("system");
+      const { data, error } = await getCategories();
       if (error) {
         console.error(error);
         return;
@@ -63,8 +65,13 @@ const TransactionForm = () => {
 
   useEffect(() => {
     const fetchPaymentMehods = async () => {
-      const methods = await getPaymentMethods();
-      setPaymentMethods(methods.data || []);
+      const { data, error } = await getPaymentMethods();
+      if (error) {
+        console.error(error);
+        return;
+      }
+
+      setPaymentMethods(data || []);
     };
 
     fetchPaymentMehods();

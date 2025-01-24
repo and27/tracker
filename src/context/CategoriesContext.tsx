@@ -15,7 +15,7 @@ import {
   FaHome,
 } from "react-icons/fa";
 import { FaHeartCircleCheck, FaIceCream, FaTrain } from "react-icons/fa6";
-import { getCategories } from "../utils/api/categories";
+import { getCategories } from "../utils/supabaseDB";
 
 type IconType = ReactNode;
 
@@ -59,7 +59,7 @@ export const CategoriesProvider = ({ children }: CategoriesProviderProps) => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const { data, error } = await getCategories("user1");
+      const { data, error } = await getCategories();
 
       if (error) {
         console.error(error);

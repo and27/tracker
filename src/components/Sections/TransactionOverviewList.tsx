@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import Subtitle from "../Subtitle";
-import { getLastTransactions } from "../../utils/api/transactions";
 import { Transaction } from "../../data/types/transactions";
 import TransactionOverviewItem from "../TransactionOverviewItem";
+import { getLastTransactions } from "../../utils/supabaseDB";
 
 const TransactionOverviewList = () => {
   const [transactions, setTransactions] = useState<Transaction[]>();
@@ -10,7 +10,7 @@ const TransactionOverviewList = () => {
   useEffect(() => {
     const fetchTransactions = async () => {
       const user = localStorage.getItem("userId") as string;
-      const { data, error } = await getLastTransactions(user, 5);
+      const { data, error } = await getLastTransactions({ user, limit: 5 });
       if (error) {
         console.error(error);
         return;

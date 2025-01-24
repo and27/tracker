@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import HeatMap from "../Graphs/HeatMap";
-import { getTransactions } from "../../utils/api/transactions";
 import { EnrichedTransaction } from "./PieChartDataProvider";
 import { DefaultHeatMapDatum, HeatMapSerie } from "@nivo/heatmap";
+import { getTransactions } from "../../utils/supabaseDB";
 
 interface HeatmapCategory {
   id: string;

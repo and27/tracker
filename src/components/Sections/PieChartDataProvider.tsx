@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PieChart, { PieChartDataType } from "../Graphs/PieChart";
-import { getTransactions } from "../../utils/api/transactions";
 import { Transaction } from "../../data/types/transactions";
+import { getTransactions } from "../../utils/supabaseDB";
 
 export interface EnrichedTransaction extends Transaction {
   categoryName: string;

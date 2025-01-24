@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import BarChart from "../Graphs/BarChart";
-import { getTransactions } from "../../utils/api/transactions";
 import { EnrichedTransaction } from "./PieChartDataProvider";
+import { getTransactions } from "../../utils/supabaseDB";
 
 export type BarChartDataType = {
   label: string;

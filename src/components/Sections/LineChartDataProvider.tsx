@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import LineChart from "../Graphs/LineChart";
-import { getTransactions } from "../../utils/api/transactions";
 import { EnrichedTransaction } from "./PieChartDataProvider";
+import { getTransactions } from "../../utils/supabaseDB";
 
 type LineChartDataType = {
   id: string;

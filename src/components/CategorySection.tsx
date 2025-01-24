@@ -20,9 +20,9 @@ const CategorySection = ({
             Manage your categories here.
           </p>
         </div>
-        <CategoryList handleRemoveCategory={handleRemoveCategory} />
         <Button onClick={handleModal}>Add Category</Button>
       </div>
+      <CategoryList handleRemoveCategory={handleRemoveCategory} />
     </section>
   );
 };

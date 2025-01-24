@@ -4,9 +4,10 @@ import "react-toastify/dist/ReactToastify.css";
 import Table from "../components/Table";
 import LinkButton from "../components/LinkButton";
 import Modal from "../components/Modal";
-import { deleteTransaction, getTransactions } from "../utils/api/transactions";
+import { deleteTransaction } from "../utils/api/transactions";
 import { Transaction } from "../data/types/transactions";
 import { CellContext } from "@tanstack/react-table";
+import { getTransactions } from "../utils/supabaseDB";
 
 function formatCurrency(value: number) {
   return new Intl.NumberFormat("en-US", {
@@ -45,7 +46,7 @@ const TransactionsPage: React.FC = () => {
   useEffect(() => {
     const fetchTransactions = async () => {
       setIsLoading(true);
-      const user = "user1"; //todo get user from auth
+      const user = localStorage.getItem("userId") as string;
       const { data, error } = await getTransactions({
         userId: user,
       });

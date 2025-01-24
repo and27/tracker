@@ -30,7 +30,7 @@ const Modal = ({ children, isOpen, onClose, title }: ModalProps) => {
           focusTrapOptions={{
             escapeDeactivates: true,
             clickOutsideDeactivates: true,
-            onDeactivate: onClose,
+            onDeactivate: onClose, //it only works on production due to StrictMode double rendering
           }}
         >
           <div

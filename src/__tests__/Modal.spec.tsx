@@ -3,9 +3,17 @@ import Modal from "../components/Modal";
 import "@testing-library/jest-dom";
 
 jest.mock("focus-trap-react", () => ({
-  FocusTrap: ({ children }: { children: React.ReactNode }) => (
-    <div>{children}</div>
-  ),
+  FocusTrap: ({ children, focusTrapOptions }: any) => {
+    // Simulate escape key deactivation
+    if (focusTrapOptions && focusTrapOptions.onDeactivate) {
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          focusTrapOptions.onDeactivate();
+        }
+      });
+    }
+    return <div>{children}</div>;
+  },
 }));
 
 describe("Modal Component", () => {
@@ -88,11 +96,5 @@ describe("Modal Component", () => {
 
     const title = screen.getByText("Test Modal");
     expect(title).toHaveFocus();
-
-    // Simulate tabbing inside the modal
-    fireEvent.keyDown(document, { key: "Tab", code: "Tab" });
-
-    const closeButton = screen.getByRole("button");
-    console.log(closeButton);
   });
 });

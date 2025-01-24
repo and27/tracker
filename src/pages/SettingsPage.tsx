@@ -84,6 +84,7 @@ const SettingPage = () => {
     },
   ];
 
+  console.log("isOpened", isOpen);
   return (
     <div className="flex flex-col col-span-10 overflow-scroll">
       <main className="pt-10 px-8 dark:bg-zinc-900 min-h-screen">

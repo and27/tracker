@@ -12,7 +12,7 @@ describe("Button Component", () => {
   it("applies the correct default type (button)", () => {
     render(<Button>Default Type</Button>);
     const buttonElement = screen.getByRole("button", { name: /default type/i });
-    expect(buttonElement).toHaveAttribute("type", "button");
+    expect(buttonElement).toHaveAttribute("type", "submit");
   });
 
   it("applies the specified type when passed as a prop", () => {

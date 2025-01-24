@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { FaBell, FaMoon } from "react-icons/fa6";
-import { FaCog, FaTimes } from "react-icons/fa";
-import Button from "../components/Button";
+import { FaCog } from "react-icons/fa";
 import Toggle from "../components/Toggle";
 import Subtitle from "../components/Subtitle";
 import Modal from "../components/Modal";
@@ -10,7 +9,7 @@ import { useTheme } from "../context/ThemeContext";
 import { useCategories } from "../context/CategoriesContext";
 import { Footer } from "../components/Sections/Footer";
 import { deleteCategoryByName } from "../utils/api/categories";
-import { defaultCategories } from "../data/defaultCategories";
+import CategorySection from "../components/CategorySection";
 
 type settingsDataType = {
   id: number;
@@ -30,12 +29,9 @@ const icons: iconsType = {
   FaBell: FaBell,
   FaCog: FaCog,
 };
-const isCategoryRequired = (category: string) => {
-  return defaultCategories.includes(category);
-};
 
 const SettingPage = () => {
-  const { categories, addCategory, removeCategory } = useCategories();
+  const { addCategory, removeCategory } = useCategories();
   const { toggleTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -84,13 +80,11 @@ const SettingPage = () => {
     },
   ];
 
-  console.log("isOpened", isOpen);
   return (
     <div className="flex flex-col col-span-10 overflow-scroll">
       <main className="pt-10 px-8 dark:bg-zinc-900 min-h-screen">
         <div>
           <Subtitle title="Settings" />
-
           {settingsData.map((setting, idx) => {
             const Icon = icons[setting.icon];
             return (
@@ -112,40 +106,11 @@ const SettingPage = () => {
             );
           })}
         </div>
-        <div className="mt-10">
-          <div className="flex justify-between items-center">
-            <div>
-              <Subtitle title="Categories" />
-              <p className="mb-4 text-neutral-600 dark:text-neutral-400">
-                Manage your categories here.
-              </p>
-            </div>
-            <Button onClick={handleModal}>Add Category</Button>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-5 my-4 gap-5">
-            {Object.keys(categories).map((category) => (
-              <div
-                key={category}
-                className="relative flex shadow-lg dark:shadow-none p-5 bg-white/80 dark:bg-neutral-800/50 rounded-lg "
-              >
-                {!isCategoryRequired(category) && (
-                  <button
-                    className="absolute top-0 right-0 m-0 p-2 bg-transparent"
-                    onClick={() => handleRemoveCategory(category)}
-                  >
-                    <FaTimes color="#888" size="12" />
-                  </button>
-                )}
-                <div className="flex items-center my-2">
-                  {categories[category].icon}
-                </div>
-                <div className="ml-4">
-                  <p className="">{category}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+
+        <CategorySection
+          handleRemoveCategory={handleRemoveCategory}
+          handleModal={handleModal}
+        />
         <Modal isOpen={isOpen} onClose={handleModal} title="Add a new category">
           <NewCategory handleAddCategory={handleAddCategory} />
         </Modal>

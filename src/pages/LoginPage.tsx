@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import LoginForm from "../components/Forms/LoginForm";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../utils/useAuth";
+import LogoImage from "../components/LogoImage";
 
 const LoginPage = () => {
   const { loginUser, error, user } = useAuth();
@@ -24,13 +25,7 @@ const LoginPage = () => {
   return (
     <section className="min-h-screen bg-neutral-50 dark:bg-neutral-900 grid items-center">
       <div>
-        <img
-          src="/logoCard.svg"
-          alt="logo"
-          width="50"
-          height="50"
-          className="mx-auto mb-5 size-[2rem] lg:size-[3rem] filter brightness-75 dark:brightness-100"
-        />
+        <LogoImage />
         <div className="bg-white dark:bg-neutral-800 shadow p-5 mx-3 sm:p-10 md:mx-auto rounded md:w-1/2 xl:w-1/3">
           <h1 className="text-center text-3xl font-bold font-outfit">
             Sign in

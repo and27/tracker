@@ -37,7 +37,9 @@ const Hero = () => {
           Gain control over your spending and achieve your financial goals with
           our intuitive app.
         </p>
-        <LinkButton to="/login">Start tracking now</LinkButton>
+        <LinkButton to="/login" className="primary">
+          Start tracking now
+        </LinkButton>
       </div>
     </div>
   );

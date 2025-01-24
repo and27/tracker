@@ -9,7 +9,7 @@ const Button = ({ children, onClick, type = "submit" }: ButtonProps) => {
     <button
       onClick={onClick}
       type={type}
-      className="bg-indigo-600 text-white px-5 mt-5 rounded hover:bg-indigo-700 font-bold
+      className="bg-indigo-600 text-white px-5 rounded hover:bg-indigo-700 font-bold
       text-sm md:text-base"
     >
       {children}

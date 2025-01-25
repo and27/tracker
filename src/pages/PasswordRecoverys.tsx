@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { sendPasswordRecoveryEmail } from "../utils/supabaseLogin";
-import LinkButton from "../components/LinkButton";
-import Button from "../components/Button";
 import LogoImage from "../components/LogoImage";
+import PasswordRecoveryForm from "../components/Forms/PasswordRecovery";
 
 const PasswordRecovery = () => {
   const [email, setEmail] = useState("");
@@ -24,24 +23,11 @@ const PasswordRecovery = () => {
           <h1 className="text-center text-3xl font-bold font-outfit mb-6">
             Password Recovery
           </h1>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-            <input
-              className="bg-transparent border border-gray-300 p-2 rounded-md mt-1"
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <div className="flex gap-4 justify-start mt-5">
-              <LinkButton to="/login" className="secondary">
-                <span className="text-center text-neutral-500 dark:text-neutral-400 pt-1 pb-4 text-lg">
-                  Back to login
-                </span>
-              </LinkButton>
-              <Button type="submit">Send Password Reset Email</Button>
-            </div>
-          </form>
+          <PasswordRecoveryForm
+            handleSubmit={handleSubmit}
+            email={email}
+            setEmail={setEmail}
+          />
           {message && <p>{message}</p>}
         </div>
       </div>

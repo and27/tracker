@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { supabaseLogout } from "../utils/supabaseLogin";
-import SignupForm from "../components/Forms/Singup";
+import SignupForm from "../components/Forms/Signup";
 import { Link } from "react-router-dom";
 import LogoImage from "../components/LogoImage";
 

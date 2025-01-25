@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Button from "../Button";
-import { createCategory } from "../../utils/api/categories";
+import { addCategory } from "../../utils/supabaseDB";
 
 interface NewCategoryProps {
   handleAddCategory: (categoryName: string) => void;
@@ -21,10 +21,11 @@ const NewCategory = ({ handleAddCategory }: NewCategoryProps) => {
       setError("Category is required");
       return;
     }
-    const { error } = await createCategory({ name: category, userId: uid });
+
+    const { error } = await addCategory({ name: category, userId: uid });
 
     if (error) {
-      setError(error);
+      console.error(error);
       return;
     } else {
       handleAddCategory(category);
@@ -32,16 +33,16 @@ const NewCategory = ({ handleAddCategory }: NewCategoryProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} aria-label="new category form">
       <label
-        htmlFor="category"
-        className="flex flex-col text-gray-700 dark:text-neutral-200 font-semibold text-lg"
+        htmlFor="categoryName"
+        className="mb-5 flex flex-col text-gray-700 dark:text-neutral-200 font-semibold text-lg"
       >
         Category Name
         <input
+          id="categoryName"
           className="bg-transparent border border-gray-300 p-2 rounded-md mt-1"
-          type="category"
-          name="category"
+          type="text"
           onChange={handleChange}
         />
       </label>

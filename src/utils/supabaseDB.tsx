@@ -64,10 +64,16 @@ const getCategories = async () => {
   return { data, error };
 };
 
-const addCategory = async (name: string, user_id: string) => {
+const addCategory = async ({
+  name,
+  userId,
+}: {
+  name: string;
+  userId: string;
+}) => {
   const { data, error } = await supabase
     .from("category")
-    .insert([{ name, user_id }])
+    .insert([{ name, user_id: userId }])
     .select();
   return { data, error };
 };

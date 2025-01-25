@@ -18,9 +18,11 @@ const CategoryList = ({ handleRemoveCategory }: CategoryListProps) => {
         >
           {!defaultCategories.includes(category) && (
             <button
+              title="Remove category"
               onClick={() => handleRemoveCategory(category)}
               className="absolute top-0 right-0 m-0 -p2 bg-transparent"
             >
+              <span className="sr-only">Remove category</span>
               <FaTimes color="#888" size="12" />
             </button>
           )}

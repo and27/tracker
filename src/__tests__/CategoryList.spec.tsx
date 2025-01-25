@@ -29,7 +29,7 @@ describe("CategoryList Component", () => {
     const mockHandleRemoveCategory = jest.fn();
     render(<CategoryList handleRemoveCategory={mockHandleRemoveCategory} />);
 
-    const removeButtons = screen.getAllByText("Remove");
+    const removeButtons = screen.getAllByText(/remove category/i);
     expect(removeButtons).toHaveLength(1);
 
     fireEvent.click(removeButtons[0]);

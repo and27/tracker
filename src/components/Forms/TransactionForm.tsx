@@ -3,14 +3,13 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Button from "../Button";
-import { Transaction } from "../../data/types/transactions";
-import { Category } from "../../data/types/categories";
-import { PaymentMethod } from "../../data/types/paymentMethods";
+import { createTransaction } from "../../utils/supabaseDB";
 import {
-  createTransaction,
-  getCategories,
-  getPaymentMethods,
-} from "../../utils/supabaseDB";
+  fetchCategories,
+  fetchPaymentMethods,
+  handleError,
+  transformTransactionData,
+} from "../../services/transactionService";
 
 const TransactionForm = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -24,63 +23,38 @@ const TransactionForm = () => {
   } = useForm<Transaction>();
 
   const onSubmit: SubmitHandler<Transaction> = async (data) => {
-    const user_id = localStorage.getItem("userId") as string;
-    data.userId = user_id;
-    if (typeof data.amount === "string") data.amount = parseInt(data.amount);
-    if (typeof data.categoryId === "string")
-      data.categoryId = parseInt(data.categoryId);
-    if (typeof data.paymentMethodId === "string")
-      data.paymentMethodId = parseInt(data.paymentMethodId);
-
-    const { error } = await createTransaction(data);
-    if (error) {
-      console.log(error);
-      toast.error(
-        `An error occurred while creating the transaction: ${error}`,
-        {
-          position: "top-center",
-        }
-      );
-    } else {
+    try {
+      const transformedData = transformTransactionData(data);
+      await createTransaction(transformedData);
       formRef.current?.reset();
       toast.success("Transaction created successfully!", {
         position: "top-center",
       });
+    } catch (error) {
+      handleError(error);
     }
   };
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      const { data, error } = await getCategories();
-      if (error) {
-        console.error(error);
-        return;
+    (async () => {
+      try {
+        const [categoriesData, paymentMethodsData] = await Promise.all([
+          fetchCategories(),
+          fetchPaymentMethods(),
+        ]);
+        setCategories(categoriesData);
+        setPaymentMethods(paymentMethodsData);
+      } catch (error) {
+        handleError(error);
       }
-      if (data) {
-        setCategories(data);
-      }
-    };
-    fetchCategories();
-  }, []);
-
-  useEffect(() => {
-    const fetchPaymentMehods = async () => {
-      const { data, error } = await getPaymentMethods();
-      if (error) {
-        console.error(error);
-        return;
-      }
-
-      setPaymentMethods(data || []);
-    };
-
-    fetchPaymentMehods();
+    })();
   }, []);
 
   return (
     <>
       <ToastContainer />
       <form
+        aria-label="Transaction form"
         onSubmit={handleSubmit(onSubmit, (errors) => {
           console.log(errors);
         })}
@@ -189,7 +163,6 @@ const TransactionForm = () => {
             </span>
           )}
         </div>
-
         <div className="flex gap-3">
           <Button type="submit">Add transaction</Button>
         </div>

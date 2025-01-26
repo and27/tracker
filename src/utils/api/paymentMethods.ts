@@ -1,8 +1,3 @@
-import {
-  PaymentMethod,
-  PaymentMethodCreate,
-  ApiResponsePaymentMethods,
-} from "../../data/types/paymentMethods";
 import { API_BASE_URL, API_ENDPOINTS, API_HEADERS } from "./config";
 
 async function handleResponse<T>(
@@ -16,7 +11,7 @@ async function handleResponse<T>(
         errorText = errorData.error;
       }
     } catch (jsonError) {
-      //silencio el error de json parse
+      console.error(jsonError);
     }
     return { data: null, error: errorText };
   }

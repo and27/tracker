@@ -1,6 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
-import { Transaction } from "../data/types/transactions";
 
 export const defaultColumn: Partial<ColumnDef<Transaction, unknown>> = {
   cell: ({ getValue, row, column, table }) => {

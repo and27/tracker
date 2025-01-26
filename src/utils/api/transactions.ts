@@ -1,9 +1,3 @@
-import {
-  Transaction,
-  TransactionCreate,
-  ApiResponseTransactions,
-} from "../../data/types/transactions";
-
 import { API_BASE_URL, API_ENDPOINTS, API_HEADERS } from "./config";
 
 async function handleResponse<T>(

@@ -1,4 +1,3 @@
-import { Transaction } from "../data/types/transactions";
 import { supabase } from "./supabase";
 
 const mapTransactionToDb = (transaction: Transaction) => {
@@ -15,7 +14,6 @@ const mapTransactionToDb = (transaction: Transaction) => {
 
 const createTransaction = async (transaction: Transaction) => {
   const transactionWithDBFormat = mapTransactionToDb(transaction);
-  console.log(transaction);
   const { data, error } = await supabase
     .from("transaction")
     .insert([transactionWithDBFormat])

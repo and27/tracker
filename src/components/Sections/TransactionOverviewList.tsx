@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Subtitle from "../Subtitle";
-import { Transaction } from "../../data/types/transactions";
 import TransactionOverviewItem from "../TransactionOverviewItem";
 import { getLastTransactions } from "../../utils/supabaseDB";
 

@@ -1,5 +1,4 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { Transaction } from "./transactions";
 
 export type TableProps = {
   columns: ColumnDef<Transaction>[];

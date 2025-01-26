@@ -1,4 +1,4 @@
-export interface Transaction {
+interface Transaction {
   id: string;
   description: string;
   date: string;
@@ -9,9 +9,9 @@ export interface Transaction {
   userId: string;
 }
 
-export type TransactionCreate = Omit<Transaction, "id" | "createdAt">;
+type TransactionCreate = Omit<Transaction, "id" | "createdAt">;
 
-export interface ApiResponseTransactions<T> {
+interface ApiResponseTransactions<T> {
   data: T | null;
   error: string | null;
 }

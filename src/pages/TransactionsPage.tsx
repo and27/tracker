@@ -1,69 +1,50 @@
-import React, { useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { useEffect, useMemo, useState } from "react";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Table from "../components/Table";
 import LinkButton from "../components/LinkButton";
 import Modal from "../components/Modal";
-import { deleteTransaction } from "../utils/api/transactions";
-import { Transaction } from "../data/types/transactions";
+// import { deleteTransaction } from "../utils/api/transactions";
 import { CellContext } from "@tanstack/react-table";
-import { getTransactions } from "../utils/supabaseDB";
-
-function formatCurrency(value: number) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  }).format(value);
-}
+import { useTransactionStore } from "../store/transactionStore";
+import { formatCurrency } from "../utils/formatCurrency";
 
 const TransactionsPage: React.FC = () => {
-  const [showModal, setShowModal] = React.useState(false);
-  const [selectedRow, setSelectedRow] = React.useState<string>("");
-  const [transactionsData, setTransactions] = React.useState<Transaction[]>([]);
-  const [isLoading, setIsLoading] = React.useState(false);
-  // const transactionsData = React.useMemo(() => transactions, []);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedRow, setSelectedRow] = useState<string>("");
+  const transactions = useTransactionStore((state) => state.transactions);
+  const loadTransactions = useTransactionStore(
+    (state) => state.loadTransactions
+  );
+  console.log(selectedRow);
+  const isLoading = useTransactionStore((state) => state.isLoading);
 
   const handleDeleteConfirmation = async (id: string) => {
     setShowModal(true);
     setSelectedRow(id);
   };
 
-  const deleteRow = async (id: string) => {
-    const { error } = await deleteTransaction(id);
-    if (error) {
-      console.error(error);
-      return;
-    }
-    const updatedTransactions = transactionsData.filter(
-      (transaction) => transaction.id !== id
-    );
+  // const deleteRow = async (id: string) => {
+  //   const { error } = await deleteTransaction(id);
+  //   if (error) {
+  //     console.error(error);
+  //     return;
+  //   }
+  //   // const updatedTransactions = transactions.filter(
+  //   //   (transaction) => transaction.id !== id
+  //   // );
 
-    setTransactions(updatedTransactions);
-    setShowModal(false);
-    toast.success("Transaction deleted successfully!");
-  };
+  //   // setTransactions(updatedTransactions);
+  //   setShowModal(false);
+  //   toast.success("Transaction deleted successfully!");
+  // };
 
   useEffect(() => {
-    const fetchTransactions = async () => {
-      setIsLoading(true);
-      const user = localStorage.getItem("userId") as string;
-      const { data, error } = await getTransactions({
-        userId: user,
-      });
-      if (error) {
-        console.error(error);
-        setIsLoading(false);
-        return;
-      }
-      if (data) {
-        setTransactions(data);
-        setIsLoading(false);
-      }
-    };
-    fetchTransactions();
-  }, []);
+    const userId = localStorage.getItem("userId") as string;
+    loadTransactions(userId);
+  }, [loadTransactions]);
 
-  const columns = React.useMemo(
+  const columns = useMemo(
     () => [
       {
         id: "description",
@@ -125,6 +106,10 @@ const TransactionsPage: React.FC = () => {
     []
   );
 
+  if (!isLoading && !transactions.length) {
+    return <p>No transactions found.</p>;
+  }
+
   return (
     <main className="col-span-12 lg:col-span-10 pt-5 md:pt-10 px-5 md:px-8 dark:bg-zinc-900 min-h-screen">
       <ToastContainer />
@@ -142,7 +127,7 @@ const TransactionsPage: React.FC = () => {
               Cancel
             </button>
             <button
-              onClick={() => deleteRow(selectedRow)}
+              // onClick={() => deleteRow(selectedRow)}
               className="bg-rose-500 hover:bg-rose-600 text-neutral-100 px-4 py-2 rounded-md"
             >
               Delete
@@ -156,16 +141,18 @@ const TransactionsPage: React.FC = () => {
         </h1>
         <LinkButton to="/account/transaction">New Transaction</LinkButton>
       </div>
+
       {isLoading ? (
         <div className="flex justify-center items-center h-96">
           <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-zinc-400"></div>
+          <span className="sr-only">Loading...</span>
         </div>
       ) : (
         <Table
           columns={columns}
-          data={transactionsData}
+          data={transactions}
           handleDeleteRow={handleDeleteConfirmation}
-          setData={setTransactions}
+          setData={() => {}}
         />
       )}
     </main>

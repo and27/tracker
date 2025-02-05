@@ -18,7 +18,6 @@ describe("Login Form Component", () => {
   it("renders the password input", () => {
     render(<LoginForm loginUser={jest.fn()} loginError={"test error"} />);
     const inputElement = screen.getByLabelText(/password/i);
-    console.log(inputElement);
     expect(inputElement).toBeInTheDocument();
   });
 

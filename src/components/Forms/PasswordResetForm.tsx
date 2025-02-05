@@ -4,8 +4,7 @@ const PasswordResetForm = () => {
   const handleResetPassword = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newPassword = e.currentTarget.password.value;
-    const { data, error } = await resetPassword(newPassword);
-    console.log(data, error);
+    await resetPassword(newPassword);
   };
 
   return (

@@ -4,6 +4,10 @@ export type AuthError = {
   message: string;
 };
 
+// const localURL = "http://localhost:5173";
+const prodURL = "https://tracker-ulqw.vercel.app";
+const BASE_URL = prodURL;
+
 const supabaseLogin = async (email: string, password: string) => {
   const { data, error } = await supabase.auth.signInWithPassword({
     email: email,
@@ -45,7 +49,7 @@ const resetPassword = async (newPassword: string) => {
 
 const sendPasswordRecoveryEmail = async (email: string) => {
   const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: "https://tracker-ulqw.vercel.app/reset-password",
+    redirectTo: `${BASE_URL}/reset-password`,
   });
   return { data, error };
 };

@@ -13,7 +13,6 @@ const mapTransactionToDb = (transaction: Transaction) => {
 };
 
 const createTransaction = async (transaction: Transaction) => {
-  console.log(transaction);
   const transactionWithDBFormat = mapTransactionToDb(transaction);
   const { data, error } = await supabase
     .from("transaction")

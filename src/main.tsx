@@ -16,6 +16,7 @@ import SignupPage from "./pages/SignupPage.tsx";
 import { CategoriesProvider } from "./context/CategoriesContext.tsx";
 import PasswordReset from "./pages/PasswordReset.tsx";
 import PasswordRecovery from "./pages/PasswordRecoverys.tsx";
+import { ToastContainer } from "react-toastify";
 
 const router = createBrowserRouter([
   {
@@ -82,6 +83,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <ThemeProvider>
     <CategoriesProvider>
       <RouterProvider router={router} />
+      <ToastContainer />
     </CategoriesProvider>
   </ThemeProvider>
   // </React.StrictMode>

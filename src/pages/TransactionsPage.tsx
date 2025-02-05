@@ -16,7 +16,6 @@ const TransactionsPage: React.FC = () => {
   const loadTransactions = useTransactionStore(
     (state) => state.loadTransactions
   );
-  console.log(selectedRow);
   const isLoading = useTransactionStore((state) => state.isLoading);
 
   const handleDeleteConfirmation = async (id: string) => {
@@ -99,12 +98,12 @@ const TransactionsPage: React.FC = () => {
       {
         id: "paymentMethod",
         header: "Payment Method",
-        accessorKey: "paymentMethod",
+        accessorKey: "payment_method",
         cell: (info: CellContext<Transaction, unknown>) => {
-          const paymentMethod = info.row.original.payment_method;
+          const paymentMethod = info.row.original as any;
           return (
             <span className="text-neutral-600 dark:text-neutral-400">
-              {paymentMethod.name || "Uncategorized"}
+              {paymentMethod?.payment_method.name || "Uncategorized"}
             </span>
           );
         },

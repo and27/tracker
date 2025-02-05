@@ -2,6 +2,7 @@ import { useState } from "react";
 import { sendPasswordRecoveryEmail } from "../utils/supabaseLogin";
 import LogoImage from "../components/LogoImage";
 import PasswordRecoveryForm from "../components/Forms/PasswordRecovery";
+import { toast } from "react-toastify";
 
 const PasswordRecovery = () => {
   const [email, setEmail] = useState("");
@@ -10,6 +11,10 @@ const PasswordRecovery = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { error } = await sendPasswordRecoveryEmail(email);
+    console.log("enviado");
+    toast.success("Password recovery email sent!", {
+      position: "top-center",
+    });
     if (error) {
       setMessage(`Error: ${error}`);
     }

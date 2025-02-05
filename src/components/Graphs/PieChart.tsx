@@ -13,7 +13,6 @@ type PieChartProps = {
 
 const PieChart = ({ data }: PieChartProps) => {
   const [isMobile, setIsMobile] = useState(false);
-  console.log(data);
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);

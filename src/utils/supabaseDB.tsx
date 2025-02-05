@@ -4,15 +4,16 @@ const mapTransactionToDb = (transaction: Transaction) => {
   return {
     description: transaction.description,
     date: transaction.date,
-    category: transaction.categoryId,
+    category: transaction.category.id,
     amount: transaction.amount,
     type: transaction.type,
-    payment_method: transaction.paymentMethodId,
+    payment_method: transaction.paymentMethod.id,
     user_id: transaction.userId,
   };
 };
 
 const createTransaction = async (transaction: Transaction) => {
+  console.log(transaction);
   const transactionWithDBFormat = mapTransactionToDb(transaction);
   const { data, error } = await supabase
     .from("transaction")
@@ -25,8 +26,10 @@ const createTransaction = async (transaction: Transaction) => {
 const getTransactions = async ({ userId: user }: { userId: string }) => {
   const { data, error } = await supabase
     .from("transaction")
-    .select("*")
-    .eq("user_id", user);
+    .select("*, payment_method(id, name), category(id,name)")
+    .eq("user_id", user)
+    .order("date", { ascending: false });
+
   return { data, error };
 };
 
@@ -41,7 +44,7 @@ const getLastTransactions = async ({
     .from("transaction")
     .select("*")
     .eq("user_id", user)
-    .order("created_at", { ascending: false })
+    .order("date", { ascending: false })
     .limit(limit);
   return { data, error };
 };
@@ -58,7 +61,6 @@ const getPaymentMethods = async () => {
 
 const getCategories = async () => {
   const { data, error } = await supabase.from("category").select("*");
-  console.log(data);
   return { data, error };
 };
 

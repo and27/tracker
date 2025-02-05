@@ -29,14 +29,14 @@ const BarChartDataProvider = () => {
         ).reduce(
           (acc: BarChartDataType[], transaction: EnrichedTransaction) => {
             const existingCategory = acc.find(
-              (category) => category.label === transaction.categoryName
+              (category) => category.label === transaction.category.name
             );
 
             if (existingCategory) {
               existingCategory.value += transaction.amount;
             } else {
               acc.push({
-                label: transaction.categoryName || "unknown",
+                label: transaction.category.name || "unknown",
                 value: transaction.amount,
               });
             }

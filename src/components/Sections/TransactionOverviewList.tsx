@@ -32,7 +32,7 @@ const TransactionOverviewList = () => {
               description={transaction.description}
               amount={transaction.amount}
               type={transaction.type}
-              category={transaction.categoryId?.toString() || "unknown"}
+              category={transaction.category.name || "unknown"}
             />
           ))}
         </ul>

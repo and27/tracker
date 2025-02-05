@@ -38,7 +38,7 @@ const LineChartDataProvider = () => {
               });
             } else {
               acc.push({
-                id: transaction.categoryName || "unknown",
+                id: transaction.category.name || "unknown",
                 color: "hsl(11, 70%, 50%)",
                 data: [
                   {

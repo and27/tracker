@@ -93,9 +93,9 @@ const TransactionForm = () => {
             Category *<span className="sr-only">Required field</span>
             <select
               className="border border-gray-300 p-2 rounded-md bg-neutral-100 dark:bg-neutral-800"
-              {...register("categoryId", { required: true })}
+              {...register("category.name", { required: true })}
               aria-describedby={
-                errors.categoryId ? "category-error" : undefined
+                errors.category?.name ? "category-error" : undefined
               }
             >
               <option value="">Select a category</option>
@@ -107,7 +107,7 @@ const TransactionForm = () => {
             </select>
           </label>
 
-          {errors.categoryId && (
+          {errors.category?.id && (
             <span id="category-error" className="text-rose-600 text-sm ">
               This field is required
             </span>
@@ -144,9 +144,9 @@ const TransactionForm = () => {
             Payment Method *<span className="sr-only">Required field</span>
             <select
               className="border border-gray-300 p-2 rounded-md bg-neutral-100 dark:bg-neutral-800"
-              {...register("paymentMethodId", { required: true })}
+              {...register("paymentMethod.id", { required: true })}
               aria-describedby={
-                errors.paymentMethodId ? "payment-method-error" : undefined
+                errors.paymentMethod ? "payment-method-error" : undefined
               }
             >
               <option value="">Select a payment method</option>
@@ -157,7 +157,7 @@ const TransactionForm = () => {
               ))}
             </select>
           </label>
-          {errors.paymentMethodId && (
+          {errors.paymentMethod && (
             <span id="payment-method-error" className="text-rose-600 text-sm ">
               This field is required
             </span>

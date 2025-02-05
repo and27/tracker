@@ -7,5 +7,6 @@ export const defaultCategories = [
   "entertainment",
   "insurance",
   "health",
+  "tools",
   "other",
 ];

@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Table from "../components/Table";
 import LinkButton from "../components/LinkButton";
 import Modal from "../components/Modal";
-// import { deleteTransaction } from "../utils/api/transactions";
 import { CellContext } from "@tanstack/react-table";
 import { useTransactionStore } from "../store/transactionStore";
 import { formatCurrency } from "../utils/formatCurrency";
+import { deleteTransaction } from "../utils/supabaseDB";
 
 const TransactionsPage: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
@@ -24,20 +24,16 @@ const TransactionsPage: React.FC = () => {
     setSelectedRow(id);
   };
 
-  // const deleteRow = async (id: string) => {
-  //   const { error } = await deleteTransaction(id);
-  //   if (error) {
-  //     console.error(error);
-  //     return;
-  //   }
-  //   // const updatedTransactions = transactions.filter(
-  //   //   (transaction) => transaction.id !== id
-  //   // );
+  const deleteRow = async (id: string) => {
+    const { error } = await deleteTransaction(id);
+    if (error) {
+      console.error(error);
+      return;
+    }
 
-  //   // setTransactions(updatedTransactions);
-  //   setShowModal(false);
-  //   toast.success("Transaction deleted successfully!");
-  // };
+    setShowModal(false);
+    toast.success("Transaction deleted successfully!");
+  };
 
   useEffect(() => {
     const userId = localStorage.getItem("userId") as string;
@@ -59,12 +55,15 @@ const TransactionsPage: React.FC = () => {
       {
         id: "category",
         header: "Category",
-        accessorKey: "categoryName",
-        cell: (info: CellContext<Transaction, unknown>) => (
-          <span className="text-neutral-600 dark:text-neutral-400">
-            {info.getValue<string>()}
-          </span>
-        ),
+        accessorKey: "category", // Change here to filter by category.name
+        cell: (info: CellContext<Transaction, unknown>) => {
+          const category = info.row.original.category;
+          return (
+            <span className="text-neutral-600 dark:text-neutral-400">
+              {category?.name || "Uncategorized"}
+            </span>
+          );
+        },
       },
       {
         id: "amount",
@@ -100,7 +99,15 @@ const TransactionsPage: React.FC = () => {
       {
         id: "paymentMethod",
         header: "Payment Method",
-        accessorKey: "paymentMethodName",
+        accessorKey: "paymentMethod",
+        cell: (info: CellContext<Transaction, unknown>) => {
+          const paymentMethod = info.row.original.payment_method;
+          return (
+            <span className="text-neutral-600 dark:text-neutral-400">
+              {paymentMethod.name || "Uncategorized"}
+            </span>
+          );
+        },
       },
     ],
     []
@@ -127,7 +134,7 @@ const TransactionsPage: React.FC = () => {
               Cancel
             </button>
             <button
-              // onClick={() => deleteRow(selectedRow)}
+              onClick={() => deleteRow(selectedRow)}
               className="bg-rose-500 hover:bg-rose-600 text-neutral-100 px-4 py-2 rounded-md"
             >
               Delete

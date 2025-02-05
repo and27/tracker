@@ -2,10 +2,16 @@ interface Transaction {
   id: string;
   description: string;
   date: string;
-  categoryId?: number;
+  category: {
+    id: number;
+    name: string;
+  };
   amount: number;
   type: "income" | "expense";
-  paymentMethodId?: number;
+  paymentMethod: {
+    id: number;
+    name: string;
+  };
   userId: string;
 }
 

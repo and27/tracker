@@ -29,7 +29,7 @@ const HeatMapDataProvider = () => {
       const heatmapData = (transactions as EnrichedTransaction[])?.reduce(
         (acc: HeatmapCategory[], transaction: EnrichedTransaction) => {
           if (
-            !transaction.categoryName ||
+            !transaction.category.name ||
             !transaction.date ||
             isNaN(transaction.amount)
           ) {
@@ -38,7 +38,7 @@ const HeatMapDataProvider = () => {
           }
 
           const category = acc.find(
-            (item) => item.id === transaction.categoryName
+            (item) => item.id === transaction.category.name
           );
           const date = new Date(transaction.date).toISOString().split("T")[0];
 
@@ -50,7 +50,7 @@ const HeatMapDataProvider = () => {
             }
           } else {
             const newCategory = {
-              id: transaction.categoryName,
+              id: transaction.category.name,
               data: { [date]: transaction.amount },
             };
             acc.push(newCategory);

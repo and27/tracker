@@ -24,15 +24,14 @@ const PieChartDataProvider = () => {
         const data = (transactions as unknown as EnrichedTransaction[]).reduce(
           (acc: PieChartDataType[], transaction: EnrichedTransaction) => {
             const existingCategory = acc.find(
-              (category) =>
-                category.label === transaction.categoryName?.toString()
+              (category) => category.label === transaction.category.name
             );
             if (existingCategory) {
               existingCategory.value += transaction.amount;
             } else {
               acc.push({
-                id: transaction.categoryName?.toString() || "unknown",
-                label: transaction.categoryName || "unknown",
+                id: transaction.category.id.toString() || "unknown",
+                label: transaction.category.name || "unknown",
                 value: transaction.amount,
               });
             }

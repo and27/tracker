@@ -30,8 +30,14 @@ export const transformTransactionData = (data: Transaction): Transaction => {
     ...data,
     userId,
     amount: Number(data.amount),
-    categoryId: Number(data.categoryId),
-    paymentMethodId: Number(data.paymentMethodId),
+    category: {
+      id: Number(data.category.id),
+      name: "",
+    },
+    paymentMethod: {
+      id: Number(data.paymentMethod.id),
+      name: "",
+    },
   };
 };
 

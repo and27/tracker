@@ -16,7 +16,9 @@ const CategoryList = ({ handleRemoveCategory }: CategoryListProps) => {
           role="listitem"
           className="relative flex shadow-lg dark:shadow-none p-5 bg-white/80 dark:bg-neutral-800/50 rounded-lg"
         >
-          {!defaultCategories.includes(category) && (
+          {!defaultCategories.some(
+            (defaultCategory) => defaultCategory.name === category
+          ) && (
             <button
               title="Remove category"
               onClick={() => handleRemoveCategory(category)}

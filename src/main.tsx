@@ -1,4 +1,4 @@
-// import React from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -17,7 +17,6 @@ import { CategoriesProvider } from "./context/CategoriesContext.tsx";
 import PasswordReset from "./pages/PasswordReset.tsx";
 import PasswordRecovery from "./pages/PasswordRecoverys.tsx";
 import { ToastContainer } from "react-toastify";
-import InsightsBanner from "./components/InsightsBanner.tsx";
 import InsightsPage from "./pages/InsightsPage.tsx";
 
 const router = createBrowserRouter([
@@ -85,12 +84,12 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  // <React.StrictMode>
-  <ThemeProvider>
-    <CategoriesProvider>
-      <RouterProvider router={router} />
-      <ToastContainer />
-    </CategoriesProvider>
-  </ThemeProvider>
-  // </React.StrictMode>
+  <React.StrictMode>
+    <ThemeProvider>
+      <CategoriesProvider>
+        <RouterProvider router={router} />
+        <ToastContainer />
+      </CategoriesProvider>
+    </ThemeProvider>
+  </React.StrictMode>
 );

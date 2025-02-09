@@ -1,5 +1,5 @@
 import { useState } from "react";
-type options = "darkTheme" | "notifications" | "accountSettings";
+export type options = "darkTheme" | "notifications" | "accountSettings";
 type optionsType = {
   [key in options]: boolean;
 };

@@ -1,5 +1,5 @@
 import { icons } from "../data/settingsConfig";
-import Toggle from "./Toggle";
+import Toggle, { options } from "./Toggle";
 
 interface SettingsProps {
   data: {
@@ -31,7 +31,7 @@ const SettingsList = ({ data }: SettingsProps) => {
                 </p>
               </div>
             </div>
-            <Toggle name={setting.name} handler={setting.handler} />
+            <Toggle name={setting.name as options} handler={setting.handler} />
           </div>
         );
       })}

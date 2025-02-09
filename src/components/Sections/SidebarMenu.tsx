@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { FaTable } from "react-icons/fa6";
+import { FaFire, FaTable } from "react-icons/fa6";
 import { FaChartColumn } from "react-icons/fa6";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { FaGear } from "react-icons/fa6";
@@ -52,12 +52,12 @@ const SidebarMenu = ({ isOpen, setIsSidebarOpen }: SidebarMenuProps) => {
             src="/logoCard.svg"
             alt=""
             aria-hidden="true"
-            width="24"
-            height="24"
+            width="20"
+            height="20"
             className=""
           />
           <p
-            className={`font-bold text-lg uppercase tracking-wide  font-outfit`}
+            className={`font-bold text-xl uppercase tracking-wide  font-outfit`}
           >
             Tracker
           </p>
@@ -109,7 +109,7 @@ const SidebarMenu = ({ isOpen, setIsSidebarOpen }: SidebarMenuProps) => {
               className="flex gap-2 items-center block text-start px-4 py-3
             rounded active:bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-gray-5"
             >
-              <FaChartColumn />
+              <FaFire />
               Insights
             </NavLink>
           </li>

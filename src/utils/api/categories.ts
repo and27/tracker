@@ -11,7 +11,7 @@ async function handleResponse<T>(
         errorText = errorData.error;
       }
     } catch (jsonError) {
-      //silencio el error de json parse
+      console.error(jsonError);
     }
     return { data: null, error: errorText };
   }

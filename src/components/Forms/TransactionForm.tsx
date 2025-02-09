@@ -88,7 +88,7 @@ const TransactionForm = () => {
               value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
               placeholder="E.g. 'Bought coffee for $5 with card'"
-              className="w-full mt-2 border border-gray-300 p-3 rounded-md bg-neutral-100 dark:bg-neutral-800"
+              className="w-full mt-2 border border-neutral-700 py-2 px-4 rounded-md bg-neutral-100 dark:bg-neutral-800"
             />
           </label>
           <div className="flex justify-between mt-4">
@@ -99,11 +99,11 @@ const TransactionForm = () => {
           {generatedTransaction && (
             <div className="mt-4 p-4 bg-gray-800 rounded">
               <h3 className="text-md font-bold">Generated Transaction</h3>
-              <pre className="text-sm bg-gray-700 p-2 rounded">
+              <pre className="text-sm bg-gray-700 py-2 px-4 rounded">
                 {JSON.stringify(generatedTransaction, null, 2)}
               </pre>
               <button
-                className="bg-green-500 hover:bg-green-600 p-2 mt-2 rounded"
+                className="bg-green-500 hover:bg-green-600 py-2 px-4 mt-2 rounded"
                 onClick={() => {
                   onSubmit(generatedTransaction);
                 }}
@@ -127,7 +127,7 @@ const TransactionForm = () => {
             <label className="flex flex-col text-neutral-700 dark:text-neutral-200">
               Description *<span className="sr-only">Required field</span>
               <input
-                className="border border-gray-300 p-2 rounded-md bg-neutral-100 dark:bg-neutral-800"
+                className="border border-neutral-700 py-2 px-4 rounded-md bg-neutral-100 dark:bg-neutral-800"
                 type="text"
                 {...register("description", { required: true })}
                 aria-describedby={
@@ -144,7 +144,7 @@ const TransactionForm = () => {
           <label className="flex flex-col text-gray-700 dark:text-neutral-200 ">
             Date *<span className="sr-only">Required field</span>
             <input
-              className="border border-gray-300 p-2 rounded-md bg-neutral-100 dark:bg-neutral-800"
+              className="border border-neutral-700 py-2 px-4 rounded-md bg-neutral-100 dark:bg-neutral-800"
               type="date"
               defaultValue={new Date().toISOString().split("T")[0]}
               {...register("date", { required: true })}
@@ -154,7 +154,7 @@ const TransactionForm = () => {
             <label className="flex flex-col text-gray-700 dark:text-neutral-200">
               Category *<span className="sr-only">Required field</span>
               <select
-                className="border border-gray-300 p-2 rounded-md bg-neutral-100 dark:bg-neutral-800"
+                className="border border-neutral-700 py-2 px-4 rounded-md bg-neutral-100 dark:bg-neutral-800"
                 {...register("category.name", { required: true })}
                 aria-describedby={
                   errors.category?.name ? "category-error" : undefined
@@ -179,7 +179,7 @@ const TransactionForm = () => {
             <label className="flex flex-col text-gray-700 dark:text-neutral-200">
               Amount *<span className="sr-only">Required field</span>
               <input
-                className="border border-gray-300 p-2 rounded-md bg-neutral-100 dark:bg-neutral-800"
+                className="border border-neutral-700 py-2 px-4 rounded-md bg-neutral-100 dark:bg-neutral-800"
                 type="number"
                 {...register("amount", { required: true })}
                 aria-describedby={errors.amount ? "amount-error" : undefined}
@@ -194,7 +194,7 @@ const TransactionForm = () => {
           <label className="flex flex-col text-gray-700 dark:text-neutral-200">
             Type *<span className="sr-only">Required field</span>
             <select
-              className="border border-gray-300 p-2 rounded-md bg-neutral-100 dark:bg-neutral-800"
+              className="border border-neutral-700 py-2 px-4 rounded-md bg-neutral-100 dark:bg-neutral-800"
               {...register("type", { required: true })}
             >
               <option value="income">Income</option>
@@ -205,7 +205,7 @@ const TransactionForm = () => {
             <label className="flex flex-col text-gray-700 dark:text-neutral-200">
               Payment Method *<span className="sr-only">Required field</span>
               <select
-                className="border border-gray-300 p-2 rounded-md bg-neutral-100 dark:bg-neutral-800"
+                className="border border-neutral-700 py-2 px-4 rounded-md bg-neutral-100 dark:bg-neutral-800"
                 {...register("paymentMethod.id", { required: true })}
                 aria-describedby={
                   errors.paymentMethod ? "payment-method-error" : undefined
@@ -228,7 +228,7 @@ const TransactionForm = () => {
               </span>
             )}
           </div>
-          <div className="flex gap-3">
+          <div className="flex ap-3">
             <Button type="submit">Add transaction</Button>
           </div>
         </form>

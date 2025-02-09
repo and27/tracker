@@ -12,7 +12,7 @@ const CategorySection = ({
   handleRemoveCategory,
 }: CategorySectionProps) => {
   return (
-    <section className="mt-10">
+    <section>
       <div className="flex justify-between items-center">
         <div>
           <Subtitle title="Categories" />

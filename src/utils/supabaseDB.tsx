@@ -85,6 +85,78 @@ const removeCategoryByName = async (name: string) => {
   return { data, error };
 };
 
+export const fetchConsolidatedTransactions = async (user: string) => {
+  const threeMonthsAgo = new Date();
+  threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+  threeMonthsAgo.setHours(0, 0, 0, 0); // Asegura que sea el inicio del día
+
+  const { data, error } = await supabase
+    .from("transaction")
+    .select("category(id, name), amount, date")
+    .eq("user_id", user)
+    .gte("date", threeMonthsAgo.toISOString())
+    .order("date", { ascending: false });
+
+  if (error) {
+    console.error("Error fetching transactions:", error);
+    return null;
+  }
+
+  if (!data || data.length === 0) return [];
+
+  const consolidated = data.reduce(
+    (
+      acc: Record<
+        number,
+        {
+          category: { id: number; name: string };
+          total_spent: number;
+          total_transactions: number;
+          average_spent: number;
+          last_transaction_date: string;
+        }
+      >,
+      transaction
+    ) => {
+      // 🔹 Asegurar que `category` no sea un array antes de acceder a sus propiedades
+      const category = Array.isArray(transaction.category)
+        ? transaction.category[0]
+        : transaction.category;
+
+      if (!category || !category.id) return acc;
+
+      if (!acc[category.id]) {
+        acc[category.id] = {
+          category: {
+            id: category.id,
+            name: category.name || "Unknown",
+          },
+          total_spent: 0,
+          total_transactions: 0,
+          average_spent: 0,
+          last_transaction_date: "",
+        };
+      }
+
+      acc[category.id].total_spent += transaction.amount;
+      acc[category.id].total_transactions += 1;
+      acc[category.id].average_spent =
+        acc[category.id].total_spent / acc[category.id].total_transactions;
+
+      // 🔹 Asegurar que `date` es una fecha válida antes de guardarla
+      const transactionDate = new Date(transaction.date);
+      if (!isNaN(transactionDate.getTime())) {
+        acc[category.id].last_transaction_date = transactionDate.toISOString();
+      }
+
+      return acc;
+    },
+    {}
+  );
+
+  return Object.values(consolidated);
+};
+
 export {
   createTransaction,
   getTransactions,

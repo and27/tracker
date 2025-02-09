@@ -3,7 +3,7 @@ import OpenAI from "openai";
 import { defaultCategories } from "../data/defaultCategories";
 import { defaultPaymentMethods } from "../data/defaultPaymentMethods";
 
-const openai = new OpenAI({
+export const openai = new OpenAI({
   baseURL: "https://api.deepseek.com",
   apiKey: import.meta.env.VITE_DEEP_SEEK_KEY,
   dangerouslyAllowBrowser: true,

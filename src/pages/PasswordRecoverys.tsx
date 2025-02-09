@@ -11,7 +11,6 @@ const PasswordRecovery = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { error } = await sendPasswordRecoveryEmail(email);
-    console.log("enviado");
     toast.success("Password recovery email sent!", {
       position: "top-center",
     });

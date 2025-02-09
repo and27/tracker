@@ -17,6 +17,8 @@ import { CategoriesProvider } from "./context/CategoriesContext.tsx";
 import PasswordReset from "./pages/PasswordReset.tsx";
 import PasswordRecovery from "./pages/PasswordRecoverys.tsx";
 import { ToastContainer } from "react-toastify";
+import InsightsBanner from "./components/InsightsBanner.tsx";
+import InsightsPage from "./pages/InsightsPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "transaction",
         element: <TransactionFormPage />,
+      },
+      {
+        path: "insights",
+        element: <InsightsPage />,
       },
       {
         path: "settings",

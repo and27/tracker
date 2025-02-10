@@ -57,35 +57,3 @@ export const notificationSettings = [
     icon: "FaBell",
   },
 ];
-
-export const insightsSettings = [
-  {
-    id: 1,
-    title: "Spending Insights",
-    name: "spendingInsights",
-    description: "Receive insights about your spending habits.",
-    icon: "FaChartLine",
-  },
-  {
-    id: 2,
-    title: "Savings Goals",
-    name: "savingsGoals",
-    description:
-      "Get insights on how you're progressing towards savings goals.",
-    icon: "FaBullseye",
-  },
-  {
-    id: 3,
-    title: "Prediction Insights",
-    name: "predictionInsights",
-    description: "See predictions based on your spending trends.",
-    icon: "FaClock",
-  },
-  {
-    id: 4,
-    title: "Advanced Insights",
-    name: "advancedInsights",
-    description: "Enable AI-powered deep financial insights.",
-    icon: "FaCogs",
-  },
-];

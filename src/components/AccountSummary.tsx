@@ -47,7 +47,7 @@ const AccountSummary = () => {
   }, []);
 
   return (
-    <section className="col-span-4 bg-neutral-50 dark:bg-neutral-900">
+    <section className="col-span-4 bg-neutral-50 dark:bg-neutral-900 max-w-4xl ">
       <Subtitle title="Account summary" />
       <div className="grid grid-cols-2 gap-4">
         <SummaryCard title="Income" value={totalIncome.toString()} />

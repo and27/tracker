@@ -1,6 +1,5 @@
 import { useInsightStore } from "../store/insightStore";
 import SpendingPatterns from "../components/Insights/SpendingPatterns";
-import BudgetOptimization from "../components/Insights/BudgetOptimization";
 import insightsMock from "../data/mocks/insightsMock";
 import PredictionsTrends from "../components/Insights/PredictionTrends";
 import { useEffect } from "react";
@@ -29,7 +28,6 @@ const InsightsPage = () => {
 
       <div className="flex flex-col gap-8">
         <SpendingPatterns data={insightsMock.spendingPatterns} />
-        <BudgetOptimization data={insightsMock.budgetOptimization} />
         <PredictionsTrends data={insightsMock.predictions} />
       </div>
     </main>

@@ -1,3 +1,14 @@
+type Action = {
+  label: string;
+  type: string;
+};
+
+export interface BudgetInsight {
+  id: number;
+  name: string;
+  value: number;
+  actions: Action[];
+}
 const insightsMock = {
   spendingPatterns: [
     {

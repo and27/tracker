@@ -8,11 +8,8 @@ import CategorySection from "../components/CategorySection";
 import Subtitle from "../components/Subtitle";
 import SettingsList from "../components/SettingsList";
 import { deleteCategoryByName } from "../utils/api/categories";
-import {
-  insightsSettings,
-  notificationSettings,
-  settingsData,
-} from "../data/settingsConfig";
+import { notificationSettings, settingsData } from "../data/settingsConfig";
+import insightsMock from "../data/mocks/insightsMock";
 
 const SettingPage = () => {
   const { addCategory, removeCategory } = useCategories();
@@ -56,18 +53,10 @@ const SettingPage = () => {
             }))}
           />
         </section>
-        <section>
-          <Subtitle title="Insights settings" />
-          <SettingsList
-            data={insightsSettings.map((s) => ({
-              ...s,
-              handler: () => {},
-            }))}
-          />
-        </section>
         <CategorySection
           handleRemoveCategory={handleRemoveCategory}
           handleModal={handleModal}
+          budgetData={insightsMock.budgetOptimization}
         />
         <Modal isOpen={isOpen} onClose={handleModal} title="Add a new category">
           <NewCategory handleAddCategory={handleAddCategory} />

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import OpenAI from "openai";
-import { defaultCategories } from "../data/defaultCategories";
 import { defaultPaymentMethods } from "../data/defaultPaymentMethods";
+import { categoryGroups } from "../data/defaultCategories";
 
 export const openai = new OpenAI({
   baseURL: "https://api.deepseek.com",
@@ -21,7 +21,7 @@ const useAITransaction = () => {
   const processTransaction = async (userInput: string) => {
     setLoading(true);
     try {
-      const categoriesList = JSON.stringify(defaultCategories);
+      const categoriesList = JSON.stringify(categoryGroups);
       const paymentMethodsList = JSON.stringify(defaultPaymentMethods);
 
       const completion = await openai.chat.completions.create({

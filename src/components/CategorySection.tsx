@@ -1,20 +1,63 @@
+import { useState } from "react";
 import { ResponsivePie } from "@nivo/pie";
 import Button from "./Button";
 import CategoryList from "./CategoryList";
 import Subtitle from "./Subtitle";
 import { BudgetInsight } from "../data/mocks/insightsMock";
+import Modal from "./Modal";
+import CategoryForm from "./Forms/CategoryForm";
+// import { deleteCategoryByName } from "../utils/api/categories";
+import { useCategories } from "../context/CategoriesContext";
+import { addCategoryWithBudget } from "../utils/supabaseDB";
 
 interface CategorySectionProps {
   budgetData: BudgetInsight[];
-  handleModal: () => void;
-  handleRemoveCategory: (category: string) => void;
 }
 
-const CategorySection = ({
-  budgetData,
-  handleModal,
-  handleRemoveCategory,
-}: CategorySectionProps) => {
+const CategorySection = ({ budgetData }: CategorySectionProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [title, setTitle] = useState("");
+  const { addCategory: addCategoryLocal } = useCategories();
+  const [currentCategory, setCurrentCategory] = useState<Category>();
+
+  const toggleModal = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleEditForm = (category: Category) => {
+    setTitle("Edit Category");
+    setCurrentCategory(category);
+    toggleModal();
+  };
+
+  const handleAddForm = () => {
+    setTitle("Add Category");
+    setCurrentCategory(undefined);
+    toggleModal();
+  };
+
+  const addCat = async (category: Category) => {
+    addCategoryLocal(category);
+    const uid = localStorage.getItem("userId") || "";
+    const { error } = await addCategoryWithBudget(category, uid);
+    if (error) console.error("Failed to add category:", error);
+    toggleModal();
+  };
+
+  const editCat = (category: Category) => {
+    console.log("editing", category);
+  };
+
+  // const handleRemoveCategory = async (category: string) => {
+  //   try {
+  //     removeCategory(category);
+  //     const { error } = await deleteCategoryByName("user1", category);
+  //     if (error) throw new Error(error);
+  //   } catch (error) {
+  //     console.error("Failed to remove category:", error);
+  //   }
+  // };
+
   return (
     <section className="mb-10">
       <div className="flex justify-between items-center">
@@ -24,10 +67,13 @@ const CategorySection = ({
             Manage your categories and budget for each category here.
           </p>
         </div>
-        <Button onClick={handleModal}>Add Category</Button>
+        <Button onClick={handleAddForm}>Add Category</Button>
       </div>
       <div className="flex">
-        <CategoryList handleRemoveCategory={handleRemoveCategory} />
+        <CategoryList
+          handleRemoveCategory={() => {}}
+          handleEditCategory={handleEditForm}
+        />
         <div className="w-full md:w-1/2 h-96">
           <ResponsivePie
             data={budgetData.map((entry) => ({
@@ -62,6 +108,12 @@ const CategorySection = ({
           />
         </div>
       </div>
+      <Modal isOpen={isOpen} onClose={toggleModal} title={title}>
+        <CategoryForm
+          handleAction={title === "Add Category" ? addCat : editCat}
+          currentCategory={currentCategory}
+        />
+      </Modal>
     </section>
   );
 };

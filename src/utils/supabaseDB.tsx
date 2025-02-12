@@ -63,18 +63,30 @@ const getCategories = async () => {
   return { data, error };
 };
 
-const addCategory = async ({
-  name,
-  userId,
-}: {
-  name: string;
-  userId: string;
-}) => {
+const addCategoryWithBudget = async (category: Category, userId: string) => {
   const { data, error } = await supabase
     .from("category")
-    .insert([{ name, user_id: userId }])
+    .insert([
+      {
+        name: category.name,
+        group: category.group,
+        user_id: userId,
+      },
+    ])
     .select();
-  return { data, error };
+
+  if (error) {
+    console.error("Error adding category:", error);
+    return { data, error };
+  }
+
+  const { data: budgetData, error: budgetError } = await supabase
+    .from("budgets")
+    .insert([
+      { category: data[0].id, user_id: userId, amount: category.budget },
+    ])
+    .select();
+  return { data, error, budgetData, budgetError };
 };
 
 const removeCategoryByName = async (name: string) => {
@@ -157,13 +169,58 @@ export const fetchConsolidatedTransactions = async (user: string) => {
   return Object.values(consolidated);
 };
 
+const getCategoriesWithBudget = async (
+  userId: string
+): Promise<CategoryGroup[]> => {
+  const { data: categories, error: categoryError } = await supabase
+    .from("category")
+    .select("id, name, group");
+
+  if (categoryError) {
+    console.error("Error fetching categories:", categoryError);
+    return [];
+  }
+
+  const { data: budgets, error: budgetError } = await supabase
+    .from("budgets")
+    .select("category, amount")
+    .eq("user_id", userId);
+
+  if (budgetError) {
+    console.error("Error fetching budgets:", budgetError);
+    return [];
+  }
+
+  const consolidated = categories.reduce((acc, category) => {
+    if (!acc[category.group]) {
+      acc[category.group] = {
+        id: category.group,
+        name: category.group,
+        categories: [],
+      };
+    }
+    const budget = budgets?.find((budget) => budget.category === category.id);
+
+    acc[category.group].categories.push({
+      id: category.id,
+      name: category.name,
+      budget: budget ? budget.amount : null,
+    });
+
+    return acc;
+  }, {} as Record<string, CategoryGroup>);
+
+  return Object.values(consolidated);
+};
+
 export {
   createTransaction,
   getTransactions,
   getPaymentMethods,
   getCategories,
-  addCategory,
+  addCategoryWithBudget,
   removeCategoryByName,
+  getCategoriesWithBudget,
   getLastTransactions,
   deleteTransaction,
 };

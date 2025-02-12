@@ -23,7 +23,8 @@ const Modal = ({ children, isOpen, onClose, title }: ModalProps) => {
   if (isOpen)
     return (
       <div
-        className={`fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex justify-center items-center`}
+        className={`fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 
+          flex justify-center items-center `}
       >
         <FocusTrap
           active={isOpen}
@@ -34,9 +35,12 @@ const Modal = ({ children, isOpen, onClose, title }: ModalProps) => {
           }}
         >
           <div
-            className={`flex flex-col gap-8 bg-neutral-100 dark:bg-neutral-800 w-96 min-h-32 p-4 rounded-lg shadow-lg`}
+            className={`p-7 flex flex-col gap-8 bg-neutral-100 dark:bg-neutral-800 w-96 min-h-32 rounded-lg shadow-lg`}
           >
-            <div className="flex items-start justify-between">
+            <div
+              className="flex items-center justify-between
+              border-b border-neutral-200 dark:border-neutral-700 pb-2"
+            >
               <h2 tabIndex={-1} ref={titleRef}>
                 {title}
               </h2>

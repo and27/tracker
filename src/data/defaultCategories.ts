@@ -1,42 +1,40 @@
-export const defaultCategories = [
+export const categoryGroups = [
   {
-    id: "1",
-    name: "insurance",
+    id: "survival",
+    name: "Supervivencia",
+    categories: [
+      { id: "food", name: "Comida" },
+      { id: "housing", name: "Vivienda" },
+      { id: "transport", name: "Transporte" },
+      { id: "health", name: "Salud" },
+      { id: "insurance", name: "Seguros" },
+    ],
   },
   {
-    id: "2",
-    name: "travel",
+    id: "optional",
+    name: "Opcionales",
+    categories: [
+      { id: "entertainment", name: "Entretenimiento" },
+      { id: "clothing", name: "Ropa" },
+      { id: "travel", name: "Viajes" },
+    ],
   },
   {
-    id: "3",
-    name: "clothing",
+    id: "culture",
+    name: "Cultura",
+    categories: [
+      { id: "education", name: "Educación" },
+      { id: "tools", name: "Herramientas" },
+      { id: "books", name: "Libros" },
+    ],
   },
   {
-    id: "4",
-    name: "food",
-  },
-  {
-    id: "5",
-    name: "education",
-  },
-  {
-    id: "6",
-    name: "tools",
-  },
-  {
-    id: "7",
-    name: "health",
-  },
-  {
-    id: "8",
-    name: "other",
-  },
-  {
-    id: "11",
-    name: "housing",
-  },
-  {
-    id: "12",
-    name: "transport",
+    id: "extra",
+    name: "Extra",
+    categories: [
+      { id: "gifts", name: "Regalos" },
+      { id: "unexpected", name: "Gastos Inesperados" },
+      { id: "other", name: "Otros" },
+    ],
   },
 ];

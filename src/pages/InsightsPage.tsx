@@ -6,7 +6,6 @@ import { useEffect } from "react";
 
 const InsightsPage = () => {
   const { insights, getInsights } = useInsightStore();
-  console.log(insights);
 
   useEffect(() => {
     getInsights();

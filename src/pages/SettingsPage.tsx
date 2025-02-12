@@ -1,39 +1,13 @@
-import { useState } from "react";
 import { useTheme } from "../context/ThemeContext";
-import { useCategories } from "../context/CategoriesContext";
 import { Footer } from "../components/Sections/Footer";
-import Modal from "../components/Modal";
-import NewCategory from "../components/Forms/NewCategory";
 import CategorySection from "../components/CategorySection";
 import Subtitle from "../components/Subtitle";
 import SettingsList from "../components/SettingsList";
-import { deleteCategoryByName } from "../utils/api/categories";
 import { notificationSettings, settingsData } from "../data/settingsConfig";
 import insightsMock from "../data/mocks/insightsMock";
 
 const SettingPage = () => {
-  const { addCategory, removeCategory } = useCategories();
   const { toggleTheme } = useTheme();
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleModal = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const handleAddCategory = (categoryName: string) => {
-    handleModal();
-    addCategory(categoryName);
-  };
-
-  const handleRemoveCategory = async (category: string) => {
-    try {
-      removeCategory(category);
-      const { error } = await deleteCategoryByName("user1", category);
-      if (error) throw new Error(error);
-    } catch (error) {
-      console.error("Failed to remove category:", error);
-    }
-  };
 
   return (
     <div className="flex flex-col col-span-10 overflow-scroll">
@@ -53,14 +27,7 @@ const SettingPage = () => {
             }))}
           />
         </section>
-        <CategorySection
-          handleRemoveCategory={handleRemoveCategory}
-          handleModal={handleModal}
-          budgetData={insightsMock.budgetOptimization}
-        />
-        <Modal isOpen={isOpen} onClose={handleModal} title="Add a new category">
-          <NewCategory handleAddCategory={handleAddCategory} />
-        </Modal>
+        <CategorySection budgetData={insightsMock.budgetOptimization} />
       </main>
       <Footer />
     </div>

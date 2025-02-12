@@ -5,31 +5,15 @@ import {
   useEffect,
   ReactNode,
 } from "react";
-import {
-  FaCar,
-  FaShoppingCart,
-  FaHeartbeat,
-  FaFilm,
-  FaBook,
-  FaQuestion,
-  FaHome,
-} from "react-icons/fa";
-import { FaHeartCircleCheck, FaIceCream, FaTrain } from "react-icons/fa6";
-import { getCategories } from "../utils/supabaseDB";
-
-type IconType = ReactNode;
-
-interface Category {
-  icon: IconType;
-}
+import { FaQuestion } from "react-icons/fa";
+import { getCategoriesWithBudget } from "../utils/supabaseDB";
+import { iconsMap } from "../data/iconsMap";
 
 interface CategoriesContextType {
-  categories: { [key: string]: Category };
-  setCategories: React.Dispatch<
-    React.SetStateAction<{ [key: string]: Category }>
-  >;
-  addCategory: (key: string) => void;
-  removeCategory: (key: string) => void;
+  categories: CategoryGroup[];
+  setCategories: React.Dispatch<React.SetStateAction<CategoryGroup[]>>;
+  addCategory: (cat: Category) => void;
+  // removeCategory: (cat: ExtendedCategory) => void;
 }
 
 const CategoriesContext = createContext<CategoriesContextType | undefined>(
@@ -40,64 +24,67 @@ interface CategoriesProviderProps {
   children: ReactNode;
 }
 
-const iconsMap: { [key: string]: IconType } = {
-  food: <FaIceCream />,
-  housing: <FaHome />,
-  transport: <FaCar />,
-  travel: <FaTrain />,
-  clothing: <FaShoppingCart />,
-  health: <FaHeartCircleCheck />,
-  insurance: <FaHeartbeat />,
-  entertainment: <FaFilm />,
-  education: <FaBook />,
-  other: <FaQuestion />,
-};
-
-//This is used to handle local state for categories
 export const CategoriesProvider = ({ children }: CategoriesProviderProps) => {
-  const [categories, setCategories] = useState<{ [key: string]: Category }>({});
+  const [categories, setCategories] = useState<CategoryGroup[]>([]);
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const { data, error } = await getCategories();
-
-      if (error) {
-        console.error(error);
-        return;
-      }
-      if (data) {
-        const fetchedCategories = data.reduce(
-          (acc: { [key: string]: Category }, category: { name: string }) => {
-            acc[category.name] = {
-              icon: iconsMap[category.name.toLowerCase()] || <FaQuestion />,
-            };
-            return acc;
-          },
-          {}
-        );
-        setCategories(fetchedCategories);
-      }
+      const user = localStorage.getItem("userId") as string;
+      const consolidated = await getCategoriesWithBudget(user);
+      const categoriesWithIcons = consolidated?.map((category) => ({
+        ...category,
+        categories: category.categories.map((subcategory: Category) => ({
+          ...subcategory,
+          icon: iconsMap[subcategory.name.toLowerCase()] || <FaQuestion />,
+        })),
+      }));
+      if (categoriesWithIcons) setCategories(categoriesWithIcons);
     };
+
     fetchCategories();
   }, []);
 
-  const addCategory = (key: string) => {
-    setCategories((prevCategories) => ({
-      ...prevCategories,
-      [key]: { icon: <FaQuestion /> },
-    }));
-  };
-  const removeCategory = (key: string) => {
+  const addCategory = (category: Category) => {
     setCategories((prevCategories) => {
-      const rest = { ...prevCategories };
-      delete rest[key];
-      return rest;
+      const currentGroup = prevCategories.find(
+        (cat) => cat.id === category.group
+      );
+
+      if (!currentGroup) {
+        return prevCategories;
+      }
+
+      const updatedGroup: CategoryGroup = {
+        ...currentGroup,
+        categories: [
+          ...currentGroup.categories,
+          {
+            ...category,
+          },
+        ],
+      };
+
+      return [
+        ...prevCategories.filter((cat) => cat.id !== category.group),
+        updatedGroup,
+      ];
     });
   };
 
+  // const removeCategory = (name: string) => {
+  //   setCategories((prevCategories) =>
+  //     prevCategories.filter((category) => category.name !== name)
+  //   );
+  // };
+
   return (
     <CategoriesContext.Provider
-      value={{ categories, setCategories, addCategory, removeCategory }}
+      value={{
+        categories,
+        setCategories,
+        addCategory,
+        //  removeCategory
+      }}
     >
       {children}
     </CategoriesContext.Provider>

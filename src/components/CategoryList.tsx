@@ -1,3 +1,4 @@
+import { FaRocket } from "react-icons/fa6";
 import { useCategories } from "../context/CategoriesContext";
 
 interface CategoryListProps {
@@ -11,8 +12,8 @@ const CategoryList = ({ handleEditCategory }: CategoryListProps) => {
   return (
     <div className="flex flex-col" role="list">
       {categories.map((category) => (
-        <>
-          <h2>{category.name}</h2>
+        <div className="mt-5">
+          <h3 className="font-semibold">{category.name.toUpperCase()}</h3>
           <div
             className="grid grid-cols-1 md:grid-cols-2 my-4 gap-5"
             role="list"
@@ -27,12 +28,16 @@ const CategoryList = ({ handleEditCategory }: CategoryListProps) => {
                   handleEditCategory({
                     id: subCategory.id,
                     name: subCategory.name,
+                    group: subCategory.group,
+                    isActive: subCategory.isActive,
                     budget: subCategory.budget,
                   })
                 }
               >
                 <div className="flex flex-col gap-2">
-                  <div className="flex items-center">{subCategory.icon}</div>
+                  <div className="flex items-center">
+                    {subCategory.icon || <FaRocket />}
+                  </div>
                   <p>{subCategory.name}</p>
                 </div>
                 <span className="text-neutral-600 dark:text-neutral-400">
@@ -41,7 +46,7 @@ const CategoryList = ({ handleEditCategory }: CategoryListProps) => {
               </div>
             ))}
           </div>
-        </>
+        </div>
       ))}
     </div>
   );

@@ -2,6 +2,7 @@ interface Category {
   id: string;
   name: string;
   budget: any;
+  isActive?: boolean;
   icon?: IconType;
   group?: string;
   userId?: string;

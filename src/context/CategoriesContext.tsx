@@ -29,7 +29,7 @@ export const CategoriesProvider = ({ children }: CategoriesProviderProps) => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const user = localStorage.getItem("userId") as string;
+      const user = (await localStorage.getItem("userId")) as string;
       const consolidated = await getCategoriesWithBudget(user);
       const categoriesWithIcons = consolidated?.map((category) => ({
         ...category,

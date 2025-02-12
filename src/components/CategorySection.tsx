@@ -8,7 +8,10 @@ import Modal from "./Modal";
 import CategoryForm from "./Forms/CategoryForm";
 // import { deleteCategoryByName } from "../utils/api/categories";
 import { useCategories } from "../context/CategoriesContext";
-import { addCategoryWithBudget } from "../utils/supabaseDB";
+import {
+  addCategoryWithBudget,
+  editCategoryWithBudget,
+} from "../utils/supabaseDB";
 
 interface CategorySectionProps {
   budgetData: BudgetInsight[];
@@ -16,22 +19,23 @@ interface CategorySectionProps {
 
 const CategorySection = ({ budgetData }: CategorySectionProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [title, setTitle] = useState("");
+  const [formType, setFormType] = useState<"edit" | "add">("add");
   const { addCategory: addCategoryLocal } = useCategories();
   const [currentCategory, setCurrentCategory] = useState<Category>();
+  const title = formType === "add" ? "Add Category" : "Edit Category";
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
   };
 
   const handleEditForm = (category: Category) => {
-    setTitle("Edit Category");
+    setFormType("edit");
     setCurrentCategory(category);
     toggleModal();
   };
 
   const handleAddForm = () => {
-    setTitle("Add Category");
+    setFormType("add");
     setCurrentCategory(undefined);
     toggleModal();
   };
@@ -44,8 +48,12 @@ const CategorySection = ({ budgetData }: CategorySectionProps) => {
     toggleModal();
   };
 
-  const editCat = (category: Category) => {
-    console.log("editing", category);
+  const editCat = async (category: Category) => {
+    addCategoryLocal(category);
+    const uid = localStorage.getItem("userId") || "";
+    const { error } = await editCategoryWithBudget(category, uid);
+    if (error) console.error("Failed to edit category:", error);
+    toggleModal();
   };
 
   // const handleRemoveCategory = async (category: string) => {
@@ -110,7 +118,8 @@ const CategorySection = ({ budgetData }: CategorySectionProps) => {
       </div>
       <Modal isOpen={isOpen} onClose={toggleModal} title={title}>
         <CategoryForm
-          handleAction={title === "Add Category" ? addCat : editCat}
+          handleAction={formType === "add" ? addCat : editCat}
+          type={formType}
           currentCategory={currentCategory}
         />
       </Modal>

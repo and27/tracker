@@ -3,16 +3,23 @@ import Button from "../Button";
 import Toggle from "../Toggle";
 
 interface CategoryFormProps {
-  handleAction: ({}: any) => void;
+  type: "add" | "edit";
   currentCategory?: Category;
+  handleAction: ({}: any) => void;
 }
 
-const CategoryForm = ({ handleAction, currentCategory }: CategoryFormProps) => {
+const CategoryForm = ({
+  type,
+  currentCategory,
+  handleAction,
+}: CategoryFormProps) => {
   const [category, setCategory] = useState<Category>(
-    currentCategory || ({} as any)
+    currentCategory ||
+      ({
+        isActive: type === "add" ? true : false,
+      } as any)
   );
   const [error, setError] = useState<string>("");
-
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -60,6 +67,7 @@ const CategoryForm = ({ handleAction, currentCategory }: CategoryFormProps) => {
           value={currentCategory?.group}
           className="border border-neutral-700 py-2 px-4 rounded-md bg-neutral-100 dark:bg-neutral-800"
         >
+          <option>Select a group</option>
           <option value="survival">Survival</option>
           <option value="optional">Optional</option>
           <option value="culture">Culture</option>
@@ -84,9 +92,15 @@ const CategoryForm = ({ handleAction, currentCategory }: CategoryFormProps) => {
         <label className="mb-5 flex flex-col text-gray-700 dark:text-neutral-200 font-semibold text-lg">
           Active
         </label>
-        <Toggle name={"darkTheme"} handler={() => {}} />
+        <Toggle
+          name={type === "add" ? "add" : currentCategory?.name || ""}
+          handler={() => {
+            setCategory((prev) => ({ ...prev, isActive: !prev.isActive }));
+          }}
+          isActiveByDefault={type === "add" ? true : currentCategory?.isActive}
+        />
       </div>
-      <Button>Add Category</Button>
+      <Button>{type === "edit" ? "Edit Category" : "Add Category"}</Button>
       {error && <p>{error}</p>}
     </form>
   );

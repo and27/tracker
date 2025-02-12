@@ -1,14 +1,28 @@
 import { useState } from "react";
 export type options = "darkTheme" | "notifications" | "accountSettings";
+export type categoryOptions = string;
 type optionsType = {
   [key in options]: boolean;
 };
 
-const Toggle = ({ name, handler }: { name: options; handler: () => void }) => {
-  const [isOn, setIsOn] = useState<optionsType>({
+type categoryOptionsType = {
+  [key in categoryOptions]: boolean;
+};
+
+const Toggle = ({
+  name,
+  isActiveByDefault,
+  handler,
+}: {
+  name: options | categoryOptions;
+  handler: () => void;
+  isActiveByDefault?: boolean;
+}) => {
+  const [isOn, setIsOn] = useState<optionsType | categoryOptionsType>({
     darkTheme: false,
     notifications: false,
     accountSettings: false,
+    [name]: isActiveByDefault || false,
   });
 
   const toggleSwitch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +41,6 @@ const Toggle = ({ name, handler }: { name: options; handler: () => void }) => {
           className="sr-only"
           id="name"
           name={name}
-          checked={isOn.darkTheme}
           onChange={(e) => toggleSwitch(e)}
         />
         <div

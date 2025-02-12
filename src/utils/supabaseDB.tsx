@@ -83,7 +83,38 @@ const addCategoryWithBudget = async (category: Category, userId: string) => {
   const { data: budgetData, error: budgetError } = await supabase
     .from("budgets")
     .insert([
-      { category: data[0].id, user_id: userId, amount: category.budget },
+      {
+        category: data[0].id,
+        user_id: userId,
+        amount: category.budget,
+        is_active: category.isActive,
+      },
+    ])
+    .select();
+  return { data, error, budgetData, budgetError };
+};
+
+const editCategoryWithBudget = async (category: Category, userId: string) => {
+  const { data, error } = await supabase
+    .from("category")
+    .update({ name: category.name, group: category.group })
+    .match({ id: category.id })
+    .select();
+
+  if (error) {
+    console.error("Error updating category:", error);
+    return { data, error };
+  }
+
+  const { data: budgetData, error: budgetError } = await supabase
+    .from("budgets")
+    .upsert([
+      {
+        category: category.id,
+        user_id: userId,
+        amount: category.budget,
+        is_active: category.isActive,
+      },
     ])
     .select();
   return { data, error, budgetData, budgetError };
@@ -183,7 +214,7 @@ const getCategoriesWithBudget = async (
 
   const { data: budgets, error: budgetError } = await supabase
     .from("budgets")
-    .select("category, amount")
+    .select("category, amount, is_active")
     .eq("user_id", userId);
 
   if (budgetError) {
@@ -200,10 +231,11 @@ const getCategoriesWithBudget = async (
       };
     }
     const budget = budgets?.find((budget) => budget.category === category.id);
-
     acc[category.group].categories.push({
       id: category.id,
       name: category.name,
+      group: category.group,
+      isActive: budget ? budget.is_active : false,
       budget: budget ? budget.amount : null,
     });
 
@@ -219,6 +251,7 @@ export {
   getPaymentMethods,
   getCategories,
   addCategoryWithBudget,
+  editCategoryWithBudget,
   removeCategoryByName,
   getCategoriesWithBudget,
   getLastTransactions,

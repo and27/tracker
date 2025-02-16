@@ -155,9 +155,9 @@ const TransactionForm = () => {
               Category *<span className="sr-only">Required field</span>
               <select
                 className="border border-neutral-700 py-2 px-4 rounded-md bg-neutral-100 dark:bg-neutral-800"
-                {...register("category.name", { required: true })}
+                {...register("category.id", { required: true })}
                 aria-describedby={
-                  errors.category?.name ? "category-error" : undefined
+                  errors.category?.id ? "category-error" : undefined
                 }
               >
                 <option value="">Select a category</option>

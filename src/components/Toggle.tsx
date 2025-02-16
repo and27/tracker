@@ -1,27 +1,24 @@
 import { useState } from "react";
-export type options = "darkTheme" | "notifications" | "accountSettings";
-export type categoryOptions = string;
-type optionsType = {
-  [key in options]: boolean;
-};
+import { CategoryListType } from "../data/defaultCategories";
 
-type categoryOptionsType = {
-  [key in categoryOptions]: boolean;
-};
+export type settingOptions = "darkTheme" | "notifications" | "accountSettings";
+export type categoryOptions = CategoryListType;
+export type options = settingOptions | categoryOptions;
+
+// type optionsType = {
+//   [key in options]: boolean;
+// };
 
 const Toggle = ({
   name,
   isActiveByDefault,
   handler,
 }: {
-  name: options | categoryOptions;
+  name: options;
   handler: () => void;
   isActiveByDefault?: boolean;
 }) => {
-  const [isOn, setIsOn] = useState<optionsType | categoryOptionsType>({
-    darkTheme: false,
-    notifications: false,
-    accountSettings: false,
+  const [isOn, setIsOn] = useState({
     [name]: isActiveByDefault || false,
   });
 

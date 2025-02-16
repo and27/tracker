@@ -12,6 +12,53 @@ import {
 } from "../../services/transactionService";
 import useAITransaction from "../../hooks/useAITransaction";
 
+interface GeneratedTransactionProps {
+  generatedTransaction: {
+    description: string;
+    date: string;
+    amount: number;
+    category: { name: string };
+    paymentMethod: { name: string };
+    type: string;
+  };
+  handleClick: () => void;
+}
+
+const GeneratedTransaction: React.FC<GeneratedTransactionProps> = ({
+  generatedTransaction,
+  handleClick,
+}) => (
+  <div className="p-4 border border-neutral-500 rounded-lg shadow-md ">
+    <h2 className="text-lg font-semibold mb-2">📌 Transaction Summary</h2>
+    <p>
+      📝 <strong>Description:</strong> {generatedTransaction.description}
+    </p>
+    <p>
+      📅 <strong>Date:</strong> {generatedTransaction.date}
+    </p>
+    <p>
+      💰 <strong>Amount:</strong> ${generatedTransaction.amount.toFixed(2)}
+    </p>
+    <p>
+      🏷️ <strong>Category:</strong> {generatedTransaction.category.name}
+    </p>
+    <p>
+      💳 <strong>Payment Method:</strong>{" "}
+      {generatedTransaction.paymentMethod.name}
+    </p>
+    <p>
+      📊 <strong>Type:</strong>{" "}
+      {generatedTransaction.type === "income" ? "Income 💵" : "Expense 💸"}
+    </p>
+    <button
+      className="bg-indigo-600 hover:bg-green-600 py-2 px-4 mt-2 rounded"
+      onClick={handleClick}
+    >
+      Confirm Transaction
+    </button>
+  </div>
+);
+
 const TransactionForm = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [showForm, setShowForm] = useState(false);
@@ -20,6 +67,8 @@ const TransactionForm = () => {
   const [userInput, setUserInput] = useState("");
   const { generatedTransaction, processTransaction, loading } =
     useAITransaction();
+
+  console.log(generatedTransaction);
 
   const {
     register,
@@ -91,27 +140,15 @@ const TransactionForm = () => {
               className="w-full mt-2 border border-neutral-700 py-2 px-4 rounded-md bg-neutral-100 dark:bg-neutral-800"
             />
           </label>
-          <div className="flex justify-between mt-4">
+          <div className="flex justify-between my-4">
             <Button onClick={() => processTransaction(userInput)}>
               {loading ? "✨ Processing..." : "Generate"}
             </Button>
           </div>
-          {generatedTransaction && (
-            <div className="mt-4 p-4 bg-gray-800 rounded">
-              <h3 className="text-md font-bold">Generated Transaction</h3>
-              <pre className="text-sm bg-gray-700 py-2 px-4 rounded">
-                {JSON.stringify(generatedTransaction, null, 2)}
-              </pre>
-              <button
-                className="bg-green-500 hover:bg-green-600 py-2 px-4 mt-2 rounded"
-                onClick={() => {
-                  onSubmit(generatedTransaction);
-                }}
-              >
-                Save Transaction
-              </button>
-            </div>
-          )}
+          {generatedTransaction &&
+            GeneratedTransaction(generatedTransaction, () => {
+              onSubmit(generatedTransaction);
+            })}
         </div>
       )}
       {showForm && (

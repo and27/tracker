@@ -37,6 +37,10 @@ export const useInsightStore = create<InsightStore>()(
             user
           );
 
+          if (!consolidatedTransactions) {
+            console.error("Failed to fetch consolidated transactions.");
+            return;
+          }
           const newInsights = await getAIInsights(consolidatedTransactions);
 
           set({

@@ -36,3 +36,32 @@ export const categoryGroups = [
     ],
   },
 ];
+
+export const categoryList = [
+  "food",
+  "housing",
+  "transport",
+  "health",
+  "insurance",
+  "entertainment",
+  "clothing",
+  "travel",
+  "education",
+  "tools",
+  "other",
+  "emergencies",
+];
+
+export type CategoryListType =
+  | "food"
+  | "housing"
+  | "transport"
+  | "health"
+  | "insurance"
+  | "entertainment"
+  | "clothing"
+  | "travel"
+  | "education"
+  | "tools"
+  | "other"
+  | "emergencies";

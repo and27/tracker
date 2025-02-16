@@ -6,6 +6,7 @@ export interface ITransactionOverview {
   description: string;
   amount: number;
   type: "income" | "expense";
+  icon?: React.ReactNode;
   category: string;
 }
 
@@ -14,7 +15,13 @@ const TransactionOverviewItem: React.FC<ITransactionOverview> = (
 ) => {
   const { description, amount, type, category } = props;
   const { categories } = useCategories();
-  const Icon = categories?.[category]?.icon || null;
+  const Icon = categories.map((categoryGroup) => {
+    return categoryGroup.categories.map((cat) => {
+      if (cat.name === category) {
+        return cat.icon;
+      }
+    });
+  });
 
   const classes = {
     listItem:

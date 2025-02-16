@@ -1,7 +1,7 @@
 interface Category {
   id: string;
   name: string;
-  budget: any;
+  budget: number;
   isActive?: boolean;
   icon?: IconType;
   group?: string;

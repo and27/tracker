@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Button from "../Button";
-import Toggle from "../Toggle";
+import Toggle, { options } from "../Toggle";
 
 interface CategoryFormProps {
   type: "add" | "edit";
@@ -93,7 +93,7 @@ const CategoryForm = ({
           Active
         </label>
         <Toggle
-          name={type === "add" ? "add" : currentCategory?.name || ""}
+          name={type === "add" ? "other" : (currentCategory?.name as options)}
           handler={() => {
             setCategory((prev) => ({ ...prev, isActive: !prev.isActive }));
           }}

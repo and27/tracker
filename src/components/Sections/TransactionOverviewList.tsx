@@ -20,6 +20,7 @@ const TransactionOverviewList = () => {
     };
     fetchTransactions();
   }, []);
+  console.log(transactions);
   return (
     <div className="col-span-2 mr-6">
       <Subtitle title="Last transactions" />

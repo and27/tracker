@@ -17,26 +17,26 @@ describe("Category Form Component", () => {
   });
 
   it("renders the form", () => {
-    render(<CategoryForm handleAction={jest.fn()} />);
+    render(<CategoryForm handleAction={jest.fn()} type={"edit"} />);
     const form = screen.getByRole("form", { name: /new category form/i });
     expect(form).toBeInTheDocument();
   });
 
   it("renders the category input", () => {
-    render(<CategoryForm handleAction={jest.fn()} />);
+    render(<CategoryForm handleAction={jest.fn()} type={"add"} />);
     const input = screen.getByLabelText(/category name/i);
     expect(input).toBeInTheDocument();
   });
 
   it("renders the submit button", () => {
-    render(<CategoryForm handleAction={jest.fn()} />);
+    render(<CategoryForm handleAction={jest.fn()} type={"add"} />);
     const button = screen.getByRole("button", { name: /add category/i });
     expect(button).toBeInTheDocument();
   });
 
   it("do not submit the form when no category is entered", () => {
     const handleSubmit = jest.fn();
-    render(<CategoryForm handleAction={handleSubmit} />);
+    render(<CategoryForm handleAction={handleSubmit} type={"add"} />);
 
     const form = screen.getByRole("form", { name: /new category form/i });
     fireEvent.submit(form);
@@ -45,7 +45,7 @@ describe("Category Form Component", () => {
 
   it("submits the form when category is entered", async () => {
     const handleSubmit = jest.fn();
-    render(<CategoryForm handleAction={handleSubmit} />);
+    render(<CategoryForm handleAction={handleSubmit} type={"add"} />);
 
     const input = screen.getByLabelText(/category name/i);
     fireEvent.change(input, { target: { value: "Test Category" } });

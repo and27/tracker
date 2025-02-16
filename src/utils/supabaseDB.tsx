@@ -41,7 +41,7 @@ const getLastTransactions = async ({
 }) => {
   const { data, error } = await supabase
     .from("transaction")
-    .select("*")
+    .select("*, payment_method(id, name), category(id,name)")
     .eq("user_id", user)
     .order("date", { ascending: false })
     .limit(limit);
@@ -148,20 +148,8 @@ export const fetchConsolidatedTransactions = async (user: string) => {
   if (!data || data.length === 0) return [];
 
   const consolidated = data.reduce(
-    (
-      acc: Record<
-        number,
-        {
-          category: { id: number; name: string };
-          total_spent: number;
-          total_transactions: number;
-          average_spent: number;
-          last_transaction_date: string;
-        }
-      >,
-      transaction
-    ) => {
-      // 🔹 Asegurar que `category` no sea un array antes de acceder a sus propiedades
+    (acc: ConsolidatedTransactions, transaction) => {
+      // Verify if the category is an array or a single object
       const category = Array.isArray(transaction.category)
         ? transaction.category[0]
         : transaction.category;
@@ -186,7 +174,7 @@ export const fetchConsolidatedTransactions = async (user: string) => {
       acc[category.id].average_spent =
         acc[category.id].total_spent / acc[category.id].total_transactions;
 
-      // 🔹 Asegurar que `date` es una fecha válida antes de guardarla
+      //verify if the date is valid
       const transactionDate = new Date(transaction.date);
       if (!isNaN(transactionDate.getTime())) {
         acc[category.id].last_transaction_date = transactionDate.toISOString();

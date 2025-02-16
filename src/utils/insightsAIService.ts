@@ -1,6 +1,6 @@
 import { openai } from "../hooks/useAITransaction";
 
-export const getAIInsights = async (transactions: any) => {
+export const getAIInsights = async (transactions: ConsolidatedTransactions) => {
   try {
     const completion = await openai.chat.completions.create({
       model: "deepseek-chat",

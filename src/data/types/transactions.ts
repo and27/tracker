@@ -21,3 +21,14 @@ interface ApiResponseTransactions<T> {
   data: T | null;
   error: string | null;
 }
+
+type ConsolidatedTransactions = Record<
+  number,
+  {
+    category: { id: number; name: string };
+    total_spent: number;
+    total_transactions: number;
+    average_spent: number;
+    last_transaction_date: string;
+  }
+>;

@@ -19,7 +19,12 @@ describe("CategoryList Component", () => {
   });
 
   it("renders the list of categories", () => {
-    render(<CategoryList handleRemoveCategory={jest.fn()} />);
+    render(
+      <CategoryList
+        handleRemoveCategory={jest.fn()}
+        handleEditCategory={jest.fn()}
+      />
+    );
 
     const categoryItems = screen.getAllByRole("listitem");
     expect(categoryItems).toHaveLength(3);
@@ -27,7 +32,12 @@ describe("CategoryList Component", () => {
 
   it("renders the remove button only for non-default categories", () => {
     const mockHandleRemoveCategory = jest.fn();
-    render(<CategoryList handleRemoveCategory={mockHandleRemoveCategory} />);
+    render(
+      <CategoryList
+        handleRemoveCategory={mockHandleRemoveCategory}
+        handleEditCategory={jest.fn()}
+      />
+    );
 
     const removeButtons = screen.getAllByText(/remove category/i);
     expect(removeButtons).toHaveLength(1);

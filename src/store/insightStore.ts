@@ -4,7 +4,10 @@ import { fetchConsolidatedTransactions } from "../utils/supabaseDB";
 import { getAIInsights } from "../utils/insightsAIService";
 
 interface InsightStore {
-  insights: string[];
+  insights: {
+    spendingPatterns: [];
+    predictions: [];
+  };
   lastUpdated: string | null;
   getInsights: (forceRefresh?: boolean) => Promise<void>;
 }
@@ -12,11 +15,14 @@ interface InsightStore {
 export const useInsightStore = create<InsightStore>()(
   persist(
     (set, get) => ({
-      insights: [],
+      insights: {
+        spendingPatterns: [],
+        predictions: [],
+      },
       lastUpdated: null,
 
       getInsights: async (forceRefresh = false) => {
-        const today = new Date().toISOString().split("T")[0]; // Fecha actual YYYY-MM-DD
+        const today = new Date().toISOString().split("T")[0]; //current date
 
         if (!forceRefresh && get().lastUpdated === today) {
           console.log("✅ Using cached insights from Zustand.");

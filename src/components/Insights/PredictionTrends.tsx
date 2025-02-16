@@ -2,10 +2,10 @@ import { FaClock, FaExclamationTriangle } from "react-icons/fa";
 
 interface Prediction {
   id: number;
-  description: string;
-  date: string;
+  d: string; // description
+  dt: string; // date
   impact?: "positive" | "negative" | "neutral";
-  actions?: { label: string; type: string }[];
+  ac?: { l: string; t: string }[]; // actions - label and type
 }
 
 interface Props {
@@ -22,30 +22,28 @@ const PredictionsTrends: React.FC<Props> = ({ data }) => {
         {data.map((prediction) => (
           <div
             key={prediction.id}
-            className="flex justify-between p-4 bg-white dark:bg-neutral-800 rounded-lg shadow-md"
+            className="flex justify-between p-5 bg-white dark:bg-neutral-800 rounded-lg shadow-md"
           >
             <div>
               <div className="flex items-center">
                 <FaClock className="text-blue-500 text-lg" />
-                <p className="ml-2 text-md text-white">
-                  {prediction.description}
-                </p>
+                <p className="ml-2 text-md text-white">{prediction.d}</p>
                 {prediction.impact === "negative" && (
                   <FaExclamationTriangle className="text-red-500 ml-2" />
                 )}
               </div>
               <small className="text-gray-400">
-                {formatDate(prediction.date)}
+                {formatDate(prediction.dt)}
               </small>
             </div>
             <div className="flex gap-2">
-              {prediction.actions &&
-                prediction.actions?.map((action) => (
+              {prediction.ac &&
+                prediction.ac?.map((action) => (
                   <button
-                    key={action.label}
-                    className="bg-neutral -500 text-white px-2 py-1 rounded mt-2"
+                    key={action.l}
+                    className="bg-neutral -500 text-white px-2 py-1 rounded"
                   >
-                    {action.label}
+                    {action.l}
                   </button>
                 ))}
             </div>

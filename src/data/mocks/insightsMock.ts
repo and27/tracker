@@ -43,29 +43,6 @@ const insightsMock = {
     },
   ],
 
-  budgetOptimization: [
-    {
-      id: 1,
-      name: "Food",
-      value: 300,
-      actions: [{ label: "Compare with Last Month", type: "compare" }],
-    },
-    {
-      id: 2,
-      name: "Rent",
-      value: 1200,
-      actions: [{ label: "View Rental Trends", type: "view_trends" }],
-    },
-    {
-      id: 3,
-      name: "Entertainment",
-      value: 450,
-      actions: [
-        { label: "Reduce Entertainment Spending", type: "reduce_spending" },
-      ],
-    },
-  ],
-
   predictions: [
     {
       id: 1,
@@ -94,6 +71,29 @@ const insightsMock = {
           label: "Find Cheaper Transport Options",
           type: "find_transport_options",
         },
+      ],
+    },
+  ],
+
+  budgetOptimization: [
+    {
+      id: 1,
+      name: "Food",
+      value: 300,
+      actions: [{ label: "Compare with Last Month", type: "compare" }],
+    },
+    {
+      id: 2,
+      name: "Rent",
+      value: 1200,
+      actions: [{ label: "View Rental Trends", type: "view_trends" }],
+    },
+    {
+      id: 3,
+      name: "Entertainment",
+      value: 450,
+      actions: [
+        { label: "Reduce Entertainment Spending", type: "reduce_spending" },
       ],
     },
   ],

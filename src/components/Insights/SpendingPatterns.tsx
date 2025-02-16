@@ -1,14 +1,14 @@
 interface Action {
-  label: string;
-  type: string;
+  l: string; // label
+  t: string; // type
 }
 
 interface SpendingPattern {
   id: number;
-  category: string;
-  description: string;
-  percentage: number;
-  actions?: Action[];
+  c: string; // category
+  d: string; // description
+  p: number; // percentage
+  ac?: Action[];
 }
 
 interface Props {
@@ -29,26 +29,26 @@ const SpendingPatterns: React.FC<Props> = ({ data, onActionClick }) => {
             className="p-4 bg-white dark:bg-neutral-800 rounded-lg shadow"
           >
             <div className="flex items-center">
-              <p className="ml-2 text-md">{pattern.description}</p>
+              <p className="ml-2 text-md">{pattern.d}</p>
             </div>
 
             <div className="mt-2 w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700">
               <div
                 className="h-4 rounded-full bg-indigo-600"
-                style={{ width: `${pattern.percentage}%` }}
-                aria-label={`Gasto de ${pattern.percentage}% en ${pattern.category}`}
+                style={{ width: `${pattern.p}%` }}
+                aria-label={`Gasto de ${pattern.p}% en ${pattern.c}`}
               ></div>
             </div>
 
-            {pattern.actions && pattern.actions.length > 0 && (
+            {pattern.ac && pattern.ac.length > 0 && (
               <div className="mt-3 flex flex-wrap gap-2">
-                {pattern.actions.map((action, i) => (
+                {pattern.ac.map((action, i) => (
                   <button
                     key={i}
                     onClick={() => onActionClick && onActionClick(action)}
-                    className="bg-neutral-600 hover:bg-indigo-700 text-white px-4 py-1 rounded-md text-sm"
+                    className="bg-neutral -500 text-white px-2 py-1 rounded "
                   >
-                    {action.label}
+                    {action.l}
                   </button>
                 ))}
               </div>

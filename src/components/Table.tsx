@@ -15,7 +15,7 @@ const Table = ({ columns, data, setData, handleDeleteRow }: TableProps) => {
   const [editingRowId, setEditingRowId] = useState<string | null>(null);
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 5,
+    pageSize: 10,
   });
   const rowRefs = useRef<Record<string, HTMLButtonElement | null>>({});
 

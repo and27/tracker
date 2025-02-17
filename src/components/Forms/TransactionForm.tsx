@@ -68,8 +68,6 @@ const TransactionForm = () => {
   const { generatedTransaction, processTransaction, loading } =
     useAITransaction();
 
-  console.log(generatedTransaction);
-
   const {
     register,
     handleSubmit,

@@ -10,8 +10,8 @@ const SettingPage = () => {
   const { toggleTheme } = useTheme();
 
   return (
-    <div className="flex flex-col col-span-10 overflow-scroll">
-      <main className="pt-10 px-8 dark:bg-zinc-900 min-h-screen flex flex-col gap-16">
+    <div className="flex flex-col col-span-12 lg:col-span-10 overflow-scroll">
+      <main className="lg:pt-10 px-8 dark:bg-zinc-900 min-h-screen flex flex-col gap-16">
         <section>
           <Subtitle title="Settings" />
           <SettingsList

@@ -77,12 +77,12 @@ const CategorySection = ({ budgetData }: CategorySectionProps) => {
         </div>
         <Button onClick={handleAddForm}>Add Category</Button>
       </div>
-      <div className="flex">
+      <div className="flex lg:flex-row flex-col">
         <CategoryList
           handleRemoveCategory={() => {}}
           handleEditCategory={handleEditForm}
         />
-        <div className="w-full md:w-1/2 h-96">
+        <div className="w-full lg:w-1/2 h-96">
           <ResponsivePie
             data={budgetData.map((entry) => ({
               id: entry.name,

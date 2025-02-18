@@ -52,7 +52,6 @@ const useAITransaction = () => {
 
       const rawText = completion.choices[0].message.content;
       const jsonText = extractJSON(rawText || "");
-      console.log("JSON text:", jsonText);
       const jsonResponse = JSON.parse(jsonText);
 
       setGeneratedTransaction(jsonResponse);

@@ -26,7 +26,6 @@ const Toggle = ({
     const name = e.target.name as options;
     setIsOn((prev) => ({ ...prev, [name]: !prev[name] }));
     handler();
-    console.log(isOn);
   };
 
   return (

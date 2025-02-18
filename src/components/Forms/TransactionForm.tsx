@@ -27,37 +27,39 @@ interface GeneratedTransactionProps {
 const GeneratedTransaction: React.FC<GeneratedTransactionProps> = ({
   generatedTransaction,
   handleClick,
-}) => (
-  <div className="p-4 border border-neutral-500 rounded-lg shadow-md ">
-    <h2 className="text-lg font-semibold mb-2">📌 Transaction Summary</h2>
-    <p>
-      📝 <strong>Description:</strong> {generatedTransaction.description}
-    </p>
-    <p>
-      📅 <strong>Date:</strong> {generatedTransaction.date}
-    </p>
-    <p>
-      💰 <strong>Amount:</strong> ${generatedTransaction.amount.toFixed(2)}
-    </p>
-    <p>
-      🏷️ <strong>Category:</strong> {generatedTransaction.category.name}
-    </p>
-    <p>
-      💳 <strong>Payment Method:</strong>{" "}
-      {generatedTransaction.paymentMethod.name}
-    </p>
-    <p>
-      📊 <strong>Type:</strong>{" "}
-      {generatedTransaction.type === "income" ? "Income 💵" : "Expense 💸"}
-    </p>
-    <button
-      className="bg-indigo-600 hover:bg-green-600 py-2 px-4 mt-2 rounded"
-      onClick={handleClick}
-    >
-      Confirm Transaction
-    </button>
-  </div>
-);
+}) => {
+  return (
+    <div className="p-4 border border-neutral-500 rounded-lg shadow-md ">
+      <h2 className="text-lg font-semibold mb-2">📌 Transaction Summary</h2>
+      <p>
+        📝 <strong>Description:</strong> {generatedTransaction?.description}
+      </p>
+      <p>
+        📅 <strong>Date:</strong> {generatedTransaction?.date}
+      </p>
+      <p>
+        💰 <strong>Amount:</strong> ${generatedTransaction?.amount.toFixed(2)}
+      </p>
+      <p>
+        🏷️ <strong>Category:</strong> {generatedTransaction?.category.name}
+      </p>
+      <p>
+        💳 <strong>Payment Method:</strong>{" "}
+        {generatedTransaction?.paymentMethod.name}
+      </p>
+      <p>
+        📊 <strong>Type:</strong>{" "}
+        {generatedTransaction?.type === "income" ? "Income 💵" : "Expense 💸"}
+      </p>
+      <button
+        className="bg-indigo-600 hover:bg-green-600 py-2 px-4 mt-2 rounded"
+        onClick={handleClick}
+      >
+        Confirm Transaction
+      </button>
+    </div>
+  );
+};
 
 const TransactionForm = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -143,10 +145,14 @@ const TransactionForm = () => {
               {loading ? "✨ Processing..." : "Generate"}
             </Button>
           </div>
-          {generatedTransaction &&
-            GeneratedTransaction(generatedTransaction, () => {
-              onSubmit(generatedTransaction);
-            })}
+          {generatedTransaction && (
+            <GeneratedTransaction
+              generatedTransaction={generatedTransaction}
+              handleClick={() => {
+                onSubmit(generatedTransaction);
+              }}
+            />
+          )}
         </div>
       )}
       {showForm && (

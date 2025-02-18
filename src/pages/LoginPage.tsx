@@ -25,14 +25,16 @@ const LoginPage = () => {
   return (
     <section className="min-h-screen bg-neutral-50 dark:bg-neutral-900 grid items-center">
       <div>
-        <LogoImage />
-        <div className="bg-white dark:bg-neutral-800 shadow p-5 mx-3 sm:p-10 md:mx-auto rounded md:w-1/2 xl:w-1/3">
-          <h1 className="text-center text-3xl font-bold font-outfit">
-            Sign in
-          </h1>
-          <p className="text-center text-neutral-500 dark:text-neutral-400 pt-1 pb-4 text-lg">
-            to continue to Tracker
-          </p>
+        <div className="flex flex-col justify-center bg-white dark:bg-transparent shadow p-5 mx-3 sm:p-10 md:mx-auto rounded md:w-1/2 xl:w-1/3">
+          <Link to="/" className="flex gap-3 justify-center items-center mb-7">
+            <LogoImage />
+            <div>
+              <h1 className="text-3xl font-bold font-outfit">Sign in</h1>
+              <p className="text-neutral-500 dark:text-neutral-400 text-lg leading-none">
+                to continue to Tracker
+              </p>
+            </div>
+          </Link>
           <LoginForm loginError={error} loginUser={loginUser} />
           <p className="mt-3">
             <Link

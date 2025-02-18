@@ -36,11 +36,11 @@ const LoginForm: React.FC<loginFormProps> = ({ loginUser, loginError }) => {
         type="password"
         handleChange={handleChange}
       />
-      <div className="gap-2 text-rose-700">
+      <div className="gap-2 text-rose-700 mt-3">
         {loginError && <p>{loginError}</p>}
         <Button className="w-full">Login</Button>
         <button
-          className="font-bold text-white mt-5 w-full flex items-center gap-3 justify-center bg-google py-2 rounded-md"
+          className="bg-neutral-800 font-bold text-white mt-5 w-full flex items-center gap-3 justify-center py-2 rounded-md"
           onClick={googleLogin}
         >
           <FaGoogle /> Login with Google

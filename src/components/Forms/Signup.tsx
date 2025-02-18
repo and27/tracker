@@ -55,9 +55,9 @@ const SignupForm = () => {
         type="password"
         handleChange={handleChange}
       />
-      <div className="gap-2 text-rose-700">
+      <div className="gap-2 text-rose-700 mt-3">
         {error && <p>{error}</p>}
-        <Button>Sign up</Button>
+        <Button className="w-full">Sign up</Button>
       </div>
     </form>
   );

@@ -3,6 +3,7 @@ import { sendPasswordRecoveryEmail } from "../utils/supabaseLogin";
 import LogoImage from "../components/LogoImage";
 import PasswordRecoveryForm from "../components/Forms/PasswordRecovery";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const PasswordRecovery = () => {
   const [email, setEmail] = useState("");
@@ -22,11 +23,13 @@ const PasswordRecovery = () => {
   return (
     <section className="h-screen bg-neutral-50 dark:bg-neutral-900 grid items-center">
       <div>
-        <LogoImage />
-        <div className="bg-white dark:bg-neutral-800 shadow p-10 rounded sm:w-1/2 lg:w-1/3 sm:mx-auto mx-5">
-          <h1 className="text-center text-3xl font-bold font-outfit mb-6">
+        <Link to="/" className="flex gap-3 justify-center items-center mb-7">
+          <LogoImage />
+          <h1 className="text-3xl font-bold font-outfit leading-0">
             Password Recovery
           </h1>
+        </Link>
+        <div className="bg-white dark:bg-transparent shadow p-10 rounded sm:w-1/2 lg:w-1/3 sm:mx-auto mx-5">
           <PasswordRecoveryForm
             handleSubmit={handleSubmit}
             email={email}

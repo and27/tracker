@@ -24,7 +24,7 @@ const PasswordRecoveryForm = ({
       >
         Email
         <input
-          className="bg-transparent border border-gray-300 p-2 rounded-md mt-1"
+          className="bg-transparent border border-gray-400 p-2 rounded-md mt-1"
           type="email"
           id="email"
           placeholder="Enter your email"

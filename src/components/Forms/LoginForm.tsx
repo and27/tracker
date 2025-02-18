@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Button from "../Button";
 import InputWithLabel from "./InputWithLabel";
+import { googleLogin } from "../../utils/supabaseLogin";
+import { FaGoogle } from "react-icons/fa6";
 
 const LoginForm: React.FC<loginFormProps> = ({ loginUser, loginError }) => {
   const [loginData, setLoginData] = useState<LoginData>({} as LoginData);
@@ -36,7 +38,13 @@ const LoginForm: React.FC<loginFormProps> = ({ loginUser, loginError }) => {
       />
       <div className="gap-2 text-rose-700">
         {loginError && <p>{loginError}</p>}
-        <Button>Login</Button>
+        <Button className="w-full">Login</Button>
+        <button
+          className="font-bold text-white mt-5 w-full flex items-center gap-3 justify-center bg-google py-2 rounded-md"
+          onClick={googleLogin}
+        >
+          <FaGoogle /> Login with Google
+        </button>
       </div>
     </form>
   );

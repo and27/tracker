@@ -8,6 +8,14 @@ export type AuthError = {
 const prodURL = "https://tracker-ulqw.vercel.app";
 const BASE_URL = prodURL;
 
+const googleLogin = async () => {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+  });
+
+  return { data, error };
+};
+
 const supabaseLogin = async (email: string, password: string) => {
   const { data, error } = await supabase.auth.signInWithPassword({
     email: email,
@@ -56,6 +64,7 @@ const sendPasswordRecoveryEmail = async (email: string) => {
 
 export {
   supabaseLogin,
+  googleLogin,
   supabaseSignup,
   supabaseLogout,
   createSupabaseUser,

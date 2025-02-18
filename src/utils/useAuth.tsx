@@ -23,9 +23,7 @@ const useAuth = () => {
 
   const loginUser = async (user: AuthUser) => {
     const { email, password } = user;
-    console.log("loginUser", email, password);
     const { data, error } = await supabaseLogin(email, password);
-    console.log("loginUser", data, error);
     if (error) {
       if (isAuthError(error)) {
         setError(error.message);

@@ -25,18 +25,18 @@ const TransactionOverviewItem: React.FC<ITransactionOverview> = (
 
   const classes = {
     listItem:
-      "grid grid-cols-12 pb-3 items-center justify-between [&:not(:last-child)]:border-b border-neutral-200 dark:border-neutral-700",
+      "grid grid-cols-12 md:grid-cols-1 lg:grid-cols-12 pb-3 items-center justify-between [&:not(:last-child)]:border-b border-neutral-200 dark:border-neutral-700",
     iconWrapper:
-      "flex items-center col-span-2 text-neutral-400 dark:text-neutral-600",
-    descriptionWrapper: "flex flex-col items-start col-span-6",
-    description: "font-semibold",
+      "flex items-center col-span-2 text-neutral-400 dark:text-neutral-600 mb-2",
+    descriptionWrapper: "flex flex-col items-start col-span-7 gap-2",
+    description: "font-semibold line-clamp-1",
     type: "text-sm text-neutral-800 dark:text-neutral-400",
     amount:
-      "font-medium col-span-4 text-lg text-neutral-800 dark:text-neutral-400 text-right",
+      "font-medium col-span-3 text-lg text-neutral-800 dark:text-neutral-400 text-right",
   };
 
   return (
-    <li className={classes.listItem}>
+    <li className={classes.listItem} key={props.id}>
       {Icon && <div className={classes.iconWrapper}>{Icon}</div>}
       <div className={classes.descriptionWrapper}>
         <p className={classes.description}>{description}</p>

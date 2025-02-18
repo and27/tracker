@@ -37,9 +37,12 @@ const Hero = () => {
           Gain control over your spending and achieve your financial goals with
           our intuitive app.
         </p>
-        <LinkButton to="/login" className="primary">
-          Start tracking now
-        </LinkButton>
+        <div className="flex gap-3">
+          <LinkButton to="/login" className="primary">
+            Start tracking now
+          </LinkButton>
+          <LinkButton to="#demo">Watch demo</LinkButton>
+        </div>
       </div>
     </div>
   );

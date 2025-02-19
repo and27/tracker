@@ -48,9 +48,13 @@ const getLastTransactions = async ({
   return { data, error };
 };
 
-const deleteTransaction = async (id: string) => {
-  const { error } = await supabase.from("transaction").delete().match({ id });
-  return { error };
+const deleteTransaction = async (id: string, userId: string) => {
+  const { data, error } = await supabase
+    .from("transaction")
+    .delete()
+    .match({ id, user_id: userId })
+    .select();
+  return { data, error };
 };
 
 const getPaymentMethods = async () => {

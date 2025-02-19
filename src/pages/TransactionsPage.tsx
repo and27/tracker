@@ -7,14 +7,18 @@ import Modal from "../components/Modal";
 import { CellContext } from "@tanstack/react-table";
 import { useTransactionStore } from "../store/transactionStore";
 import { formatCurrency } from "../utils/formatCurrency";
-import { deleteTransaction } from "../utils/supabaseDB";
 
 const TransactionsPage: React.FC = () => {
+  const userId = localStorage.getItem("userId") as string;
+
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<string>("");
   const transactions = useTransactionStore((state) => state.transactions);
   const loadTransactions = useTransactionStore(
     (state) => state.loadTransactions
+  );
+  const deleteTransaction = useTransactionStore(
+    (state) => state.deleteTransaction
   );
   const isLoading = useTransactionStore((state) => state.isLoading);
 
@@ -24,18 +28,12 @@ const TransactionsPage: React.FC = () => {
   };
 
   const deleteRow = async (id: string) => {
-    const { error } = await deleteTransaction(id);
-    if (error) {
-      console.error(error);
-      return;
-    }
-
+    deleteTransaction(id, userId);
     setShowModal(false);
     toast.success("Transaction deleted successfully!");
   };
 
   useEffect(() => {
-    const userId = localStorage.getItem("userId") as string;
     loadTransactions(userId);
   }, [loadTransactions]);
 

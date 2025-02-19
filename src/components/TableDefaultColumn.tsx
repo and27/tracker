@@ -7,7 +7,7 @@ export const defaultColumn: Partial<ColumnDef<Transaction, unknown>> = {
     const [value, setValue] = useState<
       string | number | readonly string[] | undefined
     >(initialValue as string | number | readonly string[] | undefined);
-    const isEditing = table.options.meta?.editingRowId === row.id;
+    const isEditing = table.options.meta?.editingRowId?.toString() === row.id;
 
     // Sincronize external changes with the internal state
     useEffect(() => {

@@ -22,6 +22,19 @@ const createTransaction = async (transaction: Transaction) => {
   return { data, error };
 };
 
+const patchTransaction = async (
+  id: string,
+  transaction: Partial<Transaction>
+) => {
+  const { data, error } = await supabase
+    .from("transaction")
+    .update(transaction)
+    .match({ id })
+    .select();
+
+  return { data, error };
+};
+
 const getTransactions = async ({ userId: user }: { userId: string }) => {
   const { data, error } = await supabase
     .from("transaction")
@@ -248,6 +261,7 @@ const getCategoriesWithBudget = async (
 export {
   createTransaction,
   getTransactions,
+  patchTransaction,
   getPaymentMethods,
   getCategories,
   getBudgets,

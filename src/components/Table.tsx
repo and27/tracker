@@ -9,7 +9,7 @@ import { FaEdit, FaSave } from "react-icons/fa";
 import { useRef, useState } from "react";
 import { defaultColumn } from "./TableDefaultColumn";
 import { TableProps } from "../data/types/tableProps";
-// import { patchTransaction } from "../utils/api/transactions";
+import { useTransactionStore } from "../store/transactionStore";
 
 const Table = ({ columns, data, setData, handleDeleteRow }: TableProps) => {
   const [editingRowId, setEditingRowId] = useState<string | null>(null);
@@ -18,7 +18,9 @@ const Table = ({ columns, data, setData, handleDeleteRow }: TableProps) => {
     pageSize: 10,
   });
   const rowRefs = useRef<Record<string, HTMLButtonElement | null>>({});
-
+  const updateTransaction = useTransactionStore(
+    (state) => state.updateTransaction
+  );
   const table = useReactTable({
     data,
     columns,
@@ -39,9 +41,9 @@ const Table = ({ columns, data, setData, handleDeleteRow }: TableProps) => {
         columnId: string,
         value: string
       ) => {
-        // patchTransaction(updatedRowIndex, {
-        //   [columnId]: value,
-        // });
+        updateTransaction(updatedRowIndex, {
+          [columnId]: value,
+        });
         setData((old) => {
           return old.map((row) => {
             return row.id.toString() === updatedRowIndex

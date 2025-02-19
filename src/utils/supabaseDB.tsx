@@ -63,6 +63,14 @@ const getCategories = async () => {
   return { data, error };
 };
 
+const getBudgets = async (userId: string) => {
+  const { data, error } = await supabase
+    .from("budgets")
+    .select("*, category(name)")
+    .eq("user_id", userId);
+  return { data, error };
+};
+
 const addCategoryWithBudget = async (category: Category, userId: string) => {
   const { data, error } = await supabase
     .from("category")
@@ -238,6 +246,7 @@ export {
   getTransactions,
   getPaymentMethods,
   getCategories,
+  getBudgets,
   addCategoryWithBudget,
   editCategoryWithBudget,
   removeCategoryByName,

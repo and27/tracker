@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ResponsivePie } from "@nivo/pie";
 import Button from "./Button";
 import CategoryList from "./CategoryList";
 import Subtitle from "./Subtitle";
-import { BudgetInsight } from "../data/mocks/insightsMock";
 import Modal from "./Modal";
 import CategoryForm from "./Forms/CategoryForm";
 // import { deleteCategoryByName } from "../utils/api/categories";
@@ -11,18 +10,19 @@ import { useCategories } from "../context/CategoriesContext";
 import {
   addCategoryWithBudget,
   editCategoryWithBudget,
+  getBudgets,
 } from "../utils/supabaseDB";
 
-interface CategorySectionProps {
-  budgetData: BudgetInsight[];
-}
+const CategorySection = () => {
+  type BudgetData = { name: string; value: number };
 
-const CategorySection = ({ budgetData }: CategorySectionProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [formType, setFormType] = useState<"edit" | "add">("add");
   const { addCategory: addCategoryLocal } = useCategories();
   const [currentCategory, setCurrentCategory] = useState<Category>();
   const title = formType === "add" ? "Add Category" : "Edit Category";
+  const [budgetData, setBudgetData] = useState<BudgetData[]>([]);
+  const user = localStorage.getItem("userId") || "";
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
@@ -65,6 +65,21 @@ const CategorySection = ({ budgetData }: CategorySectionProps) => {
   //     console.error("Failed to remove category:", error);
   //   }
   // };
+
+  useEffect(() => {
+    const fetchBudgets = async () => {
+      const { data, error } = await getBudgets(user);
+      if (error) console.error("Failed to fetch budgets:", error);
+      const preparedData = data?.map((entry) => ({
+        name: entry.category.name as string,
+        value: entry.amount as number,
+      }));
+
+      if (preparedData) setBudgetData(preparedData);
+    };
+
+    fetchBudgets();
+  }, [user]);
 
   return (
     <section className="mb-10">

@@ -27,7 +27,7 @@ const SettingPage = () => {
             }))}
           />
         </section>
-        <CategorySection budgetData={insightsMock.budgetOptimization} />
+        <CategorySection />
       </main>
       <Footer />
     </div>

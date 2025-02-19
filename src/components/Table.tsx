@@ -180,59 +180,61 @@ const Table = ({ columns, data, setData, handleDeleteRow }: TableProps) => {
           </p>
         </div>
       )}
-      <div className="p-3">
-        <div className="flex items-center gap-3 justify-end">
-          <button
-            className="bg-neutral-100 dark:bg-neutral-800 rounded px-2 md:px-4 py-1"
-            onClick={() => table.firstPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            {"<<"}
-          </button>
-          <button
-            className="bg-neutral-100 dark:bg-neutral-800 rounded px-2 md:px-4 py-1"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            {"<"}
-          </button>
-          <button
-            className="bg-neutral-100 dark:bg-neutral-800 rounded px-2 md:px-4 py-1"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            {">"}
-          </button>
-          <button
-            className="bg-neutral-100 dark:bg-neutral-800 rounded px-2 md:px-4 py-1"
-            onClick={() => table.lastPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            {">>"}
-          </button>
-          <span className="flex items-center gap-1">
-            <div>Page</div>
-            <strong>
-              {table.getState().pagination.pageIndex + 1} of{" "}
-              {table.getPageCount().toLocaleString()}
-            </strong>
-          </span>
+      {data.length > 0 && (
+        <div className="p-3">
+          <div className="flex items-center gap-3 justify-end">
+            <button
+              className="bg-neutral-100 dark:bg-neutral-800 rounded px-2 md:px-4 py-1"
+              onClick={() => table.firstPage()}
+              disabled={!table.getCanPreviousPage()}
+            >
+              {"<<"}
+            </button>
+            <button
+              className="bg-neutral-100 dark:bg-neutral-800 rounded px-2 md:px-4 py-1"
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+            >
+              {"<"}
+            </button>
+            <button
+              className="bg-neutral-100 dark:bg-neutral-800 rounded px-2 md:px-4 py-1"
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+            >
+              {">"}
+            </button>
+            <button
+              className="bg-neutral-100 dark:bg-neutral-800 rounded px-2 md:px-4 py-1"
+              onClick={() => table.lastPage()}
+              disabled={!table.getCanNextPage()}
+            >
+              {">>"}
+            </button>
+            <span className="flex items-center gap-1">
+              <div>Page</div>
+              <strong>
+                {table.getState().pagination.pageIndex + 1} of{" "}
+                {table.getPageCount().toLocaleString()}
+              </strong>
+            </span>
 
-          <select
-            value={table.getState().pagination.pageSize}
-            className="rounded text-neutral-100 bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-100 px-2 md:px-4 py-2"
-            onChange={(e) => {
-              table.setPageSize(Number(e.target.value));
-            }}
-          >
-            {[10, 20, 30, 40, 50].map((pageSize) => (
-              <option key={pageSize} value={pageSize}>
-                Show {pageSize}
-              </option>
-            ))}
-          </select>
+            <select
+              value={table.getState().pagination.pageSize}
+              className="rounded text-neutral-100 bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-100 px-2 md:px-4 py-2"
+              onChange={(e) => {
+                table.setPageSize(Number(e.target.value));
+              }}
+            >
+              {[10, 20, 30, 40, 50].map((pageSize) => (
+                <option key={pageSize} value={pageSize}>
+                  Show {pageSize}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

@@ -112,10 +112,6 @@ const TransactionsPage: React.FC = () => {
     []
   );
 
-  if (!isLoading && !transactions.length) {
-    return <p>No transactions found.</p>;
-  }
-
   return (
     <main className="col-span-12 lg:col-span-10 pt-5 md:pt-10 px-5 md:px-8 dark:bg-zinc-900 min-h-screen">
       <ToastContainer />
@@ -145,7 +141,9 @@ const TransactionsPage: React.FC = () => {
         <h1 className="text-lg lg:text-xl mb-4 font-outfit text-neutral-700 dark:text-neutral-400">
           All your transactions
         </h1>
-        <LinkButton to="/account/transaction">New Transaction</LinkButton>
+        <LinkButton className="primary" to="/account/transaction">
+          New Transaction
+        </LinkButton>
       </div>
 
       {isLoading ? (

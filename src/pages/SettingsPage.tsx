@@ -4,7 +4,6 @@ import CategorySection from "../components/CategorySection";
 import Subtitle from "../components/Subtitle";
 import SettingsList from "../components/SettingsList";
 import { notificationSettings, settingsData } from "../data/settingsConfig";
-import insightsMock from "../data/mocks/insightsMock";
 
 const SettingPage = () => {
   const { toggleTheme } = useTheme();

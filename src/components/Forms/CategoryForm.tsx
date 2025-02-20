@@ -52,7 +52,7 @@ const CategoryForm = ({
           id="name"
           className="bg-transparent border border-neutral-700 py-2 px-4 rounded-md mt-1"
           type="text"
-          value={currentCategory?.name}
+          value={category?.name}
           onChange={handleChange}
         />
       </label>
@@ -64,7 +64,7 @@ const CategoryForm = ({
         <select
           id="group"
           onChange={handleChange}
-          value={currentCategory?.group}
+          value={category?.group}
           className="border border-neutral-700 py-2 px-4 rounded-md bg-neutral-100 dark:bg-neutral-800"
         >
           <option>Select a group</option>
@@ -84,7 +84,7 @@ const CategoryForm = ({
           id="budget"
           className="bg-transparent border border-neutral-700 py-2 px-4 rounded-md mt-1"
           type="number"
-          value={currentCategory?.budget}
+          value={category?.budget}
           onChange={handleChange}
         />
       </label>

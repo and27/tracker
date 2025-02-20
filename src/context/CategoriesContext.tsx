@@ -13,6 +13,7 @@ interface CategoriesContextType {
   categories: CategoryGroup[];
   setCategories: React.Dispatch<React.SetStateAction<CategoryGroup[]>>;
   addCategory: (cat: Category) => void;
+  editCategory: (cat: Category) => void;
   // removeCategory: (cat: ExtendedCategory) => void;
 }
 
@@ -71,6 +72,48 @@ export const CategoriesProvider = ({ children }: CategoriesProviderProps) => {
     });
   };
 
+  const editCategory = (category: Category) => {
+    setCategories((prevCategories) => {
+      const currentGroup = prevCategories.find(
+        (cat) => cat.id === category.group
+      );
+      const oldGroup = prevCategories.find((cat) =>
+        cat.categories.find((subcat) => subcat.id === category.id)
+      );
+
+      if (!currentGroup || oldGroup?.id === category.group) {
+        return prevCategories;
+      }
+
+      const oldUpdatedGroup: CategoryGroup = {
+        ...oldGroup!,
+        id: oldGroup!.id!,
+        name: oldGroup!.name!,
+        categories: [
+          ...oldGroup!.categories.filter((cat) => cat.id !== category.id),
+        ],
+      };
+
+      const updatedGroup: CategoryGroup = {
+        ...currentGroup,
+        categories: [
+          ...currentGroup.categories,
+          {
+            ...category,
+          },
+        ],
+      };
+
+      return [
+        ...prevCategories.filter(
+          (cat) => cat.id !== category.group && cat.id !== oldGroup?.id
+        ),
+        updatedGroup,
+        oldUpdatedGroup,
+      ];
+    });
+  };
+
   // const removeCategory = (name: string) => {
   //   setCategories((prevCategories) =>
   //     prevCategories.filter((category) => category.name !== name)
@@ -83,6 +126,7 @@ export const CategoriesProvider = ({ children }: CategoriesProviderProps) => {
         categories,
         setCategories,
         addCategory,
+        editCategory,
         //  removeCategory
       }}
     >

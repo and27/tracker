@@ -38,8 +38,20 @@ const PieChart = ({ data }: PieChartProps) => {
       arcLinkLabelsThickness={3}
       arcLinkLabelsTextColor={{
         from: "color",
-        modifiers: [["darker", 2]],
+        modifiers: [["brighter", 2]],
       }}
+      tooltip={({ datum }) => (
+        <div
+          style={{
+            padding: "12px",
+            color: "white",
+            background: "rgba(0, 0, 0, 0.7)",
+            borderRadius: "5px",
+          }}
+        >
+          <p>{datum.label}</p>
+        </div>
+      )}
       defs={[
         {
           id: "text",

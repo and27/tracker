@@ -13,15 +13,15 @@ import {
   getBudgets,
 } from "../utils/supabaseDB";
 
-const CategorySection = () => {
-  type BudgetData = { name: string; value: number };
+type BudgetData = { name: string; value: number };
 
+const CategorySection = () => {
+  const { addCategory: addCategoryLocal, editCategory } = useCategories();
   const [isOpen, setIsOpen] = useState(false);
   const [formType, setFormType] = useState<"edit" | "add">("add");
-  const { addCategory: addCategoryLocal } = useCategories();
   const [currentCategory, setCurrentCategory] = useState<Category>();
-  const title = formType === "add" ? "Add Category" : "Edit Category";
   const [budgetData, setBudgetData] = useState<BudgetData[]>([]);
+  const title = formType === "add" ? "Add Category" : "Edit Category";
   const user = localStorage.getItem("userId") || "";
 
   const toggleModal = () => {
@@ -49,7 +49,7 @@ const CategorySection = () => {
   };
 
   const editCat = async (category: Category) => {
-    addCategoryLocal(category);
+    editCategory(category);
     const uid = localStorage.getItem("userId") || "";
     const { error } = await editCategoryWithBudget(category, uid);
     if (error) console.error("Failed to edit category:", error);
@@ -114,6 +114,18 @@ const CategorySection = () => {
             arcLinkLabelsTextColor="#fff"
             arcLinkLabelsSkipAngle={10}
             arcLabelsSkipAngle={10}
+            tooltip={({ datum }) => (
+              <div
+                style={{
+                  padding: "12px",
+                  color: "white",
+                  background: "rgba(0, 0, 0, 0.7)",
+                  borderRadius: "5px",
+                }}
+              >
+                <p>{datum.label}</p>
+              </div>
+            )}
             arcLabelsTextColor={{ from: "color", modifiers: [["darker", 2]] }}
             legends={[
               {

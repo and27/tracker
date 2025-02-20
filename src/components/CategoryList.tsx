@@ -1,4 +1,3 @@
-import { FaRocket } from "react-icons/fa6";
 import { useCategories } from "../context/CategoriesContext";
 import CategoryItem from "./CategoryItem";
 
@@ -10,10 +9,15 @@ interface CategoryListProps {
 const CategoryList = ({ handleEditCategory }: CategoryListProps) => {
   const { categories } = useCategories();
 
+  const orderMap: Record<string, number> = {
+    survival: 1,
+    optional: 2,
+    culture: 3,
+    extra: 4,
+  };
+
   const sortedCategories = [...categories].sort((a, b) => {
-    if (a.id === "survival") return -1;
-    if (b.id === "survival") return 1;
-    return 0;
+    return (orderMap[a.id] || 99) - (orderMap[b.id] || 99);
   });
 
   return (

@@ -25,6 +25,7 @@ const LoginPage = () => {
       navigate(isOnboarded ? "/account/overview" : "/onboarding");
     }
   }, [user, isOnboarded, navigate]);
+
   return (
     <section className="min-h-screen bg-neutral-50 dark:bg-neutral-900 grid items-center">
       <div>

@@ -3,9 +3,17 @@ import { persist } from "zustand/middleware";
 import { fetchConsolidatedTransactions } from "../utils/supabaseDB";
 import { getAIInsights } from "../utils/insightsAIService";
 
+type SpendingPattern = {
+  id: number;
+  c: string;
+  d: string;
+  p: number;
+  ac: { l: string; t: string }[];
+};
+
 interface InsightStore {
   insights: {
-    spendingPatterns: [];
+    spendingPatterns: SpendingPattern[];
     predictions: [];
   };
   lastUpdated: string | null;

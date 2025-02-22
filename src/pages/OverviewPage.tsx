@@ -8,8 +8,8 @@ function OverviewPage() {
   const { insights } = useInsightStore();
   if (!insights) return null;
   const firstInsight =
-    insights.spendingPatterns && insights.spendingPatterns.length > 0
-      ? insights.spendingPatterns[0]?.d
+    insights?.spendingPatterns?.length > 0
+      ? insights.spendingPatterns[insights.spendingPatterns.length - 1]?.d
       : null;
   return (
     <div className="flex flex-col col-span-12 lg:col-span-10 overflow-scroll">
@@ -17,7 +17,7 @@ function OverviewPage() {
         <h1 className="text-2xl lg:text-3xl mb-6 font-outfit">
           Welcome, here is your account overview
         </h1>
-        <InsightsBanner insight={firstInsight} />
+        <InsightsBanner insight={firstInsight as string} />
         <div className="md:grid md:grid-cols-6 gap-6">
           <AccountSummary />
           <TransactionOverviewList />

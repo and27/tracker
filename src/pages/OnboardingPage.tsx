@@ -1,62 +1,57 @@
-import { useState } from "react";
+import { useOnboardingStep } from "../hooks/useOnboardingStep";
 import OnboardingStep from "./OnboardingStep";
+import { onboardingSteps } from "../data/onboardingSteps";
+import { useEffect, useState } from "react";
+import { addOnboardingInfo } from "../utils/supabaseDB";
+import { useNavigate } from "react-router-dom";
 
-export const useOnboardingStep = () => {
-  const [step, setStep] = useState(1);
-
-  const nextStep = () => {
-    setStep((prev) => prev + 1);
-  };
-
-  return { step, nextStep };
-};
-
-const financialGoals = [
-  { id: 1, label: "Ahorrar para una meta específica", icon: "💰" },
-  { id: 2, label: "Reducir mis deudas", icon: "📉" },
-  { id: 3, label: "Invertir de manera inteligente", icon: "📈" },
-  { id: 4, label: "Controlar mejor mis gastos", icon: "📊" },
-  { id: 5, label: "Prepararme para emergencias", icon: "🚨" },
-  { id: 6, label: "Mejorar mi educación financiera", icon: "📚" },
-];
-
-const moneyManagmentOptions = [
-  { id: 1, label: "I use a budgeting app", icon: "📊" },
-  { id: 2, label: "I have a financial advisor", icon: "👩‍💼" },
-  { id: 3, label: "I track my expenses manually", icon: "🧾" },
-  { id: 4, label: "I don't have a budget", icon: "🤷" },
-  { id: 5, label: "I have a retirement account", icon: "🏦" },
-  { id: 6, label: "I invest in the stock market", icon: "📈" },
-];
-
-const onBoardingStepGoals = {
-  subtitle: "Step 1 of 3",
-  title: "What are your financial goals?",
-  description: "Select up to 3 options",
-  options: financialGoals,
-};
-
-const onBoardingStepCategories = {
-  subtitle: "Step 2 of 3",
-  title: "How to you handle your money?",
-  description: "Select up to 3 options",
-  options: moneyManagmentOptions,
+export type StepsInfo = {
+  financialGoals: string[];
+  moneyManagement: string;
+  monthlyIncome: string;
 };
 
 const OnboardingPage: React.FC = () => {
   const { step, nextStep } = useOnboardingStep();
-  const onBoardingStep =
-    step === 1 ? onBoardingStepGoals : onBoardingStepCategories;
+  const [stepsInfo, setStepsInfo] = useState<StepsInfo | null>(null);
+  const onBoardingStep = onboardingSteps[step];
+  const LAST_STEP = onboardingSteps.length - 1;
+  const userId = localStorage.getItem("userId");
+  const navigate = useNavigate();
+
+  const handleNextStep = (options: string[]) => {
+    setStepsInfo(
+      (prev) =>
+        ({
+          ...prev,
+          [onBoardingStep.id]: options,
+        } as StepsInfo)
+    );
+    if (step === LAST_STEP) return;
+    nextStep();
+  };
+
+  useEffect(() => {
+    const saveOnboardingData = async () => {
+      const { data, error } = await addOnboardingInfo(
+        userId as string,
+        stepsInfo as StepsInfo
+      );
+      if (error) console.error("Failed to save onboarding data:", error);
+      if (data) navigate("/account/overview");
+    };
+
+    if (stepsInfo && Object.keys(stepsInfo).length === onboardingSteps.length) {
+      saveOnboardingData();
+    }
+  }, [stepsInfo]);
 
   return (
-    <section className="min-h-screen bg-neutral-50 dark:bg-neutral-900 grid items-center">
-      <OnboardingStep
-        {...onBoardingStep}
-        step={step}
-        onNext={() => {
-          nextStep();
-        }}
-      />
+    <section
+      className="min-h-screen grid items-center
+                max-w-2xl mx-auto"
+    >
+      <OnboardingStep {...onBoardingStep} step={step} onNext={handleNextStep} />
     </section>
   );
 };

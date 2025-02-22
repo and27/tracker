@@ -1,27 +1,30 @@
-import { useEffect } from "react";
-import LoginForm from "../components/Forms/LoginForm";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import LoginForm from "../components/Forms/LoginForm";
 import useAuth from "../utils/useAuth";
 import LogoImage from "../components/LogoImage";
+import { isOnboardingComplete } from "../utils/supabaseDB";
 
 const LoginPage = () => {
   const { loginUser, error, user } = useAuth();
   const navigate = useNavigate();
-
-  const handleLogout = () => {
-    localStorage.removeItem("userId");
-  };
-
-  useEffect(() => {
-    handleLogout();
-  }, []);
+  const [isOnboarded, setIsOnboarded] = useState<boolean | null>(null);
 
   useEffect(() => {
     if (user) {
-      navigate("/account/overview");
+      const checkOnboarding = async () => {
+        const onboarded = await isOnboardingComplete(user.id as string);
+        setIsOnboarded(onboarded);
+      };
+      checkOnboarding();
     }
   }, [user]);
 
+  useEffect(() => {
+    if (user && isOnboarded !== null) {
+      navigate(isOnboarded ? "/account/overview" : "/onboarding");
+    }
+  }, [user, isOnboarded, navigate]);
   return (
     <section className="min-h-screen bg-neutral-50 dark:bg-neutral-900 grid items-center">
       <div>

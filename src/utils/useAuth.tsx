@@ -30,7 +30,6 @@ const useAuth = () => {
         return null;
       }
     } else if (data?.user) {
-      console.log("else if", data.user);
       setUser(data.user);
       localStorage.setItem("userId", data.user.id);
       createSupabaseUser(data.user.id, email);

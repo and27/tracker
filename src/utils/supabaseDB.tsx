@@ -1,3 +1,4 @@
+import { StepsInfo } from "../pages/OnboardingPage";
 import { supabase } from "./supabase";
 
 const mapTransactionToDb = (transaction: Transaction) => {
@@ -258,6 +259,36 @@ const getCategoriesWithBudget = async (
   return Object.values(consolidated);
 };
 
+const addOnboardingInfo = async (userId: string, onboardingInfo: StepsInfo) => {
+  const { data, error } = await supabase
+    .from("user_profile")
+    .update({
+      financial_goals: onboardingInfo.financialGoals,
+      money_management: onboardingInfo.moneyManagement[0],
+      income_range: onboardingInfo.monthlyIncome[0],
+      onboarding_completed: true,
+    })
+    .eq("user_id", userId)
+    .select();
+
+  return { data, error };
+};
+
+const isOnboardingComplete = async (userId: string) => {
+  const { data, error } = await supabase
+    .from("user_profile")
+    .select("onboarding_completed")
+    .eq("user_id", userId)
+    .single();
+
+  if (error) {
+    console.error("Error fetching onboarding status:", error);
+    return false;
+  }
+
+  return data?.onboarding_completed;
+};
+
 export {
   createTransaction,
   getTransactions,
@@ -271,4 +302,6 @@ export {
   getCategoriesWithBudget,
   getLastTransactions,
   deleteTransaction,
+  addOnboardingInfo,
+  isOnboardingComplete,
 };

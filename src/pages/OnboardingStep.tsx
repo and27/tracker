@@ -1,5 +1,5 @@
 import Button from "../components/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type OnboardingStepProps = {
   subtitle: string;
@@ -7,7 +7,7 @@ type OnboardingStepProps = {
   description: string;
   options: { id: number; label: string; icon: string }[];
   step: number;
-  onNext: (goals: number[]) => void;
+  onNext: (options: string[]) => void;
 };
 
 const OnboardingStep = ({
@@ -18,20 +18,25 @@ const OnboardingStep = ({
   step,
   onNext,
 }: OnboardingStepProps) => {
-  const [selectedOptions, setSelectedOptions] = useState<number[]>([]);
-  const MAX_OPTIONS = step === 1 ? 3 : 1;
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+  const MAX_OPTIONS = step === 0 ? 3 : 1;
 
-  console.log(selectedOptions);
-  const handleSelect = (goalId: number) => {
-    if (selectedOptions.includes(goalId)) {
-      setSelectedOptions(selectedOptions.filter((id) => id !== goalId));
+  const handleSelect = (newOption: string) => {
+    if (selectedOptions.includes(newOption)) {
+      setSelectedOptions(
+        selectedOptions.filter((option) => option !== newOption)
+      );
     } else if (selectedOptions.length < MAX_OPTIONS) {
-      setSelectedOptions([...selectedOptions, goalId]);
+      setSelectedOptions([...selectedOptions, newOption]);
     }
   };
 
+  useEffect(() => {
+    setSelectedOptions([]);
+  }, [step]);
+
   return (
-    <div className="max-w-2xl mx-auto p-6 rounded-lg ">
+    <div className="w-full p-6 rounded-lg mx-auto">
       <h3 className="text-gray-400 mb-4">{subtitle}</h3>
       <h2 className="text-xl font-semibold text-white mb-1">{title}</h2>
       <p className="text-gray-400 mb-6">{description}</p>
@@ -40,11 +45,11 @@ const OnboardingStep = ({
           <button
             key={option.id}
             className={`flex items-center p-4 rounded-lg border-2 transition-all ${
-              selectedOptions.includes(option.id)
+              selectedOptions.includes(option.label)
                 ? "border-neutral-400 bg-gray-800"
                 : "border-neutral-800 bg-gray-900 hover:border-gray-600"
             }`}
-            onClick={() => handleSelect(option.id)}
+            onClick={() => handleSelect(option.label)}
           >
             <span className="mr-2 text-lg">{option.icon}</span>
             <span className="text-white text-sm">{option.label}</span>

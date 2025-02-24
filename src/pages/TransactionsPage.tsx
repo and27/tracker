@@ -7,9 +7,12 @@ import Modal from "../components/Modal";
 import { CellContext } from "@tanstack/react-table";
 import { useTransactionStore } from "../store/transactionStore";
 import { formatCurrency } from "../utils/formatCurrency";
+import { translateCategory } from "../utils/translationUtils";
+import { useLanguageStore } from "../store/languageStore";
 
 const TransactionsPage: React.FC = () => {
   const userId = localStorage.getItem("userId") as string;
+  const { t } = useLanguageStore();
 
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<string>("");
@@ -41,30 +44,31 @@ const TransactionsPage: React.FC = () => {
     () => [
       {
         id: "description",
-        header: "Description",
+        header: t("transactions.headers.description"),
         accessorKey: "description",
       },
       {
         id: "date",
-        header: "Date",
+        header: t("transactions.headers.date"),
         accessorKey: "date",
       },
       {
         id: "category",
-        header: "Category",
+        header: t("transactions.headers.category"),
         accessorKey: "category", // Change here to filter by category.name
         cell: (info: CellContext<Transaction, unknown>) => {
           const category = info.row.original.category;
+          const translatedCategory = translateCategory(category?.name);
           return (
             <span className="text-neutral-600 dark:text-neutral-400">
-              {category?.name || "Uncategorized"}
+              {translatedCategory || "Uncategorized"}
             </span>
           );
         },
       },
       {
         id: "amount",
-        header: "Amount",
+        header: t("transactions.headers.amount"),
         accessorKey: "amount",
         cell: (info: CellContext<Transaction, unknown>) => {
           const value = info.getValue<number>();
@@ -78,24 +82,24 @@ const TransactionsPage: React.FC = () => {
       },
       {
         id: "type",
-        header: "Type",
+        header: t("transactions.headers.type"),
         accessorKey: "type",
         cell: (info: CellContext<Transaction, unknown>) => {
           const value = info.getValue<"income" | "expense">();
           return value === "income" ? (
             <span className="bg-green-300 dark:bg-green-800 text-neutral-900 dark:text-neutral-100 rounded px-2 text-sm">
-              Income
+              {t("transactions.income")}
             </span>
           ) : (
             <span className="bg-rose-300 dark:bg-rose-800 text-neutral-900 dark:text-neutral-100 rounded px-2 text-sm">
-              Expense
+              {t("transactions.expense")}
             </span>
           );
         },
       },
       {
         id: "paymentMethod",
-        header: "Payment Method",
+        header: t("transactions.headers.paymentMethod"),
         accessorKey: "payment_method",
         cell: (info: CellContext<Transaction, unknown>) => {
           const paymentMethod = info.row.original as any;
@@ -113,36 +117,14 @@ const TransactionsPage: React.FC = () => {
   return (
     <main className="col-span-12 lg:col-span-10 pt-5 md:pt-10 px-5 md:px-8 dark:bg-zinc-900 min-h-screen">
       <ToastContainer />
-      {showModal && (
-        <Modal
-          isOpen={showModal}
-          onClose={() => setShowModal(false)}
-          title="Are you sure you want to delete this transaction?"
-        >
-          <div className="flex justify-end gap-4">
-            <button
-              onClick={() => setShowModal(false)}
-              className="bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={() => deleteRow(selectedRow)}
-              className="bg-rose-500 hover:bg-rose-600 text-neutral-100 px-4 py-2 rounded-md"
-            >
-              Delete
-            </button>
-          </div>
-        </Modal>
-      )}
-      <div className="flex justify-between mb-4">
+      <header className="flex justify-between mb-4">
         <h1 className="text-lg lg:text-xl mb-4 font-outfit text-neutral-700 dark:text-neutral-400">
-          All your transactions
+          {t("transactions.title")}
         </h1>
         <LinkButton className="primary" to="/account/transaction">
-          New Transaction
+          {t("transactions.cta")}
         </LinkButton>
-      </div>
+      </header>
 
       {isLoading ? (
         <div className="flex justify-center items-center h-96">
@@ -156,6 +138,29 @@ const TransactionsPage: React.FC = () => {
           handleDeleteRow={handleDeleteConfirmation}
           setData={() => {}}
         />
+      )}
+
+      {showModal && (
+        <Modal
+          isOpen={showModal}
+          onClose={() => setShowModal(false)}
+          title={t("transactions.deleteModal.title")}
+        >
+          <div className="flex justify-end gap-4">
+            <button
+              onClick={() => setShowModal(false)}
+              className="bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md"
+            >
+              {t("transactions.deleteModal.cancel")}
+            </button>
+            <button
+              onClick={() => deleteRow(selectedRow)}
+              className="bg-rose-500 hover:bg-rose-600 text-neutral-100 px-4 py-2 rounded-md"
+            >
+              {t("transactions.deleteModal.confirm")}
+            </button>
+          </div>
+        </Modal>
       )}
     </main>
   );

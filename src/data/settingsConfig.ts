@@ -25,13 +25,13 @@ export const settingsData = [
     description: "Enable dark theme",
     icon: "FaMoon",
   },
-  {
-    id: 2,
-    title: "Zen Mode",
-    name: "zenMode",
-    description: "Enable zen mode",
-    icon: "FaCog",
-  },
+  // {
+  //   id: 2,
+  //   title: "Zen Mode",
+  //   name: "zenMode",
+  //   description: "Enable zen mode",
+  //   icon: "FaCog",
+  // },
 ];
 
 export const notificationSettings = [
@@ -44,16 +44,16 @@ export const notificationSettings = [
   },
   {
     id: 4,
-    title: "Monthly Reports",
-    name: "monthlyReports",
+    title: "Monthly Report",
+    name: "monthlyReport",
     description: "Enable monthly reports",
     icon: "FaBell",
   },
-  {
-    id: 5,
-    title: "Unusual Spending Alerts",
-    name: "unusualSpending",
-    description: "Enable alerts for unusual spending patterns",
-    icon: "FaBell",
-  },
+  // {
+  //   id: 5,
+  //   title: "Unusual Spending Alerts",
+  //   name: "unusualSpending",
+  //   description: "Enable alerts for unusual spending patterns",
+  //   icon: "FaBell",
+  // },
 ];

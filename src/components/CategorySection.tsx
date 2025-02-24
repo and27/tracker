@@ -12,6 +12,7 @@ import {
   editCategoryWithBudget,
   getBudgets,
 } from "../utils/supabaseDB";
+import { useLanguageStore } from "../store/languageStore";
 
 type BudgetData = { name: string; value: number };
 
@@ -23,6 +24,7 @@ const CategorySection = () => {
   const [budgetData, setBudgetData] = useState<BudgetData[]>([]);
   const title = formType === "add" ? "Add Category" : "Edit Category";
   const user = localStorage.getItem("userId") || "";
+  const { t } = useLanguageStore();
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
@@ -85,12 +87,12 @@ const CategorySection = () => {
     <section className="mb-10">
       <div className="flex justify-between items-center">
         <div>
-          <Subtitle title="Categories & Budget" />
+          <Subtitle title={t("categories.title")} />
           <p className="mb-4 text-neutral-600 dark:text-neutral-400">
-            Manage your categories and budget for each category here.
+            {t("categories.description")}
           </p>
         </div>
-        <Button onClick={handleAddForm}>Add Category</Button>
+        <Button onClick={handleAddForm}>{t("categories.cta")}</Button>
       </div>
       <div className="flex lg:flex-row flex-col">
         <CategoryList

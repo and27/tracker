@@ -10,6 +10,7 @@ import { useRef, useState } from "react";
 import { defaultColumn } from "./TableDefaultColumn";
 import { TableProps } from "../data/types/tableProps";
 import { useTransactionStore } from "../store/transactionStore";
+import { useLanguageStore } from "../store/languageStore";
 
 const Table = ({ columns, data, setData, handleDeleteRow }: TableProps) => {
   const [editingRowId, setEditingRowId] = useState<string | null>(null);
@@ -21,6 +22,8 @@ const Table = ({ columns, data, setData, handleDeleteRow }: TableProps) => {
   const updateTransaction = useTransactionStore(
     (state) => state.updateTransaction
   );
+  const { t } = useLanguageStore();
+
   const table = useReactTable({
     data,
     columns,
@@ -89,7 +92,7 @@ const Table = ({ columns, data, setData, handleDeleteRow }: TableProps) => {
                 scope="col"
                 className="border-b border-b-zinc-200/90 dark:border-b-zinc-700 py-3 px-5 bg-slate-100 bg-transparent text-start text-neutral-600 dark:text-zinc-400"
               >
-                Action
+                {t("transactions.headers.action")}
               </th>
               {headerGroup.headers.map((header) => (
                 <th
@@ -178,7 +181,7 @@ const Table = ({ columns, data, setData, handleDeleteRow }: TableProps) => {
       {data.length === 0 && (
         <div className="flex justify-center items-center h-96">
           <p className="text-neutral-500 dark:text-neutral-400 text-lg">
-            No transactions found
+            {t("transactions.noData")}
           </p>
         </div>
       )}
@@ -214,9 +217,10 @@ const Table = ({ columns, data, setData, handleDeleteRow }: TableProps) => {
               {">>"}
             </button>
             <span className="flex items-center gap-1">
-              <div>Page</div>
+              <div>{t("transactions.pagination.page")}</div>
               <strong>
-                {table.getState().pagination.pageIndex + 1} of{" "}
+                {table.getState().pagination.pageIndex + 1}{" "}
+                {t("transactions.pagination.of")}
                 {table.getPageCount().toLocaleString()}
               </strong>
             </span>
@@ -230,7 +234,7 @@ const Table = ({ columns, data, setData, handleDeleteRow }: TableProps) => {
             >
               {[10, 20, 30, 40, 50].map((pageSize) => (
                 <option key={pageSize} value={pageSize}>
-                  Show {pageSize}
+                  {t("transactions.pagination.show")} {pageSize}
                 </option>
               ))}
             </select>

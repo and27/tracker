@@ -7,7 +7,7 @@ import HomeDemo from "../components/Sections/HomeDemo";
 
 const HomePage = () => {
   return (
-    <div className="h-screen pattern text-white bg-neutral-50 dark:bg-neutral-900">
+    <div className="h-screen pattern bg-neutral-100 dark:bg-neutral-900 dark:text-neutral-100   ">
       <Hero />
       <HomePageChart />
       <HomeDemo />

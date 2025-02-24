@@ -6,6 +6,7 @@ import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { FaGear } from "react-icons/fa6";
 import { FaPlusCircle, FaSignOutAlt } from "react-icons/fa";
 import "../../styles/SidebarMenu.css";
+import { useLanguageStore } from "../../store/languageStore";
 
 interface SidebarMenuProps {
   isOpen: boolean;
@@ -15,6 +16,7 @@ interface SidebarMenuProps {
 const SidebarMenu = ({ isOpen, setIsSidebarOpen }: SidebarMenuProps) => {
   const [isMobile, setIsMobile] = useState(false);
   const location = useLocation();
+  const { t } = useLanguageStore();
 
   useEffect(() => {
     const handleResize = () => {
@@ -70,7 +72,7 @@ const SidebarMenu = ({ isOpen, setIsSidebarOpen }: SidebarMenuProps) => {
             rounded active:bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-gray-5"
             >
               <FaMoneyCheckDollar />
-              Overview
+              {t("menu.overview")}
             </NavLink>
           </li>
           <li className="w-full ">
@@ -80,7 +82,7 @@ const SidebarMenu = ({ isOpen, setIsSidebarOpen }: SidebarMenuProps) => {
             rounded active:bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-gray-5"
             >
               <FaTable />
-              Transactions
+              {t("menu.transactions")}
             </NavLink>
           </li>
           <li className="w-full">
@@ -90,7 +92,7 @@ const SidebarMenu = ({ isOpen, setIsSidebarOpen }: SidebarMenuProps) => {
             rounded active:bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-gray-5"
             >
               <FaPlusCircle />
-              New transaction
+              {t("menu.newTransaction")}
             </NavLink>
           </li>
           <li className="w-full">
@@ -100,7 +102,7 @@ const SidebarMenu = ({ isOpen, setIsSidebarOpen }: SidebarMenuProps) => {
             rounded active:bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-gray-5"
             >
               <FaChartColumn />
-              Reports
+              {t("menu.reports")}
             </NavLink>
           </li>
           <li className="w-full">
@@ -110,7 +112,7 @@ const SidebarMenu = ({ isOpen, setIsSidebarOpen }: SidebarMenuProps) => {
             rounded active:bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-gray-5"
             >
               <FaFire />
-              Insights
+              {t("menu.insights")}
             </NavLink>
           </li>
         </ul>
@@ -122,7 +124,7 @@ const SidebarMenu = ({ isOpen, setIsSidebarOpen }: SidebarMenuProps) => {
             rounded active:bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-gray-5"
         >
           <FaGear />
-          Settings
+          {t("menu.settings")}
         </NavLink>
         <NavLink
           to="/logout"
@@ -130,7 +132,7 @@ const SidebarMenu = ({ isOpen, setIsSidebarOpen }: SidebarMenuProps) => {
             rounded active:bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-gray-5"
         >
           <FaSignOutAlt />
-          Logout
+          {t("menu.logout")}
         </NavLink>
       </div>
     </nav>

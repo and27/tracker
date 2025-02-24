@@ -1,4 +1,5 @@
 import { icons } from "../data/settingsConfig";
+import { useLanguageStore } from "../store/languageStore";
 import Toggle, { options } from "./Toggle";
 
 interface SettingsProps {
@@ -13,6 +14,7 @@ interface SettingsProps {
 }
 
 const SettingsList = ({ data }: SettingsProps) => {
+  const { t } = useLanguageStore();
   return (
     <div>
       {data.map((setting) => {
@@ -25,9 +27,11 @@ const SettingsList = ({ data }: SettingsProps) => {
             <div className="flex items-center my-2">
               <Icon className="text-xl" />
               <div className="ml-4">
-                <h3 className="font-semibold">{setting.title}</h3>
+                <h3 className="font-semibold">
+                  {t(`settings.${setting.name}`)}
+                </h3>
                 <p className="text-neutral-600 dark:text-neutral-400 text-sm">
-                  {setting.description}
+                  {t(`settings.${setting.name}Description`)}
                 </p>
               </div>
             </div>

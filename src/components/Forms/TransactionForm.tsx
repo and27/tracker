@@ -11,6 +11,7 @@ import {
   transformTransactionData,
 } from "../../services/transactionService";
 import useAITransaction from "../../hooks/useAITransaction";
+import { useLanguageStore } from "../../store/languageStore";
 
 interface GeneratedTransactionProps {
   generatedTransaction: {
@@ -69,6 +70,7 @@ const TransactionForm = () => {
   const [userInput, setUserInput] = useState("");
   const { generatedTransaction, processTransaction, loading } =
     useAITransaction();
+  const { t } = useLanguageStore();
 
   const {
     register,
@@ -114,7 +116,7 @@ const TransactionForm = () => {
             !showForm && "border-b-4"
           } border-indigo-500 px-5 mt-2 rounded dark:border-indigo-400 bg-neutral-100 dark:bg-neutral-800`}
         >
-          Magic Entry
+          {t("transactions.form.autoEntry")}
         </button>
         <button
           className={`border-0 ${
@@ -124,25 +126,27 @@ const TransactionForm = () => {
             setShowForm(!showForm);
           }}
         >
-          Manual Entry
+          {t("transactions.form.manualEntry")}
         </button>
       </div>
       {!showForm && (
         <div className="text-white pt-10 rounded-lg shadow-lg w-96">
           <label className="flex flex-col text-neutral-700 dark:text-neutral-200">
-            Transaction detailed description *
+            {t("transactions.form.autoDetails")} *
             <span className="sr-only">Required field</span>
             <input
               type="text"
               value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
-              placeholder="E.g. 'Bought coffee for $5 with card'"
+              placeholder={t("transactions.form.autoPlaceholder")}
               className="w-full mt-2 border border-neutral-700 py-2 px-4 rounded-md bg-neutral-100 dark:bg-neutral-800"
             />
           </label>
           <div className="flex justify-between my-4">
             <Button onClick={() => processTransaction(userInput)}>
-              {loading ? "✨ Processing..." : "Generate"}
+              {loading
+                ? `✨ ${t("transactions.form.loading")}`
+                : t("transactions.form.generate")}
             </Button>
           </div>
           {generatedTransaction && (
@@ -166,7 +170,8 @@ const TransactionForm = () => {
         >
           <div>
             <label className="flex flex-col text-neutral-700 dark:text-neutral-200">
-              Description *<span className="sr-only">Required field</span>
+              {t("transactions.form.description")} *
+              <span className="sr-only">Required field</span>
               <input
                 className="border border-neutral-700 py-2 px-4 rounded-md bg-neutral-100 dark:bg-neutral-800"
                 type="text"
@@ -178,12 +183,13 @@ const TransactionForm = () => {
             </label>
             {errors.description && (
               <span id="description-error" className="text-rose-600 text-sm ">
-                This field is required
+                {t("transactions.form.requiredError")}
               </span>
             )}
           </div>
           <label className="flex flex-col text-gray-700 dark:text-neutral-200 ">
-            Date *<span className="sr-only">Required field</span>
+            {t("transactions.form.date")} *
+            <span className="sr-only">Required field</span>
             <input
               className="border border-neutral-700 py-2 px-4 rounded-md bg-neutral-100 dark:bg-neutral-800"
               type="date"
@@ -193,7 +199,8 @@ const TransactionForm = () => {
           </label>
           <div>
             <label className="flex flex-col text-gray-700 dark:text-neutral-200">
-              Category *<span className="sr-only">Required field</span>
+              {t("transactions.form.category")} *
+              <span className="sr-only">Required field</span>
               <select
                 className="border border-neutral-700 py-2 px-4 rounded-md bg-neutral-100 dark:bg-neutral-800"
                 {...register("category.id", { required: true })}
@@ -212,13 +219,14 @@ const TransactionForm = () => {
 
             {errors.category?.id && (
               <span id="category-error" className="text-rose-600 text-sm ">
-                This field is required
+                {t("transactions.form.requiredError")}
               </span>
             )}
           </div>
           <div>
             <label className="flex flex-col text-gray-700 dark:text-neutral-200">
-              Amount *<span className="sr-only">Required field</span>
+              {t("transactions.form.amount")} *
+              <span className="sr-only">Required field</span>
               <input
                 className="border border-neutral-700 py-2 px-4 rounded-md bg-neutral-100 dark:bg-neutral-800"
                 type="number"
@@ -228,23 +236,25 @@ const TransactionForm = () => {
             </label>
             {errors.amount && (
               <span id="amount-error" className="text-rose-600 text-sm">
-                This field is required
+                {t("transactions.form.requiredError")}
               </span>
             )}
           </div>
           <label className="flex flex-col text-gray-700 dark:text-neutral-200">
-            Type *<span className="sr-only">Required field</span>
+            {t("transactions.form.type")} *
+            <span className="sr-only">Required field</span>
             <select
               className="border border-neutral-700 py-2 px-4 rounded-md bg-neutral-100 dark:bg-neutral-800"
               {...register("type", { required: true })}
             >
-              <option value="income">Income</option>
-              <option value="expense">Expense</option>
+              <option value="income">{t("transactions.income")}</option>
+              <option value="expense">{t("transactions.expense")}</option>
             </select>
           </label>
           <div>
             <label className="flex flex-col text-gray-700 dark:text-neutral-200">
-              Payment Method *<span className="sr-only">Required field</span>
+              {t("transactions.form.paymentMethod")} *
+              <span className="sr-only">Required field</span>
               <select
                 className="border border-neutral-700 py-2 px-4 rounded-md bg-neutral-100 dark:bg-neutral-800"
                 {...register("paymentMethod.id", { required: true })}
@@ -265,12 +275,12 @@ const TransactionForm = () => {
                 id="payment-method-error"
                 className="text-rose-600 text-sm "
               >
-                This field is required
+                {t("transactions.form.requiredError")}
               </span>
             )}
           </div>
           <div className="flex ap-3">
-            <Button type="submit">Add transaction</Button>
+            <Button type="submit">{t("transactions.form.cta")}</Button>
           </div>
         </form>
       )}

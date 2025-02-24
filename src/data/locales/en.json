@@ -1,0 +1,105 @@
+{
+  "menu": {
+    "overview": "Overview",
+    "transactions": "Transactions",
+    "settings": "Settings",
+    "reports": "Reports",
+    "insights": "Insights",
+    "newTransaction": "New transaction",
+    "logout": "Logout"
+  },
+  "overview": {
+    "title": "Welcome, here is your account overview",
+    "accountSummary": "Account summary",
+    "income": "Income",
+    "expense": "Expense",
+    "balance": "Balance",
+    "totalTransactions": "Total Transactions",
+    "expensesByCategory": "Expenses by category",
+    "insightsPlaceholder": "No insights available yet.",
+    "lastTransactions": "Last transactions",
+    "insightsBanner": {
+      "button": "Go to insights"
+    }
+  },
+  "transactions": {
+    "title": "All your transactions",
+    "cta": "New transaction",
+    "income": "Income",
+    "expense": "Expense",
+    "noData": "No transactions available.",
+    "pagination": {
+      "page": "Page",
+      "show": "Show",
+      "of": "of "
+    },
+    "headers": {
+      "action": "Action",
+      "description": "Description",
+      "date": "Date",
+      "category": "Category",
+      "amount": "Amount",
+      "type": "Type",
+      "paymentMethod": "Payment method"
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "types": {
+      "income": "Income",
+      "expense": "Expense"
+    },
+    "paymentMethods": {
+      "cash": "Cash",
+      "creditCard": "Credit card",
+      "debitCard": "Debit card",
+      "bankTransfer": "Bank transfer"
+    },
+    "deleteModal": {
+      "title": "Are you sure you want to delete this transaction?",
+      "cancel": "Cancel",
+      "confirm": "Delete"
+    },
+    "form": {
+      "title": "Create a new transaction",
+      "cta": "Add transaction",
+      "autoEntry": "Magic entry",
+      "autoPlaceholder": "E.g. 'Bought coffee for $5 with card'",
+      "generate": "Generate",
+      "loading": "Processing...",
+      "manualEntry": "Manual entry",
+      "autoDetails": "Transaction details",
+      "description": "Description",
+      "date": "Date",
+      "category": "Category",
+      "amount": "Amount",
+      "type": "Type",
+      "paymentMethod": "Payment method",
+      "save": "Save",
+      "cancel": "Cancel",
+      "requiredError": "This field is required"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "notificationsTitle": "Notifications",
+    "language": "Language",
+    "currency": "Currency",
+    "darkTheme": "Dark mode",
+    "darkThemeDescription": "Enable dark mode for a better experience at night.",
+    "budgetNotifications": "Budget notifications",
+    "budgetNotificationsDescription": "Receive notifications when you are close to reaching your budget.",
+    "monthlyReport": "Monthly report",
+    "monthlyReportDescription": "Receive a monthly report with your account summary.",
+    "languageOptions": {
+      "en": "English",
+      "es": "Spanish"
+    }
+  },
+  "categories": {
+    "title": "Categories and budget",
+    "description": "Manage your categories and budget for each category here.",
+    "cta": "Add category"
+  }
+}

@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import Subtitle from "../Subtitle";
 import TransactionOverviewItem from "../TransactionOverviewItem";
 import { getLastTransactions } from "../../utils/supabaseDB";
+import { useLanguageStore } from "../../store/languageStore";
 
 const TransactionOverviewList = () => {
   const [transactions, setTransactions] = useState<Transaction[]>();
+  const { t } = useLanguageStore();
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -22,8 +24,8 @@ const TransactionOverviewList = () => {
   }, []);
   return (
     <div className="col-span-2 mr-6">
-      <Subtitle title="Last transactions" />
-      <div className="dark:bg-neutral-800/50 pt-4 dark:p-8 rounded-lg">
+      <Subtitle title={t("overview.lastTransactions")} />
+      <div className="bg-neutral-50 shadow-sm dark:bg-neutral-800/50 pt-4 p-8 rounded-lg">
         <ul className="grid grid-cols-1 gap-4">
           {transactions?.map((transaction) => (
             <TransactionOverviewItem

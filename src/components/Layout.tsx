@@ -9,11 +9,11 @@ const Layout = () => {
   return (
     <>
       <div
-        className={`bg-neutral-900 opacity-70 lg:hidden absolute w-full h-full
+        className={`opacity-70 lg:hidden absolute w-full h-full
         ${isSidebarOpen ? "block" : "hidden transition-all duration-300 z-10"}
       `}
       ></div>
-      <div className="bg-neutral-50 dark:bg-neutral-900 flex flex-col w-full">
+      <div className="flex flex-col w-full">
         <button
           className="relative static lg:hidden bg-indigo-700 text-white px-4 py-2 mt-2 mx-9 self-end"
           aria-label="Menu"
@@ -21,7 +21,11 @@ const Layout = () => {
         >
           {isSidebarOpen ? <FaX /> : <FaBars />}
         </button>
-        <div className="grid grid-cols-12 w-full">
+        <div
+          className="grid grid-cols-12 w-full
+        dark:bg-neutral-900 dark:text-neutral-100
+        bg-neutral-100 text-neutral-900"
+        >
           <SidebarMenu
             isOpen={isSidebarOpen}
             setIsSidebarOpen={setIsSidebarOpen}

@@ -1,0 +1,107 @@
+{
+  "menu": {
+    "overview": "Resumen",
+    "transactions": "Movimientos",
+    "settings": "Configuración",
+    "reports": "Reportes",
+    "insights": "Insights",
+    "newTransaction": "Nuevo movimiento",
+    "logout": "Cerrar sesión"
+  },
+
+  "overview": {
+    "title": "Bienvenido, aquí está el resumen de tu cuenta",
+    "accountSummary": "Resumen de cuenta",
+    "income": "Ingresos",
+    "expense": "Gastos",
+    "balance": "Balance",
+    "totalTransactions": "Total de transacciones",
+    "expensesByCategory": "Gastos por categoría",
+    "insightsPlaceholder": "Aún no hay insights disponibles.",
+    "lastTransactions": "Últimas transacciones",
+    "insightsBanner": {
+      "button": "Ir a insights"
+    }
+  },
+  "transactions": {
+    "title": "Todos tus movimientos",
+    "cta": "Nuevo movimiento",
+    "income": "Ingreso",
+    "expense": "Gasto",
+    "noData": "No hay movimientos disponibles.",
+    "pagination": {
+      "page": "Página",
+      "show": "Mostrar",
+      "of": "de "
+    },
+    "headers": {
+      "action": "Acción",
+      "description": "Descripción",
+      "date": "Fecha",
+      "category": "Categoría",
+      "amount": "Monto",
+      "type": "Tipo",
+      "paymentMethod": "Método de pago"
+    },
+    "actions": {
+      "edit": "Editar",
+      "delete": "Eliminar"
+    },
+    "types": {
+      "income": "Ingreso",
+      "expense": "Gasto"
+    },
+    "paymentMethods": {
+      "cash": "Efectivo",
+      "creditCard": "Tarjeta de crédito",
+      "debitCard": "Tarjeta de débito",
+      "bankTransfer": "Transferencia bancaria"
+    },
+    "deleteModal": {
+      "title": "¿Estás seguro de que deseas eliminar este movimiento?",
+      "cancel": "Cancelar",
+      "confirm": "Eliminar"
+    },
+    "form": {
+      "title": "Crear un nuevo movimiento",
+      "cta": "Agregar movimiento",
+      "autoEntry": "Entrada mágica",
+      "autoPlaceholder": "Ej. 'Compré café por $5 con tarjeta'",
+      "generate": "Generar",
+      "loading": "Procesando...",
+      "manualEntry": "Entrada manual",
+      "autoDetails": "Detalles del movimiento",
+      "description": "Descripción",
+      "date": "Fecha",
+      "category": "Categoría",
+      "amount": "Monto",
+      "type": "Tipo",
+      "paymentMethod": "Método de pago",
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "requiredError": "Este campo es obligatorio"
+    }
+  },
+
+  "settings": {
+    "title": "Configuración",
+    "notificationsTitle": "Notificaciones",
+    "language": "Idioma",
+    "currency": "Moneda",
+    "darkTheme": "Modo oscuro",
+    "darkThemeDescription": "Habilita el modo oscuro para una mejor experiencia por la noche.",
+    "budgetNotifications": "Notificaciones de presupuesto",
+    "budgetNotificationsDescription": "Recibe notificaciones cuando te acerques a tu límite de presupuesto.",
+    "monthlyReport": "Reporte mensual",
+    "monthlyReportDescription": "Recibe un reporte mensual con el resumen de tu cuenta.",
+    "languageOptions": {
+      "en": "Inglés",
+      "es": "Español"
+    }
+  },
+  "categories": {
+    "title": "Categorías",
+    "description": "Administra tus categorías aquí.",
+    "cta": "Nueva categoría"
+  }
+}

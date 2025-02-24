@@ -23,7 +23,7 @@ const TransactionOverviewList = () => {
     fetchTransactions();
   }, []);
   return (
-    <div className="col-span-2 mr-6">
+    <div className="col-span-2">
       <Subtitle title={t("overview.lastTransactions")} />
       <div className="bg-neutral-50 shadow-sm dark:bg-neutral-800/50 pt-4 p-8 rounded-lg">
         <ul className="grid grid-cols-1 gap-4">

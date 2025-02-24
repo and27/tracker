@@ -130,7 +130,7 @@ const TransactionForm = () => {
         </button>
       </div>
       {!showForm && (
-        <div className="text-white pt-10 rounded-lg shadow-lg w-96">
+        <div className="text-white pt-10 rounded-lg shadow-lg max-w-96">
           <label className="flex flex-col text-neutral-700 dark:text-neutral-200">
             {t("transactions.form.autoDetails")} *
             <span className="sr-only">Required field</span>

@@ -18,7 +18,7 @@ function OverviewPage() {
 
   return (
     <div className="flex flex-col col-span-12 lg:col-span-10 overflow-scroll">
-      <main className="p-5 lg:p-10">
+      <main className="p-4 lg:p-10">
         <h1 className="text-2xl lg:text-3xl mb-6 font-outfit">
           {t("overview.title")}
         </h1>

@@ -64,7 +64,7 @@ const SidebarMenu = ({ isOpen, setIsSidebarOpen }: SidebarMenuProps) => {
             Tracker
           </p>
         </div>
-        <ul className="flex flex-col gap-4 items-start w-full">
+        <ul className="flex flex-col gap-2 md:gap-4 items-start w-full">
           <li className="w-full">
             <NavLink
               to="/account/overview"

@@ -4,7 +4,7 @@ import HeatMapDataProvider from "../components/Sections/HeatMapDataProvider";
 
 const ReportsPage = () => {
   return (
-    <main className="col-span-12 lg:col-span-10 px-8 pt-10">
+    <main className="col-span-12 lg:col-span-10 px-4 md:px-8 pt-10">
       <h1 className="text-lg lg:text-xl mb-4 font-outfit text-neutral-700 dark:text-neutral-400">
         Reports
       </h1>

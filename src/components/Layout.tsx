@@ -3,6 +3,7 @@ import SidebarMenu from "./Sections/SidebarMenu";
 import { useState } from "react";
 import { FaBars, FaX } from "react-icons/fa6";
 import { useLanguageStore } from "../store/languageStore";
+import UsersnapWidget from "./UserSnap";
 
 const Layout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -36,6 +37,7 @@ const Layout = () => {
             setIsSidebarOpen={setIsSidebarOpen}
           />
           <Outlet />
+          <UsersnapWidget />
         </div>
       </div>
     </>

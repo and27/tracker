@@ -8,7 +8,7 @@ import { useLanguageStore } from "../store/languageStore";
 
 const SettingPage = () => {
   const { toggleTheme } = useTheme();
-  const { setLang, t } = useLanguageStore();
+  const { t } = useLanguageStore();
 
   return (
     <div className="flex flex-col col-span-12 lg:col-span-10 overflow-scroll">
@@ -18,13 +18,6 @@ const SettingPage = () => {
           <SettingsList
             data={settingsData.map((s) => ({ ...s, handler: toggleTheme }))}
           />
-          <select
-            onChange={(e) => setLang(e.target.value)}
-            className="border border-neutral-700 py-2 px-4 rounded-md bg-neutral-100 dark:bg-neutral-800"
-          >
-            <option value="en">🇺🇸 English</option>
-            <option value="es">🇪🇸 Español</option>
-          </select>
         </section>
         <section>
           <Subtitle title={t("settings.notificationsTitle")} />

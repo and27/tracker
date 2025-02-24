@@ -12,8 +12,8 @@ const InsightsPage = () => {
 
   return (
     <main className="col-span-12 lg:col-span-10 pt-5 md:pt-10 px-5 md:px-8 dark:bg-zinc-900 min-h-screen">
-      <div className="flex flex-col md:flex-row justify-between mb-4">
-        <h1 className="text-lg lg:text-xl mb-4 font-outfit text-neutral-700 dark:text-neutral-400">
+      <header className="flex flex-col md:flex-row mb-4 gap-2 md:gap-5 md:items-center">
+        <h1 className="text-lg lg:text-xl font-outfit text-neutral-700 dark:text-neutral-400">
           Análisis Inteligente de tus Finanzas
         </h1>
         <button
@@ -22,7 +22,7 @@ const InsightsPage = () => {
         >
           Actualizar Insights
         </button>
-      </div>
+      </header>
 
       <div className="flex flex-col gap-8">
         <SpendingPatterns data={insights.spendingPatterns} />

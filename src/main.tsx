@@ -18,6 +18,7 @@ import PasswordReset from "./pages/PasswordReset.tsx";
 import PasswordRecovery from "./pages/PasswordRecoverys.tsx";
 import { ToastContainer } from "react-toastify";
 import InsightsPage from "./pages/InsightsPage.tsx";
+import OnboardingPage from "./pages/OnboardingPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -81,15 +82,20 @@ const router = createBrowserRouter([
     element: <PasswordReset />,
     errorElement: <ErrorPage />,
   },
+  {
+    path: "/onboarding",
+    element: <OnboardingPage />,
+    errorElement: <ErrorPage />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <ThemeProvider>
-      <CategoriesProvider>
-        <RouterProvider router={router} />
-        <ToastContainer />
-      </CategoriesProvider>
-    </ThemeProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <ThemeProvider>
+    <CategoriesProvider>
+      <RouterProvider router={router} />
+      <ToastContainer />
+    </CategoriesProvider>
+  </ThemeProvider>
+  // </React.StrictMode>
 );

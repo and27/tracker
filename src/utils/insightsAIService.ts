@@ -1,14 +1,17 @@
 import { openai } from "../hooks/useAITransaction";
 
-export const getAIInsights = async (transactions: ConsolidatedTransactions) => {
+export const getAIInsights = async (
+  lang: string,
+  transactions: ConsolidatedTransactions
+) => {
+  const l = lang === "en" ? "English" : "Spanish";
   try {
     const completion = await openai.chat.completions.create({
       model: "deepseek-chat",
       messages: [
         {
           role: "system",
-          content: `You are a financial assistant. Based on the user's transactions, generate insights in the following compact JSON format:
-
+          content: `You are a financial assistant. Based on the user's transactions, generate insights in ${l} the following JSON format:
         '{
           "spendingPatterns": [
             {
@@ -43,12 +46,11 @@ export const getAIInsights = async (transactions: ConsolidatedTransactions) => {
           - "ac" = action
           - "l" = label
           - "t" = type
-        - Output **only the JSON** with no extra text. 
-        Respond with JSON only, starting directly with '{' and ending with '}'.`,
+        - Output **only the JSON** with no extra text. `,
         },
         {
           role: "user",
-          content: `Analyze these transactions and generate structured insights:\n\n${JSON.stringify(
+          content: `Analyze these transactions and generate insights:\n\n${JSON.stringify(
             transactions
           )}`,
         },

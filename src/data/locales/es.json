@@ -15,6 +15,7 @@
     "income": "Ingresos",
     "expense": "Gastos",
     "balance": "Balance",
+    "viewAll": "Ver todo",
     "totalTransactions": "Total de transacciones",
     "expensesByCategory": "Gastos por categoría",
     "insightsPlaceholder": "Aún no hay insights disponibles.",
@@ -103,5 +104,27 @@
     "title": "Categorías",
     "description": "Administra tus categorías aquí.",
     "cta": "Nueva categoría"
+  },
+  "reports": {
+    "title": "Reportes",
+    "barChartTitle": "Gastos por categoría",
+    "lineChartTitle": "¿Cuánto estás gastando?",
+    "heatMapTitle": "¿Cuáles son tus gastos principales?"
+  },
+  "insights": {
+    "title": "Análisis de tus finanzas",
+    "description": "Aquí tienes algunos insights basados en tus movimientos.",
+    "noData": "Aún no hay insights disponibles.",
+    "cta": "Actualizar insights",
+    "expensesTitle": "Patrones de gastos",
+    "predictionsTitle": "Predicciones y tendencias",
+    "topCategories": "Categorías principales",
+    "topExpenses": "Gastos principales",
+    "topIncome": "Ingresos principales",
+    "topPaymentMethods": "Métodos de pago principales",
+    "topCategoriesPlaceholder": "Aún no hay categorías disponibles.",
+    "topExpensesPlaceholder": "Aún no hay gastos disponibles.",
+    "topIncomePlaceholder": "Aún no hay ingresos disponibles.",
+    "topPaymentMethodsPlaceholder": "Aún no hay métodos de pago disponibles."
   }
 }

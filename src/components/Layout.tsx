@@ -7,7 +7,7 @@ import UsersnapWidget from "./UserSnap";
 
 const Layout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const { setLang } = useLanguageStore();
+  const { lang, setLang } = useLanguageStore();
 
   return (
     <>
@@ -17,6 +17,7 @@ const Layout = () => {
       >
         <select
           onChange={(e) => setLang(e.target.value)}
+          value={lang}
           className="
             absolute right-20 top-3 lg:right-5 lg:top-5
             border border-neutral-700 py-2 px-4 rounded-md bg-neutral-100 dark:bg-neutral-800"

@@ -10,7 +10,7 @@ export interface ITransactionOverview {
   category: string;
 }
 
-const TransactionOverviewItem: React.FC<ITransactionOverview> = (
+const TransactionItem: React.FC<ITransactionOverview> = (
   props: ITransactionOverview
 ) => {
   const { description, amount, type, category } = props;
@@ -47,4 +47,4 @@ const TransactionOverviewItem: React.FC<ITransactionOverview> = (
   );
 };
 
-export default TransactionOverviewItem;
+export default TransactionItem;

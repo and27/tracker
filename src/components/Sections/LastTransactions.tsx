@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import Subtitle from "../Subtitle";
-import TransactionOverviewItem from "../TransactionOverviewItem";
+import TransactionItem from "../TransactionItem";
 import { getLastTransactions } from "../../utils/supabaseDB";
 import { useLanguageStore } from "../../store/languageStore";
+import Button from "../Button";
 
-const TransactionOverviewList = () => {
+const LastTransactions = () => {
   const [transactions, setTransactions] = useState<Transaction[]>();
   const { t } = useLanguageStore();
 
@@ -28,7 +29,7 @@ const TransactionOverviewList = () => {
       <div className="bg-neutral-50 shadow-sm dark:bg-neutral-800/50 pt-4 p-8 rounded-lg">
         <ul className="grid grid-cols-1 gap-4">
           {transactions?.map((transaction) => (
-            <TransactionOverviewItem
+            <TransactionItem
               key={transaction.id}
               id={parseInt(transaction.id)}
               description={transaction.description}
@@ -38,9 +39,15 @@ const TransactionOverviewList = () => {
             />
           ))}
         </ul>
+        <Button
+          className="mt-4 w-full"
+          onClick={() => console.log("See all transactions")}
+        >
+          {t("overview.viewAll")}
+        </Button>
       </div>
     </div>
   );
 };
 
-export default TransactionOverviewList;
+export default LastTransactions;

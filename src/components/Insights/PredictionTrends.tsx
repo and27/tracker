@@ -1,4 +1,5 @@
 import { FaClock, FaExclamationTriangle } from "react-icons/fa";
+import { useLanguageStore } from "../../store/languageStore";
 
 interface Prediction {
   id: number;
@@ -13,10 +14,12 @@ interface Props {
 }
 
 const PredictionsTrends: React.FC<Props> = ({ data }) => {
+  const { t } = useLanguageStore();
+
   return (
     <section className="mb-10">
       <h2 className="text-xl font-semibold mb-3 text-white">
-        Predicciones & Tendencias
+        {t("insights.predictionsTitle")}
       </h2>
       <div className="border-l-4 border-blue-500 pl-4 space-y-4">
         {data.map((prediction) => (

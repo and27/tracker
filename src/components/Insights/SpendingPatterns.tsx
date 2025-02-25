@@ -1,3 +1,5 @@
+import { useLanguageStore } from "../../store/languageStore";
+
 interface Action {
   l: string; // label
   t: string; // type
@@ -17,10 +19,11 @@ interface Props {
 }
 
 const SpendingPatterns: React.FC<Props> = ({ data, onActionClick }) => {
+  const { t } = useLanguageStore();
   return (
     <section className="mb-10">
       <h2 className="text-xl font-semibold mb-3 text-white">
-        Patrones de Gasto
+        {t("insights.expensesTitle")}
       </h2>
       <div className="grid md:grid-cols-2 gap-4">
         {data.map((pattern) => (
@@ -34,7 +37,7 @@ const SpendingPatterns: React.FC<Props> = ({ data, onActionClick }) => {
 
             <div className="mt-2 w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700">
               <div
-                className="h-4 rounded-full bg-indigo-600"
+                className="h-4 rounded-full bg-neutral-700"
                 style={{ width: `${pattern.p}%` }}
                 aria-label={`Gasto de ${pattern.p}% en ${pattern.c}`}
               ></div>

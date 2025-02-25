@@ -8,7 +8,7 @@ const InsightsBanner = ({ insight }: { insight: string }) => {
       <div>
         <p>{insight}</p>
       </div>
-      <LinkButton to="/account/insights" className="primary">
+      <LinkButton to="/account/insights" className="secondary">
         {t("overview.insightsBanner.button")}
       </LinkButton>
     </div>

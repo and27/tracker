@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { fetchConsolidatedTransactions } from "../utils/supabaseDB";
 import { getAIInsights } from "../utils/insightsAIService";
+import { useLanguageStore } from "./languageStore";
 
 type SpendingPattern = {
   id: number;
@@ -41,6 +42,7 @@ export const useInsightStore = create<InsightStore>()(
 
         try {
           const user = localStorage.getItem("userId") as string;
+          const { lang } = useLanguageStore.getState();
           const consolidatedTransactions = await fetchConsolidatedTransactions(
             user
           );
@@ -49,7 +51,10 @@ export const useInsightStore = create<InsightStore>()(
             console.error("Failed to fetch consolidated transactions.");
             return;
           }
-          const newInsights = await getAIInsights(consolidatedTransactions);
+          const newInsights = await getAIInsights(
+            lang,
+            consolidatedTransactions
+          );
 
           set({
             insights: newInsights,

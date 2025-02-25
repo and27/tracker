@@ -1,7 +1,7 @@
 import AccountSummary from "../components/AccountSummary";
 import InsightsBanner from "../components/InsightsBanner";
 import { Footer } from "../components/Sections/Footer";
-import TransactionOverviewList from "../components/Sections/TransactionOverviewList";
+import LastTransactions from "../components/Sections/LastTransactions";
 import { useInsightStore } from "../store/insightStore";
 import { useLanguageStore } from "../store/languageStore";
 
@@ -25,7 +25,7 @@ function OverviewPage() {
         <InsightsBanner insight={firstInsight as string} />
         <div className="md:grid md:grid-cols-6 gap-6">
           <AccountSummary />
-          <TransactionOverviewList />
+          <LastTransactions />
         </div>
       </main>
       <Footer />

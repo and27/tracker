@@ -14,6 +14,7 @@
     "income": "Income",
     "expense": "Expense",
     "balance": "Balance",
+    "viewAll": "View all",
     "totalTransactions": "Total Transactions",
     "expensesByCategory": "Expenses by category",
     "insightsPlaceholder": "No insights available yet.",
@@ -101,5 +102,27 @@
     "title": "Categories and budget",
     "description": "Manage your categories and budget for each category here.",
     "cta": "Add category"
+  },
+  "reports": {
+    "title": "Reports",
+    "barChartTitle": "Expenses by category",
+    "lineChartTitle": "How much are you spending?",
+    "heatMapTitle": "What are your top expenses?"
+  },
+  "insights": {
+    "title": "Financial Analysis",
+    "description": "Here are some insights based on your transactions.",
+    "noData": "No insights available yet.",
+    "cta": "Update insights",
+    "expensesTitle": "Spending patterns",
+    "predictionsTitle": "Predictions and trends",
+    "topCategories": "Top categories",
+    "topExpenses": "Top expenses",
+    "topIncome": "Top income",
+    "topPaymentMethods": "Top payment methods",
+    "topCategoriesPlaceholder": "No categories available yet.",
+    "topExpensesPlaceholder": "No expenses available yet.",
+    "topIncomePlaceholder": "No income available yet.",
+    "topPaymentMethodsPlaceholder": "No payment methods available yet."
   }
 }

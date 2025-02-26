@@ -50,10 +50,15 @@ const CategoryForm = ({
         Category Name
         <input
           id="name"
-          className="bg-transparent border border-neutral-700 py-2 px-4 rounded-md mt-1"
+          className={`${
+            type === "edit"
+              ? "bg-neutral-900/50 text-neutral-400"
+              : "bg-transparent "
+          } border border-neutral-700 py-2 px-4 rounded-md mt-1`}
           type="text"
           value={category?.name}
           onChange={handleChange}
+          disabled={type === "edit"}
         />
       </label>
       <label

@@ -90,12 +90,12 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  // <React.StrictMode>
-  <ThemeProvider>
-    <CategoriesProvider>
-      <RouterProvider router={router} />
-      <ToastContainer />
-    </CategoriesProvider>
-  </ThemeProvider>
-  // </React.StrictMode>
+  <React.StrictMode>
+    <ThemeProvider>
+      <CategoriesProvider>
+        <RouterProvider router={router} />
+        <ToastContainer />
+      </CategoriesProvider>
+    </ThemeProvider>
+  </React.StrictMode>
 );

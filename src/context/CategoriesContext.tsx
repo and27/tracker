@@ -28,20 +28,20 @@ interface CategoriesProviderProps {
 export const CategoriesProvider = ({ children }: CategoriesProviderProps) => {
   const [categories, setCategories] = useState<CategoryGroup[]>([]);
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const user = (await localStorage.getItem("userId")) as string;
-      const consolidated = await getCategoriesWithBudget(user);
-      const categoriesWithIcons = consolidated?.map((category) => ({
-        ...category,
-        categories: category.categories.map((subcategory: Category) => ({
-          ...subcategory,
-          icon: iconsMap[subcategory.name.toLowerCase()] || <FaQuestion />,
-        })),
-      }));
-      if (categoriesWithIcons) setCategories(categoriesWithIcons);
-    };
+  const fetchCategories = async () => {
+    const user = (await localStorage.getItem("userId")) as string;
+    const consolidated = await getCategoriesWithBudget(user);
+    const categoriesWithIcons = consolidated?.map((category) => ({
+      ...category,
+      categories: category.categories.map((subcategory: Category) => ({
+        ...subcategory,
+        icon: iconsMap[subcategory.name.toLowerCase()] || <FaQuestion />,
+      })),
+    }));
+    if (categoriesWithIcons) setCategories(categoriesWithIcons);
+  };
 
+  useEffect(() => {
     fetchCategories();
   }, []);
 
@@ -72,7 +72,7 @@ export const CategoriesProvider = ({ children }: CategoriesProviderProps) => {
     });
   };
 
-  const editCategory = (category: Category) => {
+  const editCategory = async (category: Category) => {
     setCategories((prevCategories) => {
       const currentGroup = prevCategories.find(
         (cat) => cat.id === category.group
@@ -112,6 +112,8 @@ export const CategoriesProvider = ({ children }: CategoriesProviderProps) => {
         oldUpdatedGroup,
       ];
     });
+
+    await fetchCategories();
   };
 
   // const removeCategory = (name: string) => {

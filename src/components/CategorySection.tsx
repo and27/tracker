@@ -17,7 +17,11 @@ import { useLanguageStore } from "../store/languageStore";
 type BudgetData = { name: string; value: number };
 
 const CategorySection = () => {
-  const { addCategory: addCategoryLocal, editCategory } = useCategories();
+  const {
+    categories,
+    addCategory: addCategoryLocal,
+    editCategory,
+  } = useCategories();
   const [isOpen, setIsOpen] = useState(false);
   const [formType, setFormType] = useState<"edit" | "add">("add");
   const [currentCategory, setCurrentCategory] = useState<Category>();
@@ -25,6 +29,7 @@ const CategorySection = () => {
   const title = formType === "add" ? "Add Category" : "Edit Category";
   const user = localStorage.getItem("userId") || "";
   const { t } = useLanguageStore();
+  const uid = localStorage.getItem("userId") || "";
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
@@ -43,18 +48,16 @@ const CategorySection = () => {
   };
 
   const addCat = async (category: Category) => {
-    addCategoryLocal(category);
-    const uid = localStorage.getItem("userId") || "";
     const { error } = await addCategoryWithBudget(category, uid);
     if (error) console.error("Failed to add category:", error);
+    addCategoryLocal(category);
     toggleModal();
   };
 
   const editCat = async (category: Category) => {
-    editCategory(category);
-    const uid = localStorage.getItem("userId") || "";
     const { error } = await editCategoryWithBudget(category, uid);
     if (error) console.error("Failed to edit category:", error);
+    editCategory(category);
     toggleModal();
   };
 
@@ -81,7 +84,7 @@ const CategorySection = () => {
     };
 
     fetchBudgets();
-  }, [user]);
+  }, [user, categories]);
 
   return (
     <section className="mb-10">
@@ -94,12 +97,12 @@ const CategorySection = () => {
         </div>
         <Button onClick={handleAddForm}>{t("categories.cta")}</Button>
       </div>
-      <div className="flex lg:flex-row flex-col">
+      <div className="flex lg:flex-row flex-col lg:gap-10">
         <CategoryList
           handleRemoveCategory={() => {}}
           handleEditCategory={handleEditForm}
         />
-        <div className="w-full lg:w-1/2 h-96">
+        <div className="w-full lg:w-1/2 h-96 lg:p-4">
           <ResponsivePie
             data={budgetData.map((entry) => ({
               id: entry.name,

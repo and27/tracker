@@ -1,4 +1,5 @@
 import { useCategories } from "../context/CategoriesContext";
+import { translateCategory } from "../utils/translationUtils";
 import CategoryItem from "./CategoryItem";
 
 interface CategoryListProps {
@@ -29,13 +30,22 @@ const CategoryList = ({ handleEditCategory }: CategoryListProps) => {
             className="grid grid-cols-1 md:grid-cols-2 my-4 gap-5"
             role="list"
           >
-            {category.categories.map((subCategory) => (
-              <CategoryItem
-                key={subCategory.id}
-                category={subCategory}
-                handleEditCategory={handleEditCategory}
-              />
-            ))}
+            {category.categories.map((subCategory) => {
+              const translatedCategoryName = translateCategory(
+                subCategory.name
+              );
+              const translatedCategory = {
+                ...subCategory,
+                name: translatedCategoryName,
+              };
+              return (
+                <CategoryItem
+                  key={subCategory.id}
+                  category={translatedCategory}
+                  handleEditCategory={handleEditCategory}
+                />
+              );
+            })}
           </div>
         </div>
       ))}

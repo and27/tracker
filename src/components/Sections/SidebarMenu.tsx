@@ -115,6 +115,16 @@ const SidebarMenu = ({ isOpen, setIsSidebarOpen }: SidebarMenuProps) => {
               {t("menu.insights")}
             </NavLink>
           </li>
+          {/* <li className="w-full">
+            <NavLink
+              to="/account/mission"
+              className="flex gap-2 items-center block text-start px-4 py-3
+            rounded active:bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-gray-5"
+            >
+              <FaFire />
+              {t("menu.mission")}
+            </NavLink>
+          </li> */}
         </ul>
       </div>
       <div>

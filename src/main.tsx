@@ -19,6 +19,7 @@ import PasswordRecovery from "./pages/PasswordRecoverys.tsx";
 import { ToastContainer } from "react-toastify";
 import InsightsPage from "./pages/InsightsPage.tsx";
 import OnboardingPage from "./pages/OnboardingPage.tsx";
+import MissionsPage from "./pages/MissionPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: "insights",
         element: <InsightsPage />,
+      },
+      {
+        path: "mission",
+        element: <MissionsPage />,
       },
       {
         path: "settings",

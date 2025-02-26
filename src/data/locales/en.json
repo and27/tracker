@@ -5,6 +5,7 @@
     "settings": "Settings",
     "reports": "Reports",
     "insights": "Insights",
+    "mission": "Missions",
     "newTransaction": "New transaction",
     "logout": "Logout"
   },
@@ -124,5 +125,15 @@
     "topExpensesPlaceholder": "No expenses available yet.",
     "topIncomePlaceholder": "No income available yet.",
     "topPaymentMethodsPlaceholder": "No payment methods available yet."
+  },
+  "missions": {
+    "title": "Missions",
+    "description": "Complete missions to earn rewards and improve your financial health.",
+    "noData": "No missions available yet.",
+    "levelTitle": "Level",
+    "completed": "Completed",
+    "inProgress": "In progress",
+    "points": "Points",
+    "levelProgress": "Level progress"
   }
 }

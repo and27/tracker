@@ -26,7 +26,14 @@ const PieChart = ({ data }: PieChartProps) => {
 
   return (
     <ResponsivePie
-      data={data}
+      data={data.map((entry) => {
+        console.log(entry);
+        return {
+          id: entry.label,
+          label: entry.label,
+          value: entry.value,
+        };
+      })}
       margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
       innerRadius={0.5}
       padAngle={0.7}
@@ -38,7 +45,7 @@ const PieChart = ({ data }: PieChartProps) => {
       arcLinkLabelsThickness={3}
       arcLinkLabelsTextColor={{
         from: "color",
-        modifiers: [["brighter", 2]],
+        modifiers: [["darker", 1]],
       }}
       tooltip={({ datum }) => (
         <div
@@ -94,11 +101,11 @@ const PieChart = ({ data }: PieChartProps) => {
       ]}
       legends={[
         {
-          anchor: isMobile ? "top-left" : "bottom",
-          direction: isMobile ? "column" : "row",
+          anchor: isMobile ? "right" : "bottom",
+          direction: "column",
           justify: false,
-          translateX: 0,
-          translateY: isMobile ? 0 : 56,
+          translateX: 260,
+          translateY: 0,
           itemsSpacing: 0,
           itemWidth: 100,
           itemHeight: 18,

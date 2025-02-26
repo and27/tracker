@@ -72,7 +72,7 @@ const AccountSummary = () => {
 
       <div className="mt-10 overflow-auto">
         <Subtitle title={t("overview.expensesByCategory")} />
-        <div className="lg:w-[70%] w-[110%]" style={{ height: "500px" }}>
+        <div className="lg:w-[90%] w-[110%]" style={{ height: "500px" }}>
           <PieChartDataProvider />
         </div>
       </div>

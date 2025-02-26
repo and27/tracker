@@ -18,7 +18,7 @@ const PredictionsTrends: React.FC<Props> = ({ data }) => {
 
   return (
     <section className="mb-10">
-      <h2 className="text-xl font-semibold mb-3 text-white">
+      <h2 className="text-xl font-semibold mb-3 text-neutral-700 dark:text-neutral-200">
         {t("insights.predictionsTitle")}
       </h2>
       <div className="border-l-4 border-blue-500 pl-4 space-y-4">
@@ -30,7 +30,9 @@ const PredictionsTrends: React.FC<Props> = ({ data }) => {
             <div>
               <div className="flex items-center">
                 <FaClock className="text-blue-500 text-lg" />
-                <p className="ml-2 text-md text-white">{prediction.d}</p>
+                <p className="ml-2 text-md text-neutral-300 dark:text-white ">
+                  {prediction.d}
+                </p>
                 {prediction.impact === "negative" && (
                   <FaExclamationTriangle className="text-red-500 ml-2" />
                 )}
@@ -44,7 +46,8 @@ const PredictionsTrends: React.FC<Props> = ({ data }) => {
                 prediction.ac?.map((action) => (
                   <button
                     key={action.l}
-                    className="bg-neutral -500 text-white px-2 py-1 rounded"
+                    className="bg-transparent border border-neutral-600
+                    dark:border-neutral-300 text-neutral-700 dark:text-white r ounded "
                   >
                     {action.l}
                   </button>

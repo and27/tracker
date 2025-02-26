@@ -4,10 +4,12 @@ import TransactionItem from "../TransactionItem";
 import { getLastTransactions } from "../../utils/supabaseDB";
 import { useLanguageStore } from "../../store/languageStore";
 import Button from "../Button";
+import { useNavigate } from "react-router-dom";
 
 const LastTransactions = () => {
   const [transactions, setTransactions] = useState<Transaction[]>();
   const { t } = useLanguageStore();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -26,7 +28,7 @@ const LastTransactions = () => {
   return (
     <div className="col-span-2">
       <Subtitle title={t("overview.lastTransactions")} />
-      <div className="bg-neutral-50 shadow-sm dark:bg-neutral-800/50 pt-4 p-8 rounded-lg">
+      <div className="pt-7 shadow-md dark:shadow-none bg-transparent dark:bg-neutral-800/50 pt-4 p-8 rounded-lg">
         <ul className="grid grid-cols-1 gap-4">
           {transactions?.map((transaction) => (
             <TransactionItem
@@ -41,7 +43,7 @@ const LastTransactions = () => {
         </ul>
         <Button
           className="mt-4 w-full"
-          onClick={() => console.log("See all transactions")}
+          onClick={() => navigate("/account/transactions")}
         >
           {t("overview.viewAll")}
         </Button>

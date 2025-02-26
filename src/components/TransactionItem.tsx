@@ -25,12 +25,12 @@ const TransactionItem: React.FC<ITransactionOverview> = (
 
   const classes = {
     listItem:
-      "grid grid-cols-12 md:grid-cols-1 lg:grid-cols-12 pb-3 items-center justify-between [&:not(:last-child)]:border-b border-neutral-200 dark:border-neutral-700",
+      "grid grid-cols-12 md:grid-cols-1 lg:grid-cols-12 pb-3 items-start justify-between [&:not(:last-child)]:border-b border-neutral-200 dark:border-neutral-700",
     iconWrapper:
-      "flex items-center col-span-2 text-neutral-400 dark:text-neutral-600 mb-2",
-    descriptionWrapper: "flex flex-col items-start col-span-7 gap-2",
-    description: "font-semibold line-clamp-1",
-    type: "text-sm text-neutral-800 dark:text-neutral-400",
+      "flex items-center col-span-2 text-neutral-400 dark:text-neutral-600 mt-2",
+    descriptionWrapper: "flex flex-col items-start col-span-7 gap-1",
+    description: "line-clamp-1",
+    type: "text-sm text-gray-600 dark:text-gray-400",
     amount:
       "font-medium col-span-3 text-lg text-neutral-800 dark:text-neutral-400 text-right",
   };

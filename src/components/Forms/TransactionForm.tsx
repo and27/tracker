@@ -114,14 +114,14 @@ const TransactionForm = () => {
           onClick={() => setShowForm(false)}
           className={`border-0 ${
             !showForm && "border-b-4"
-          } border-indigo-500 px-5 mt-2 rounded dark:border-indigo-400 bg-neutral-100 dark:bg-neutral-800`}
+          } border-indigo-500 px-5 mt-2 rounded dark:border-indigo-400 bg-neutral-200 dark:bg-neutral-800`}
         >
           {t("transactions.form.autoEntry")}
         </button>
         <button
           className={`border-0 ${
             showForm && "border-b-4"
-          } border-indigo-500 px-5 mt-2 rounded dark:border-indigo-400 bg-neutral-100 dark:bg-neutral-800`}
+          } border-indigo-500 px-5 mt-2 rounded dark:border-indigo-400 bg-neutral-200 dark:bg-neutral-800`}
           onClick={() => {
             setShowForm(!showForm);
           }}
@@ -130,7 +130,7 @@ const TransactionForm = () => {
         </button>
       </div>
       {!showForm && (
-        <div className="text-white pt-10 rounded-lg shadow-lg max-w-96">
+        <div className="text-white pt-10 rounded-lg max-w-96">
           <label className="flex flex-col text-neutral-700 dark:text-neutral-200">
             {t("transactions.form.autoDetails")} *
             <span className="sr-only">Required field</span>

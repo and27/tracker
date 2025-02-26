@@ -21,23 +21,23 @@ interface Props {
 const SpendingPatterns: React.FC<Props> = ({ data, onActionClick }) => {
   const { t } = useLanguageStore();
   return (
-    <section className="mb-10">
-      <h2 className="text-xl font-semibold mb-3 text-white">
+    <section className="my-10">
+      <h2 className="text-xl font-semibold mb-3 text-neutral-700 dark:text-neutral-200">
         {t("insights.expensesTitle")}
       </h2>
       <div className="grid md:grid-cols-2 gap-4">
         {data.map((pattern) => (
           <div
             key={pattern.id}
-            className="p-4 bg-white dark:bg-neutral-800 rounded-lg shadow"
+            className="flex flex-col gap-2 p-5 bg-white dark:bg-neutral-800/50 rounded-lg"
           >
             <div className="flex items-center">
-              <p className="ml-2 text-md">{pattern.d}</p>
+              <p className="text-md">{pattern.d}</p>
             </div>
 
-            <div className="mt-2 w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700">
+            <div className="mt-2 w-full bg-neutral-300 rounded-full h-4 dark:bg-neutral-900">
               <div
-                className="h-4 rounded-full bg-neutral-700"
+                className="h-4 rounded-full bg-green-500"
                 style={{ width: `${pattern.p}%` }}
                 aria-label={`Gasto de ${pattern.p}% en ${pattern.c}`}
               ></div>
@@ -49,7 +49,8 @@ const SpendingPatterns: React.FC<Props> = ({ data, onActionClick }) => {
                   <button
                     key={i}
                     onClick={() => onActionClick && onActionClick(action)}
-                    className="bg-neutral -500 text-white px-2 py-1 rounded "
+                    className="bg-transparent border border-neutral-800
+                     dark:border-neutral-500 text-neutral-700 dark:text-neutral-300 rounded "
                   >
                     {action.l}
                   </button>

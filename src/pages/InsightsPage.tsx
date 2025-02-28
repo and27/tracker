@@ -1,11 +1,12 @@
+import { useEffect } from "react";
 import { useInsightStore } from "../store/insightStore";
 import SpendingPatterns from "../components/Insights/SpendingPatterns";
 import PredictionsTrends from "../components/Insights/PredictionTrends";
-import { useEffect } from "react";
 import { useLanguageStore } from "../store/languageStore";
+import Spinner from "../components/Spinner";
 
 const InsightsPage = () => {
-  const { insights, getInsights } = useInsightStore();
+  const { isLoading, insights, getInsights } = useInsightStore();
   const { t } = useLanguageStore();
 
   useEffect(() => {
@@ -27,8 +28,17 @@ const InsightsPage = () => {
       </header>
 
       <div className="flex flex-col gap-8">
-        <SpendingPatterns data={insights.spendingPatterns} />
-        <PredictionsTrends data={insights.predictions} />
+        {isLoading ? (
+          <div className="flex flex-col items-center gap-4">
+            <Spinner />
+            <p>Wait a few seconds while we gather your insights.</p>
+          </div>
+        ) : (
+          <>
+            <SpendingPatterns data={insights.spendingPatterns} />
+            <PredictionsTrends data={insights.predictions} />
+          </>
+        )}
       </div>
     </main>
   );

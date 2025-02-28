@@ -23,7 +23,7 @@ function OverviewPage() {
           {t("overview.title")}
         </h1>
         <InsightsBanner insight={firstInsight as string} />
-        <div className="md:grid md:grid-cols-6 gap-6">
+        <div className="md:grid md:grid-cols-6 gap-6 mt-10">
           <AccountSummary />
           <LastTransactions />
         </div>

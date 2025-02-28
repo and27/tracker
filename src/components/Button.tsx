@@ -15,8 +15,8 @@ const Button = ({
     <button
       onClick={onClick}
       type={type}
-      className={`${className} bg-indigo-600 text-white px-5 rounded hover:bg-indigo-700 font-bold
-      text-sm md:text-base`}
+      className={`bg-indigo-600 text-white px-5 rounded hover:bg-indigo-700 font-bold
+      text-sm md:text-base ${className}`}
     >
       {children}
     </button>

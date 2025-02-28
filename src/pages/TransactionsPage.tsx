@@ -9,6 +9,7 @@ import { useTransactionStore } from "../store/transactionStore";
 import { formatCurrency } from "../utils/formatCurrency";
 import { translateCategory } from "../utils/translationUtils";
 import { useLanguageStore } from "../store/languageStore";
+import Spinner from "../components/Spinner";
 
 const TransactionsPage: React.FC = () => {
   const userId = localStorage.getItem("userId") as string;
@@ -127,10 +128,7 @@ const TransactionsPage: React.FC = () => {
       </header>
 
       {isLoading ? (
-        <div className="flex justify-center items-center h-96">
-          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-zinc-400"></div>
-          <span className="sr-only">Loading...</span>
-        </div>
+        <Spinner />
       ) : (
         <Table
           columns={columns}

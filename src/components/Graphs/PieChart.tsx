@@ -27,7 +27,6 @@ const PieChart = ({ data }: PieChartProps) => {
   return (
     <ResponsivePie
       data={data.map((entry) => {
-        console.log(entry);
         return {
           id: entry.label,
           label: entry.label,

@@ -17,13 +17,16 @@ interface InsightStore {
     spendingPatterns: SpendingPattern[];
     predictions: [];
   };
+  isLoading: boolean;
   lastUpdated: string | null;
   getInsights: (forceRefresh?: boolean) => Promise<void>;
+  clearInsights: () => void;
 }
 
 export const useInsightStore = create<InsightStore>()(
   persist(
     (set, get) => ({
+      isLoading: false,
       insights: {
         spendingPatterns: [],
         predictions: [],
@@ -39,7 +42,7 @@ export const useInsightStore = create<InsightStore>()(
         }
 
         console.log("🔄 Fetching new insights...");
-
+        set({ isLoading: true });
         try {
           const user = localStorage.getItem("userId") as string;
           const { lang } = useLanguageStore.getState();
@@ -59,12 +62,22 @@ export const useInsightStore = create<InsightStore>()(
           set({
             insights: newInsights,
             lastUpdated: today,
+            isLoading: false,
           });
 
           console.log("✅ Insights updated successfully!");
         } catch (error) {
           console.error("Error fetching insights:", error);
         }
+      },
+      clearInsights: () => {
+        set({
+          insights: {
+            spendingPatterns: [],
+            predictions: [],
+          },
+          lastUpdated: null,
+        });
       },
     }),
     { name: "insight-storage" }

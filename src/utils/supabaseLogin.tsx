@@ -11,9 +11,17 @@ const BASE_URL = prodURL;
 const googleLogin = async () => {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
+    options: {
+      redirectTo: window.location.origin + "/account/overview",
+    },
   });
 
-  return { data, error };
+  if (error) {
+    console.error("Error al iniciar sesión con Google:", error);
+    return { data: null, error };
+  }
+
+  return { data: data, error: null };
 };
 
 const supabaseLogin = async (email: string, password: string) => {
@@ -35,9 +43,9 @@ const supabaseSignup = async (email: string, password: string) => {
 };
 
 const createSupabaseUser = async (uid: string, email: string) => {
-  const { data, error } = await supabase.from("user").insert({
-    id: uid,
-    email,
+  const { data, error } = await supabase.from("user_profile").insert({
+    user_id: uid,
+    email: email,
   });
 
   return { data, error };

@@ -3,6 +3,7 @@ import useAuth from "../../utils/useAuth";
 import Button from "../Button";
 import { useNavigate } from "react-router-dom";
 import InputWithLabel from "./InputWithLabel";
+import useOnboarding from "../../hooks/useOnboarding";
 
 type SignupData = {
   email: string;
@@ -12,6 +13,7 @@ type SignupData = {
 const SignupForm = () => {
   const [loginData, setLoginData] = useState<SignupData>({} as SignupData);
   const { signupUser, error, user } = useAuth();
+  const { isOnboarded, loading } = useOnboarding(user);
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,10 +28,10 @@ const SignupForm = () => {
   };
 
   useEffect(() => {
-    if (user) {
-      navigate("/account/overview");
+    if (user && !loading) {
+      navigate(isOnboarded ? "/account/overview" : "/onboarding");
     }
-  }, [user]);
+  }, [user, isOnboarded, loading, navigate]);
 
   return (
     <form

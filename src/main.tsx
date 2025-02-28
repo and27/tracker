@@ -10,7 +10,6 @@ import TransactionFormPage from "./pages/TransactionFormPage.tsx";
 import OverviewPage from "./pages/OverviewPage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import SettingPage from "./pages/SettingsPage.tsx";
-import App from "./App.tsx";
 import { ThemeProvider } from "./context/ThemeContext.tsx";
 import SignupPage from "./pages/SignupPage.tsx";
 import { CategoriesProvider } from "./context/CategoriesContext.tsx";
@@ -20,11 +19,14 @@ import { ToastContainer } from "react-toastify";
 import InsightsPage from "./pages/InsightsPage.tsx";
 import OnboardingPage from "./pages/OnboardingPage.tsx";
 import MissionsPage from "./pages/MissionPage.tsx";
+import LogoutPage from "./pages/LogoutPage.tsx";
+import App from "./App.tsx";
+import PrivateRoute from "./components/PrivateRoute.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/account",
-    element: <Layout />,
+    element: <PrivateRoute />,
     errorElement: <ErrorPage />,
     children: [
       {
@@ -70,11 +72,6 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignupPage />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/logout",
-    element: <LoginPage />,
     errorElement: <ErrorPage />,
   },
   {

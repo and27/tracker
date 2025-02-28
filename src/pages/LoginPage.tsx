@@ -1,30 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import LoginForm from "../components/Forms/LoginForm";
 import useAuth from "../utils/useAuth";
 import LogoImage from "../components/LogoImage";
-import { isOnboardingComplete } from "../utils/supabaseDB";
+import useOnboarding from "../hooks/useOnboarding";
 
 const LoginPage = () => {
-  const { loginUser, error, user } = useAuth();
+  const { loginWithGoogle, loginUser, error, user } = useAuth();
+  const { isOnboarded, loading } = useOnboarding(user);
   const navigate = useNavigate();
-  const [isOnboarded, setIsOnboarded] = useState<boolean | null>(null);
 
   useEffect(() => {
-    if (user) {
-      const checkOnboarding = async () => {
-        const onboarded = await isOnboardingComplete(user.id as string);
-        setIsOnboarded(onboarded);
-      };
-      checkOnboarding();
-    }
-  }, [user]);
-
-  useEffect(() => {
-    if (user && isOnboarded !== null) {
+    if (user && !loading && isOnboarded !== null) {
       navigate(isOnboarded ? "/account/overview" : "/onboarding");
     }
-  }, [user, isOnboarded, navigate]);
+  }, [user, isOnboarded, loading, navigate]);
 
   return (
     <section className="min-h-screen bg-neutral-50 dark:bg-neutral-900 grid items-center">
@@ -39,7 +29,11 @@ const LoginPage = () => {
               </p>
             </div>
           </Link>
-          <LoginForm loginError={error} loginUser={loginUser} />
+          <LoginForm
+            loginError={error}
+            loginUser={loginUser}
+            loginWithGoogle={loginWithGoogle}
+          />
           <p className="mt-3">
             <Link
               to="/password-recovery"

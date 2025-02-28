@@ -6,6 +6,7 @@ type LoginData = {
 interface loginFormProps {
   loginUser: (user: LoginData) => void;
   loginError: string | null;
+  loginWithGoogle: () => void;
 }
 
 type inputLabelProps = {

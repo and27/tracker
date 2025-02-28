@@ -7,6 +7,8 @@ import { FaGear } from "react-icons/fa6";
 import { FaPlusCircle, FaSignOutAlt } from "react-icons/fa";
 import "../../styles/SidebarMenu.css";
 import { useLanguageStore } from "../../store/languageStore";
+import Button from "../Button";
+import useAuth from "../../utils/useAuth";
 
 interface SidebarMenuProps {
   isOpen: boolean;
@@ -17,6 +19,7 @@ const SidebarMenu = ({ isOpen, setIsSidebarOpen }: SidebarMenuProps) => {
   const [isMobile, setIsMobile] = useState(false);
   const location = useLocation();
   const { t } = useLanguageStore();
+  const { logout } = useAuth();
 
   useEffect(() => {
     const handleResize = () => {
@@ -136,14 +139,14 @@ const SidebarMenu = ({ isOpen, setIsSidebarOpen }: SidebarMenuProps) => {
           <FaGear />
           {t("menu.settings")}
         </NavLink>
-        <NavLink
-          to="/logout"
-          className="flex gap-2 items-center block text-start px-4 py-3
+        <Button
+          onClick={logout}
+          className="flex gap-2 items-center block px-4 py-3 bg-transparent font-normal
             rounded active:bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-gray-5"
         >
           <FaSignOutAlt />
           {t("menu.logout")}
-        </NavLink>
+        </Button>
       </div>
     </nav>
   );

@@ -7,5 +7,8 @@ export const useOnboardingStep = () => {
     setStep((prev) => prev + 1);
   };
 
-  return { step, nextStep };
+  const prevStep = () => {
+    setStep((prev) => prev - 1);
+  };
+  return { step, nextStep, prevStep };
 };

@@ -127,5 +127,33 @@
     "topExpensesPlaceholder": "Aún no hay gastos disponibles.",
     "topIncomePlaceholder": "Aún no hay ingresos disponibles.",
     "topPaymentMethodsPlaceholder": "Aún no hay métodos de pago disponibles."
+  },
+  "onboarding": {
+    "step1": {
+      "subtitle": "Paso 1 de 2",
+      "title": "¿Cuáles son tus objetivos financieros?",
+      "description": "Selecciona hasta 3 opciones"
+    },
+    "step2": {
+      "subtitle": "Paso 2 de 2",
+      "title": "¿Cómo manejas tu dinero?",
+      "description": "Selecciona hasta 3 opciones"
+    },
+    "financialGoals": {
+      "1": "Ahorrar para una meta",
+      "2": "Reducir mis deudas",
+      "3": "Invertir de manera inteligente",
+      "4": "Controlar mejor mis gastos",
+      "5": "Prepararme para emergencias",
+      "6": "Mejorar mi educación financiera"
+    },
+    "moneyManagementOptions": {
+      "1": "Uso una app de presupuesto",
+      "2": "Tengo un asesor financiero",
+      "3": "Registro gastos manualmente",
+      "4": "No tengo un presupuesto",
+      "5": "Tengo una cuenta de jubilación",
+      "6": "Invierto en la bolsa"
+    }
   }
 }

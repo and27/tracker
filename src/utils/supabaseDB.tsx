@@ -1,4 +1,3 @@
-import { StepsInfo } from "../pages/OnboardingPage";
 import { supabase } from "./supabase";
 
 const mapTransactionToDb = (transaction: Transaction) => {
@@ -259,13 +258,12 @@ const getCategoriesWithBudget = async (
   return Object.values(consolidated);
 };
 
-const addOnboardingInfo = async (userId: string, onboardingInfo: StepsInfo) => {
+const addOnboardingInfo = async (userId: string, onboardingInfo: any) => {
   const { data, error } = await supabase
     .from("user_profile")
     .update({
       financial_goals: onboardingInfo.financialGoals,
       money_management: onboardingInfo.moneyManagement[0],
-      income_range: onboardingInfo.monthlyIncome[0],
       onboarding_completed: true,
     })
     .eq("user_id", userId)

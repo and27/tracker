@@ -15,6 +15,7 @@ interface TransactionStore {
     id: string,
     transaction: Partial<Transaction>
   ) => Promise<void>;
+  clearTransactions: () => void;
 }
 
 export const useTransactionStore = create<TransactionStore>((set) => ({
@@ -66,5 +67,9 @@ export const useTransactionStore = create<TransactionStore>((set) => ({
     } catch (error) {
       set({ error: (error as Error).message, isLoading: false });
     }
+  },
+
+  clearTransactions: () => {
+    set({ transactions: [], isLoading: false, error: null });
   },
 }));

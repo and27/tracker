@@ -3,6 +3,9 @@ import LinkButton from "../LinkButton";
 
 const Scurve = () => {
   const { t } = useLanguageStore();
+  const benefits = t(
+    "landing.whyPeopleJoin.description"
+  ) as unknown as string[];
   return (
     <section className="mx-auto py-[8rem] bg-neutral-900 px-5">
       <div className="grid grid-cols-1 md:grid-cols-2 max-w-[1280px] mx-auto items-center">
@@ -11,13 +14,11 @@ const Scurve = () => {
             {t("landing.whyPeopleJoin.title")}
           </h2>
           <ul className="grid gap-2">
-            {t("landing.whyPeopleJoin.description").map(
-              (item: string, index: number) => (
-                <li key={index} className="flex gap-2 items-center">
-                  <p>{item}</p>
-                </li>
-              )
-            )}
+            {benefits.map((item: string, index: number) => (
+              <li key={index} className="flex gap-2 items-center">
+                <p>{item}</p>
+              </li>
+            ))}
           </ul>
           <LinkButton className="primary" to="/login">
             {t("landing.whyPeopleJoin.cta")}

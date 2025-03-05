@@ -9,12 +9,26 @@
       "description": "Mantén tu presupuesto bajo control con nuestro panel interactivo. Observa tus gastos en gráficos claros y dinámicos que te ayudan a identificar hábitos de consumo y tomar mejores decisiones.",
       "cta": "Ver Ejemplo"
     },
+
     "howItWorks": {
       "title": "Cómo Funciona",
-      "description": "Regístrate y conecta tus cuentas para un seguimiento automático, clasifica los gastos y analiza tus datos para mejorar tu salud financiera.",
-      "cta": "Aprender Más"
+      "description": "Regístrate, conecta tus cuentas y monitorea tus gastos con facilidad.",
+      "cta": "Aprender Más",
+      "steps": [
+        {
+          "title": "Regístrate y Conéctate",
+          "description": "Crea tu cuenta y vincula tus cuentas bancarias de forma segura en solo unos clics."
+        },
+        {
+          "title": "Clasifica tus Gastos",
+          "description": "Ordena automáticamente tus transacciones y configura categorías personalizadas."
+        },
+        {
+          "title": "Analiza y Mejora",
+          "description": "Monitorea tus gastos en tiempo real y descubre oportunidades de ahorro."
+        }
+      ]
     },
-
     "testimonials": {
       "title": "Historias de Éxito",
       "description": "Miles de personas han reducido gastos, ahorrado más y tomado el control total de sus finanzas. Estos son algunos de sus testimonios.",

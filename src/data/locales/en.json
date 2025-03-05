@@ -11,10 +11,23 @@
     },
     "howItWorks": {
       "title": "How It Works",
-      "description": "Sign up and connect your accounts for automatic tracking, categorize expenses, and analyze your data to improve your financial health.",
-      "cta": "Learn More"
+      "description": "Sign up, connect your accounts, and track your spending with ease.",
+      "cta": "Learn More",
+      "steps": [
+        {
+          "title": "Sign Up & Connect",
+          "description": "Create your account and securely link your bank accounts in just a few clicks."
+        },
+        {
+          "title": "Categorize Your Expenses",
+          "description": "Automatically sort your transactions and set up custom spending categories."
+        },
+        {
+          "title": "Analyze & Improve",
+          "description": "Track your spending with real-time insights and discover saving opportunities."
+        }
+      ]
     },
-
     "testimonials": {
       "title": "Success Stories",
       "description": "Thousands of people have cut expenses, saved more, and taken complete control of their finances. Here are a few of their journeys.",

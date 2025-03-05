@@ -1,25 +1,44 @@
+import { FaWallet, FaChartLine, FaListUl } from "react-icons/fa";
+import { useLanguageStore } from "../../store/languageStore";
+
 const HomeDemo = () => {
+  const { t } = useLanguageStore();
+  const steps = [
+    {
+      title: t("landing.howItWorks.steps.0.title"),
+      description: t("landing.howItWorks.steps.0.description"),
+      icon: <FaWallet className="text-blue-600 text-3xl" />,
+    },
+    {
+      title: t("landing.howItWorks.steps.1.title"),
+      description: t("landing.howItWorks.steps.1.description"),
+      icon: <FaListUl className="text-green-600 text-3xl" />,
+    },
+    {
+      title: t("landing.howItWorks.steps.2.title"),
+      description: t("landing.howItWorks.steps.2.description"),
+      icon: <FaChartLine className="text-purple-600 text-3xl" />,
+    },
+  ];
+
   return (
-    <div
-      id="demo"
-      className="flex flex-col justify-center items-center mx-auto bg-indigo-950 py-[8rem] px-5"
-    >
-      <h2 className="text-3xl font-bold text-center mb-[4rem] mx-auto">
-        How it works
+    <section className="bg-indigo-950 pb-[8rem] text-center px-6 text-white">
+      <h2 className="text-3xl font-bold mb-4">
+        {t("landing.howItWorks.title")}
       </h2>
-      <div className="h-[315px] w-[560px]">
-        <iframe
-          width="560"
-          height="315"
-          src="https://www.youtube.com/embed/_pvB1nDEIzo?si=tji0pWOua6kVaJab"
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerPolicy="strict-origin-when-cross-origin"
-          allowFullScreen
-        ></iframe>
+      <p className="mb-8">{t("landing.howItWorks.description")}</p>
+      <div className="grid md:grid-cols-3 gap-6">
+        {steps.map((step, index) => (
+          <div key={index} className="p-6 border rounded-xl shadow-md">
+            <div className="flex items-center justify-center w-14 h-14 mx-auto mb-4 bg-gray-100 rounded-full">
+              {step.icon}
+            </div>
+            <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
+            <p className="text-gray-400">{step.description}</p>
+          </div>
+        ))}
       </div>
-    </div>
+    </section>
   );
 };
 

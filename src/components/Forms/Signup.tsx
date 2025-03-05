@@ -4,6 +4,7 @@ import Button from "../Button";
 import { useNavigate } from "react-router-dom";
 import InputWithLabel from "./InputWithLabel";
 import useOnboarding from "../../hooks/useOnboarding";
+import { useLanguageStore } from "../../store/languageStore";
 
 type SignupData = {
   email: string;
@@ -15,6 +16,7 @@ const SignupForm = () => {
   const { signupUser, error, user } = useAuth();
   const { isOnboarded, loading } = useOnboarding(user);
   const navigate = useNavigate();
+  const { t } = useLanguageStore();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -40,26 +42,26 @@ const SignupForm = () => {
       aria-label="signup form"
     >
       <InputWithLabel
-        label="Email"
+        label={t("register.email")}
         name="email"
         type="email"
         handleChange={handleChange}
       />
       <InputWithLabel
-        label="Password"
+        label={t("register.password")}
         name="password"
         type="password"
         handleChange={handleChange}
       />
       <InputWithLabel
-        label="Confirm Password"
+        label={t("register.confirmPassword")}
         name="confirm password"
         type="password"
         handleChange={handleChange}
       />
       <div className="gap-2 text-rose-700 mt-3">
         {error && <p>{error}</p>}
-        <Button className="w-full">Sign up</Button>
+        <Button className="w-full">{t("register.cta")}</Button>
       </div>
     </form>
   );

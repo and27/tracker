@@ -4,6 +4,7 @@ import { useOnboardingStep } from "../hooks/useOnboardingStep";
 import { addOnboardingInfo } from "../utils/supabaseDB";
 import OnboardingStep from "./OnboardingStep";
 import { useLanguageStore } from "../store/languageStore";
+import LanguageSwitcher from "../components/LanguageSwitcher";
 
 export type UserOnboardingInfo = {
   financialGoals: string[];
@@ -16,7 +17,6 @@ const OnboardingPage: React.FC = () => {
   const { step, nextStep, prevStep } = useOnboardingStep();
   const userId = localStorage.getItem("userId");
   const navigate = useNavigate();
-  const { lang, setLang } = useLanguageStore();
   const { t } = useLanguageStore();
 
   const financialGoals = [
@@ -99,15 +99,7 @@ const OnboardingPage: React.FC = () => {
         onPrevious={prevStep}
         onSkip={handleSkip}
       />
-      <select
-        onChange={(e) => setLang(e.target.value)}
-        value={lang}
-        className="absolute right-20 top-3 lg:right-6 lg:top-5
-            border border-neutral-700 py-2 px-4 rounded-md bg-neutral-100 dark:bg-neutral-800"
-      >
-        <option value="en">🇺🇸 English</option>
-        <option value="es">🇪🇸 Español</option>
-      </select>
+      <LanguageSwitcher />
     </section>
   );
 };

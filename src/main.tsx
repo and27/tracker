@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Layout from "./components/Layout.tsx";
 import TransactionsPage from "./pages/TransactionsPage.tsx";
 import ErrorPage from "./pages/ErrorPage.tsx";
 import ReportsPage from "./pages/ReportsPage.tsx";
@@ -19,7 +18,6 @@ import { ToastContainer } from "react-toastify";
 import InsightsPage from "./pages/InsightsPage.tsx";
 import OnboardingPage from "./pages/OnboardingPage.tsx";
 import MissionsPage from "./pages/MissionPage.tsx";
-import LogoutPage from "./pages/LogoutPage.tsx";
 import App from "./App.tsx";
 import PrivateRoute from "./components/PrivateRoute.tsx";
 

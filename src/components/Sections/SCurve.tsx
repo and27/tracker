@@ -1,24 +1,36 @@
+import { useLanguageStore } from "../../store/languageStore";
 import LinkButton from "../LinkButton";
 
-const Scurve = () => (
-  <section className="mx-auto py-[8rem] bg-neutral-900 px-5">
-    <div className="grid grid-cols-1 md:grid-cols-2 max-w-[1280px] mx-auto items-center">
-      <div className="grid gap-5">
-        <h2 className="text-3xl font-bold">Why people join to tracker</h2>
-        <p className="text-base w-11/12">
-          Tracker allows you to track your expenses and income, and provides
-          insights into your spending habits. It helps you to manage your
-          finances better and save more money.
-        </p>
-        <LinkButton to="/login">Learn More</LinkButton>
+const Scurve = () => {
+  const { t } = useLanguageStore();
+  return (
+    <section className="mx-auto py-[8rem] bg-neutral-900 px-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 max-w-[1280px] mx-auto items-center">
+        <div className="grid gap-5">
+          <h2 className="text-3xl font-bold">
+            {t("landing.whyPeopleJoin.title")}
+          </h2>
+          <ul className="grid gap-2">
+            {t("landing.whyPeopleJoin.description").map(
+              (item: string, index: number) => (
+                <li key={index} className="flex gap-2 items-center">
+                  <p>{item}</p>
+                </li>
+              )
+            )}
+          </ul>
+          <LinkButton className="primary" to="/login">
+            {t("landing.whyPeopleJoin.cta")}
+          </LinkButton>
+        </div>
+        <img
+          src="scurveImage.svg"
+          alt="scurve"
+          className="mt-10 md:mt-0 md:px-10"
+        />
       </div>
-      <img
-        src="scurveImage.svg"
-        alt="scurve"
-        className="mt-10 md:mt-0 md:px-10"
-      />
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default Scurve;

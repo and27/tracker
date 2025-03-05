@@ -1,4 +1,51 @@
 {
+  "landing": {
+    "title": "Domina tus finanzas con facilidad",
+    "subtitle": "Toma el control de tus gastos y alcanza tus metas financieras con nuestra herramienta de presupuestos intuitiva.",
+    "cta": "Empezar",
+    "ctaSecondary": "Cómo Funciona",
+    "example": {
+      "title": "Registra tus gastos sin complicaciones",
+      "description": "Mantén tu presupuesto bajo control con nuestro panel interactivo. Observa tus gastos en gráficos claros y dinámicos que te ayudan a identificar hábitos de consumo y tomar mejores decisiones.",
+      "cta": "Ver Ejemplo"
+    },
+    "howItWorks": {
+      "title": "Cómo Funciona",
+      "description": "Regístrate y conecta tus cuentas para un seguimiento automático, clasifica los gastos y analiza tus datos para mejorar tu salud financiera.",
+      "cta": "Aprender Más"
+    },
+
+    "testimonials": {
+      "title": "Historias de Éxito",
+      "description": "Miles de personas han reducido gastos, ahorrado más y tomado el control total de sus finanzas. Estos son algunos de sus testimonios.",
+      "cta": "Empieza Tu Propia Historia",
+      "users": [
+        {
+          "name": "Ana García",
+          "quote": "¡Reduje mis gastos mensuales en un 25% en solo dos meses! Esta herramienta me facilitó todo."
+        },
+        {
+          "name": "Carlos Rivera",
+          "quote": "Me encanta poder ver todas mis transacciones en un solo lugar. Realmente entendí en qué se me iba el dinero."
+        },
+        {
+          "name": "María Lozano",
+          "quote": "En pocas semanas encontré gastos hormiga que ni sabía que tenía. ¡Ahora estoy ahorrando para mis vacaciones soñadas!"
+        }
+      ]
+    },
+
+    "whyPeopleJoin": {
+      "title": "¿Por qué unirte a Tracker?",
+      "description": [
+        "Ahorra más dinero: Identifica gastos innecesarios y conserva más efectivo en tu bolsillo.",
+        "Obtén claridad financiera: Informes detallados y gráficos que te ayudan a tomar decisiones bien fundamentadas.",
+        "Todo en un solo lugar: Administra todos tus ingresos y gastos sin usar múltiples aplicaciones."
+      ],
+      "cta": "Empezar"
+    }
+  },
+
   "menu": {
     "overview": "Resumen",
     "transactions": "Movimientos",
@@ -155,5 +202,33 @@
       "5": "Tengo una cuenta de jubilación",
       "6": "Invierto en la bolsa"
     }
+  },
+  "login": {
+    "title": "¡Bienvenido!",
+    "subtitle": "Por favor inicia sesión para continuar.",
+    "cta": "Iniciar sesión",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "noAccount": "¿No tienes una cuenta?",
+    "register": "Registrarse",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "google": "Iniciar sesión con Google"
+  },
+  "register": {
+    "title": "Registro",
+    "subtitle": "Completa el formulario para crear una cuenta.",
+    "cta": "Registrarse",
+    "login": "¿Ya tienes una cuenta?",
+    "loginLink": "Iniciar sesión",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar contraseña"
+  },
+  "forgotPassword": {
+    "title": "Olvidé mi contraseña",
+    "subtitle": "Por favor ingrese su correo electrónico para restablecer su contraseña.",
+    "cta": "Restablecer contraseña",
+    "login": "¿Recordaste tu contraseña?",
+    "loginLink": "Iniciar sesión"
   }
 }

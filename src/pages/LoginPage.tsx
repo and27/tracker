@@ -4,11 +4,14 @@ import LoginForm from "../components/Forms/LoginForm";
 import useAuth from "../utils/useAuth";
 import LogoImage from "../components/LogoImage";
 import useOnboarding from "../hooks/useOnboarding";
+import { useLanguageStore } from "../store/languageStore";
+import LanguageSwitcher from "../components/LanguageSwitcher";
 
 const LoginPage = () => {
   const { loginWithGoogle, loginUser, error, user } = useAuth();
   const { isOnboarded, loading } = useOnboarding(user);
   const navigate = useNavigate();
+  const { t } = useLanguageStore();
 
   useEffect(() => {
     if (user && !loading && isOnboarded !== null) {
@@ -17,15 +20,18 @@ const LoginPage = () => {
   }, [user, isOnboarded, loading, navigate]);
 
   return (
-    <section className="min-h-screen bg-neutral-50 dark:bg-neutral-900 grid items-center">
+    <section className="relative min-h-screen bg-neutral-50 dark:bg-neutral-900 grid items-center">
+      <LanguageSwitcher />
       <div>
         <div className="flex flex-col justify-center bg-white dark:bg-transparent shadow p-5 mx-3 sm:p-10 md:mx-auto rounded md:w-1/2 xl:w-1/3">
           <Link to="/" className="flex gap-3 justify-center items-center mb-7">
             <LogoImage />
             <div>
-              <h1 className="text-3xl font-bold font-outfit">Sign in</h1>
+              <h1 className="text-3xl font-bold font-outfit">
+                {t("login.title")}
+              </h1>
               <p className="text-neutral-500 dark:text-neutral-400 text-lg leading-none">
-                to continue to Tracker
+                {t("login.subtitle")}
               </p>
             </div>
           </Link>
@@ -39,13 +45,16 @@ const LoginPage = () => {
               to="/password-recovery"
               className="text-indigo-600 dark:text-indigo-400"
             >
-              Forgot my password
+              {t("login.forgotPassword")}
             </Link>
           </p>
           <p className="mt-3">
-            Don't have an account?{" "}
-            <Link to="/signup" className="text-indigo-600 dark:text-indigo-400">
-              Sign up
+            {t("login.noAccount")}
+            <Link
+              to="/signup"
+              className="ml-1 text-indigo-600 dark:text-indigo-400"
+            >
+              {t("login.register")}
             </Link>
           </p>
         </div>

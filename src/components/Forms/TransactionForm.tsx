@@ -81,7 +81,10 @@ const TransactionForm = () => {
   const onSubmit: SubmitHandler<Transaction> = async (data) => {
     try {
       const transformedData = transformTransactionData(data);
-      await createTransaction(transformedData);
+      const { error } = await createTransaction(transformedData);
+      if (error) {
+        throw error;
+      }
       formRef.current?.reset();
       toast.success("Transaction created successfully!", {
         position: "top-center",

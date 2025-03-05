@@ -1,5 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
+import { formatCurrency } from "../utils/formatCurrency";
 
 export const defaultColumn: Partial<ColumnDef<Transaction, unknown>> = {
   cell: ({ getValue, row, column, table }) => {
@@ -9,14 +10,17 @@ export const defaultColumn: Partial<ColumnDef<Transaction, unknown>> = {
     >(initialValue as string | number | readonly string[] | undefined);
     const isEditing = table.options.meta?.editingRowId?.toString() === row.id;
 
-    // Sincronize external changes with the internal state
     useEffect(() => {
       setValue(initialValue as string | number | readonly string[] | undefined);
     }, [initialValue]);
 
-    const onBlur = () => {
-      if (table.options.meta?.updateData)
-        table.options.meta?.updateData(row.id, column.id, value);
+    const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+      const relatedTarget = e.relatedTarget as HTMLElement;
+      const isSameRow = relatedTarget?.closest(`[data-row-id="${row.id}"]`);
+
+      if (!isSameRow && table.options.meta?.updateData) {
+        table.options.meta.updateData(row.id, column.id, value as string);
+      }
     };
 
     if (isEditing)
@@ -33,8 +37,18 @@ export const defaultColumn: Partial<ColumnDef<Transaction, unknown>> = {
             }
           }}
           className="w-full bg-transparent border-none text-neutral-600 dark:text-neutral-400"
+          data-row-id={row.id} // Para identificar los elementos de la misma fila
         />
       );
+
+    if (column.id === "amount") {
+      const formattedValue = formatCurrency(value as number);
+      return (
+        <span className="text-neutral-600 dark:text-neutral-400">
+          {formattedValue}
+        </span>
+      );
+    }
     return <span>{getValue() as React.ReactNode}</span>;
   },
 };

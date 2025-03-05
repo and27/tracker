@@ -1,15 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
+import { CellContext } from "@tanstack/react-table";
 import "react-toastify/dist/ReactToastify.css";
 import Table from "../components/Table";
 import LinkButton from "../components/LinkButton";
 import Modal from "../components/Modal";
-import { CellContext } from "@tanstack/react-table";
 import { useTransactionStore } from "../store/transactionStore";
-import { formatCurrency } from "../utils/formatCurrency";
 import { translateCategory } from "../utils/translationUtils";
-import { useLanguageStore } from "../store/languageStore";
 import Spinner from "../components/Spinner";
+import { useLanguageStore } from "../store/languageStore";
 
 const TransactionsPage: React.FC = () => {
   const userId = localStorage.getItem("userId") as string;
@@ -71,16 +70,8 @@ const TransactionsPage: React.FC = () => {
         id: "amount",
         header: t("transactions.headers.amount"),
         accessorKey: "amount",
-        cell: (info: CellContext<Transaction, unknown>) => {
-          const value = info.getValue<number>();
-          const formattedValue = formatCurrency(value);
-          return (
-            <span className="text-neutral-600 dark:text-neutral-400">
-              {formattedValue}
-            </span>
-          );
-        },
       },
+
       {
         id: "type",
         header: t("transactions.headers.type"),

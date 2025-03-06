@@ -1,19 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
-import { CellContext } from "@tanstack/react-table";
 import "react-toastify/dist/ReactToastify.css";
 import Table from "../components/Table";
 import LinkButton from "../components/LinkButton";
 import Modal from "../components/Modal";
 import { useTransactionStore } from "../store/transactionStore";
-import { translateCategory } from "../utils/translationUtils";
 import Spinner from "../components/Spinner";
 import { useLanguageStore } from "../store/languageStore";
 
 const TransactionsPage: React.FC = () => {
   const userId = localStorage.getItem("userId") as string;
   const { t } = useLanguageStore();
-
   const [showModal, setShowModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<string>("");
   const transactions = useTransactionStore((state) => state.transactions);
@@ -55,16 +52,7 @@ const TransactionsPage: React.FC = () => {
       {
         id: "category",
         header: t("transactions.headers.category"),
-        accessorKey: "category", // Change here to filter by category.name
-        cell: (info: CellContext<Transaction, unknown>) => {
-          const category = info.row.original.category;
-          const translatedCategory = translateCategory(category?.name);
-          return (
-            <span className="text-neutral-600 dark:text-neutral-400">
-              {translatedCategory || "Uncategorized"}
-            </span>
-          );
-        },
+        accessorKey: "category.name",
       },
       {
         id: "amount",
@@ -76,31 +64,11 @@ const TransactionsPage: React.FC = () => {
         id: "type",
         header: t("transactions.headers.type"),
         accessorKey: "type",
-        cell: (info: CellContext<Transaction, unknown>) => {
-          const value = info.getValue<"income" | "expense">();
-          return value === "income" ? (
-            <span className="bg-green-300 dark:bg-green-800 text-neutral-900 dark:text-neutral-100 rounded px-2 text-sm">
-              {t("transactions.income")}
-            </span>
-          ) : (
-            <span className="bg-rose-300 dark:bg-rose-800 text-neutral-900 dark:text-neutral-100 rounded px-2 text-sm">
-              {t("transactions.expense")}
-            </span>
-          );
-        },
       },
       {
         id: "paymentMethod",
         header: t("transactions.headers.paymentMethod"),
-        accessorKey: "payment_method",
-        cell: (info: CellContext<Transaction, unknown>) => {
-          const paymentMethod = info.row.original as any;
-          return (
-            <span className="text-neutral-600 dark:text-neutral-400">
-              {paymentMethod?.payment_method.name || "Uncategorized"}
-            </span>
-          );
-        },
+        accessorKey: "payment_method.name",
       },
     ],
     []

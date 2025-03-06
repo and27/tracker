@@ -24,3 +24,22 @@ export const defaultPaymentMethods = [
     name: "Other",
   },
 ];
+
+export const paymentMethodList = [
+  "card",
+  "cash",
+  "bank_transfer",
+  "paypal",
+  "credit",
+  "wallet",
+  "other",
+];
+
+export type PaymentMethodListType =
+  | "card"
+  | "cash"
+  | "bank_transfer"
+  | "paypal"
+  | "credit"
+  | "wallet"
+  | "other";

@@ -287,6 +287,24 @@ const isOnboardingComplete = async (userId: string) => {
   return data?.onboarding_completed;
 };
 
+const getWorkspaces = async (userId: string) => {
+  const { data, error } = await supabase
+    .from("workspaces")
+    .select("*")
+    .eq("user_id", userId);
+
+  return { data, error };
+};
+
+const addWorkspace = async (userId: string, workspace: string) => {
+  const { data, error } = await supabase
+    .from("workspaces")
+    .insert([{ name: workspace, user_id: userId }])
+    .select();
+
+  return { data, error };
+};
+
 export {
   createTransaction,
   getTransactions,
@@ -302,4 +320,6 @@ export {
   deleteTransaction,
   addOnboardingInfo,
   isOnboardingComplete,
+  getWorkspaces,
+  addWorkspace,
 };

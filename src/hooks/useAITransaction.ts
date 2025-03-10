@@ -18,12 +18,15 @@ const useAITransaction = () => {
     return match ? match[1] : text;
   };
 
+  const clearTransaction = () => {
+    setGeneratedTransaction(null);
+  };
+
   const processTransaction = async (userInput: string) => {
     setLoading(true);
     try {
       const categoriesList = JSON.stringify(categoryGroups);
       const paymentMethodsList = JSON.stringify(defaultPaymentMethods);
-
       const completion = await openai.chat.completions.create({
         model: "deepseek-chat",
         messages: [
@@ -61,7 +64,12 @@ const useAITransaction = () => {
     setLoading(false);
   };
 
-  return { generatedTransaction, processTransaction, loading };
+  return {
+    generatedTransaction,
+    processTransaction,
+    loading,
+    clearTransaction,
+  };
 };
 
 export default useAITransaction;

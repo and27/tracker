@@ -8,59 +8,14 @@ import {
   fetchCategories,
   fetchPaymentMethods,
   handleError,
-  transformTransactionData,
+  prepareTransactionData,
 } from "../../services/transactionService";
 import useAITransaction from "../../hooks/useAITransaction";
 import { useLanguageStore } from "../../store/languageStore";
-
-interface GeneratedTransactionProps {
-  generatedTransaction: {
-    description: string;
-    date: string;
-    amount: number;
-    category: { name: string };
-    paymentMethod: { name: string };
-    type: string;
-  };
-  handleClick: () => void;
-}
-
-const GeneratedTransaction: React.FC<GeneratedTransactionProps> = ({
-  generatedTransaction,
-  handleClick,
-}) => {
-  return (
-    <div className="p-4 border border-neutral-500 rounded-lg shadow-md ">
-      <h2 className="text-lg font-semibold mb-2">📌 Transaction Summary</h2>
-      <p>
-        📝 <strong>Description:</strong> {generatedTransaction?.description}
-      </p>
-      <p>
-        📅 <strong>Date:</strong> {generatedTransaction?.date}
-      </p>
-      <p>
-        💰 <strong>Amount:</strong> ${generatedTransaction?.amount.toFixed(2)}
-      </p>
-      <p>
-        🏷️ <strong>Category:</strong> {generatedTransaction?.category.name}
-      </p>
-      <p>
-        💳 <strong>Payment Method:</strong>{" "}
-        {generatedTransaction?.paymentMethod.name}
-      </p>
-      <p>
-        📊 <strong>Type:</strong>{" "}
-        {generatedTransaction?.type === "income" ? "Income 💵" : "Expense 💸"}
-      </p>
-      <button
-        className="bg-indigo-600 hover:bg-green-600 py-2 px-4 mt-2 rounded"
-        onClick={handleClick}
-      >
-        Confirm Transaction
-      </button>
-    </div>
-  );
-};
+import Spinner from "../Spinner";
+import { getHappyMoneyQuote } from "../../utils/happyMoneyGenerator";
+import Modal from "../Modal";
+import GeneratedTransaction from "../GeneratedTransaction";
 
 const TransactionForm = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -68,8 +23,14 @@ const TransactionForm = () => {
   const [paymentMehods, setPaymentMethods] = useState<PaymentMethod[]>([]);
   const formRef = useRef<HTMLFormElement>(null);
   const [userInput, setUserInput] = useState("");
-  const { generatedTransaction, processTransaction, loading } =
-    useAITransaction();
+  const [quote, setQuote] = useState("");
+
+  const {
+    generatedTransaction,
+    processTransaction,
+    loading,
+    clearTransaction,
+  } = useAITransaction();
   const { t } = useLanguageStore();
 
   const {
@@ -80,8 +41,8 @@ const TransactionForm = () => {
 
   const onSubmit: SubmitHandler<Transaction> = async (data) => {
     try {
-      const transformedData = transformTransactionData(data);
-      const { error } = await createTransaction(transformedData);
+      const preparedTransaction = prepareTransactionData(data);
+      const { error } = await createTransaction(preparedTransaction);
       if (error) {
         throw error;
       }
@@ -109,9 +70,14 @@ const TransactionForm = () => {
     })();
   }, []);
 
+  useEffect(() => {
+    setQuote(getHappyMoneyQuote());
+  }, [loading]);
+
   return (
     <>
       <ToastContainer />
+
       <div className="flex gap-4">
         <button
           onClick={() => setShowForm(false)}
@@ -153,12 +119,19 @@ const TransactionForm = () => {
             </Button>
           </div>
           {generatedTransaction && (
-            <GeneratedTransaction
-              generatedTransaction={generatedTransaction}
-              handleClick={() => {
-                onSubmit(generatedTransaction);
-              }}
-            />
+            <Modal
+              isOpen={true}
+              onClose={clearTransaction}
+              title="Transaction Summary"
+            >
+              <GeneratedTransaction
+                generatedTransaction={generatedTransaction}
+                handleClick={() => {
+                  onSubmit(generatedTransaction);
+                  clearTransaction();
+                }}
+              />
+            </Modal>
           )}
         </div>
       )}
@@ -286,6 +259,12 @@ const TransactionForm = () => {
             <Button type="submit">{t("transactions.form.cta")}</Button>
           </div>
         </form>
+      )}
+      {loading && (
+        <div className="flex flex-col fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <Spinner />
+          <p>💸 {quote}</p>
+        </div>
       )}
     </>
   );

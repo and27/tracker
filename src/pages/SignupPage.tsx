@@ -18,7 +18,9 @@ const SignupPage = () => {
 
   return (
     <section className="relative min-h-screen bg-neutral-50 dark:bg-neutral-900 grid items-center">
-      <LanguageSwitcher />
+      <div className="absolute top-5 right-5">
+        <LanguageSwitcher />
+      </div>
       <div className="flex flex-col justify-center bg-white dark:bg-transparent shadow p-5 mx-3 sm:p-10 md:mx-auto rounded md:w-1/2 xl:w-1/3">
         <Link to="/" className="flex gap-3 justify-center items-center mb-7">
           <LogoImage />

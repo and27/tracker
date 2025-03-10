@@ -13,7 +13,9 @@ const Hero = () => {
       }}
       className="h-full relative px-5 grid items-center overflow-hidden"
     >
-      <LanguageSwitcher />
+      <div className="absolute top-5 right-5">
+        <LanguageSwitcher />
+      </div>
       <img
         src="heroImage1.svg"
         alt="hero"
@@ -26,7 +28,7 @@ const Hero = () => {
         alt="hero"
         className="
         size-[15rem] md:size-[20rem] lg:size-[25rem] xl:size-[30rem] 2xl:size-[35rem]    
-        absolute -right-[7rem] top-20 xl:top-10 slide-in-right opacity-0"
+        absolute -right-[7rem] top-20 xl:top-14 slide-in-right opacity-0"
       />
       <div className="z-10 relative text-center flex flex-col gap-5 items-center justify-center text-white">
         <img src="/logoCard.svg" alt="logo" width="24" height="24" />

@@ -24,11 +24,13 @@ export const saveTransaction = async (
   if (error) throw new Error("Failed to save transaction");
 };
 
-export const transformTransactionData = (data: Transaction): Transaction => {
+export const prepareTransactionData = (data: Transaction): Transaction => {
   const userId = localStorage.getItem("userId") as string;
+  const workspaceId = localStorage.getItem("workspaceId") as string;
   return {
     ...data,
     userId,
+    workspaceId,
     amount: Number(data.amount),
     category: {
       id: Number(data.category.id),

@@ -11,6 +11,7 @@ import { supabase } from "./supabase";
 import { useInsightStore } from "../store/insightStore";
 import { useTransactionStore } from "../store/transactionStore";
 import { useNavigate } from "react-router-dom";
+import { getWorkspaces } from "./supabaseDB";
 
 type AuthUser = {
   email: string;
@@ -27,6 +28,16 @@ const useAuth = () => {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
+  const getWorkspace = async (userId: string) => {
+    const { data, error } = await getWorkspaces(userId);
+    if (error) {
+      console.error(error);
+      return null;
+    }
+
+    return data?.[0];
+  };
+
   useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange(
       async (_, session) => {
@@ -34,19 +45,44 @@ const useAuth = () => {
           setUser(session.user);
           localStorage.setItem("userId", session.user.id);
 
-          const { error: dbError } = await createSupabaseUser(
-            session.user.id,
-            session.user.email || ""
-          );
+          let workspaceId = session.user.user_metadata?.workspaceId;
 
-          if (dbError) {
-            setError(dbError.message);
-          } else {
-            setError(null);
+          if (!workspaceId) {
+            const workspace = await getWorkspace(session.user.id);
+            if (workspace?.id) {
+              workspaceId = workspace.id;
+
+              await supabase.auth.updateUser({ data: { workspaceId } });
+            }
+          }
+
+          if (workspaceId) {
+            localStorage.setItem("workspace", workspaceId);
+          }
+
+          //verify if user is new
+          const userCreatedAt = new Date(session.user.created_at);
+          const now = new Date();
+          const timeDifference =
+            (now.getTime() - userCreatedAt.getTime()) / 1000; // diff in seconds
+
+          if (timeDifference < 5) {
+            console.log("Nuevo usuario detectado, creando perfil...");
+            const { error: dbError } = await createSupabaseUser(
+              session.user.id,
+              session.user.email || ""
+            );
+
+            if (dbError) {
+              setError(dbError.message);
+            } else {
+              setError(null);
+            }
           }
         } else {
           setUser(null);
           localStorage.removeItem("userId");
+          localStorage.removeItem("workspace");
         }
       }
     );
@@ -58,34 +94,24 @@ const useAuth = () => {
 
   const signupUser = async (user: AuthUser) => {
     const { email, password } = user;
-    const { data, error } = await supabaseSignup(email, password);
+    const { error } = await supabaseSignup(email, password);
 
     if (error) {
       if (isAuthError(error)) {
         setError(error.message);
         return null;
       }
-    } else if (data?.user) {
-      setUser(data.user);
-      localStorage.setItem("userId", data.user.id);
-      createSupabaseUser(data.user.id, email);
-      setError(null);
     }
   };
 
   const loginUser = async (user: AuthUser) => {
     const { email, password } = user;
-    const { data, error } = await supabaseLogin(email, password);
+    const { error } = await supabaseLogin(email, password);
     if (error) {
       if (isAuthError(error)) {
         setError(error.message);
         return null;
       }
-    } else if (data?.user) {
-      setUser(data.user);
-      localStorage.setItem("userId", data.user.id);
-      createSupabaseUser(data.user.id, email);
-      setError(null);
     }
   };
 
@@ -103,8 +129,9 @@ const useAuth = () => {
       console.error("Error logging out:", error.message);
       return;
     }
-
     localStorage.removeItem("userId");
+    localStorage.removeItem("workspace");
+
     useInsightStore.getState().clearInsights();
     useTransactionStore.getState().clearTransactions();
 

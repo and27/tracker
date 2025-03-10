@@ -29,7 +29,6 @@ const supabaseLogin = async (email: string, password: string) => {
     email: email,
     password: password,
   });
-
   return { data, error };
 };
 

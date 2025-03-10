@@ -13,6 +13,7 @@ interface Transaction {
     name: string;
   };
   userId: string;
+  workspaceId: string;
 }
 
 type TransactionCreate = Omit<Transaction, "id" | "createdAt">;

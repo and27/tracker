@@ -26,10 +26,11 @@ const TransactionForm = () => {
   const [quote, setQuote] = useState("");
 
   const {
-    generatedTransaction,
-    processTransaction,
+    generatedTransactions,
+    processTransactions,
     loading,
     clearTransaction,
+    removeTransaction,
   } = useAITransaction();
   const { t } = useLanguageStore();
 
@@ -103,34 +104,38 @@ const TransactionForm = () => {
           <label className="flex flex-col text-neutral-700 dark:text-neutral-200">
             {t("transactions.form.autoDetails")} *
             <span className="sr-only">Required field</span>
-            <input
-              type="text"
+            <textarea
               value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
-              placeholder={t("transactions.form.autoPlaceholder")}
+              placeholder="Ejemplo: Compré un café por 10 dólares"
               className="w-full mt-2 border border-neutral-700 py-2 px-4 rounded-md bg-neutral-100 dark:bg-neutral-800"
+              rows={4}
             />
           </label>
           <div className="flex justify-between my-4">
-            <Button onClick={() => processTransaction(userInput)}>
+            <Button onClick={() => processTransactions(userInput)}>
               {loading
                 ? `✨ ${t("transactions.form.loading")}`
                 : t("transactions.form.generate")}
             </Button>
           </div>
-          {generatedTransaction && (
+
+          {generatedTransactions && generatedTransactions.length > 0 && (
             <Modal
               isOpen={true}
               onClose={clearTransaction}
               title="Transaction Summary"
             >
-              <GeneratedTransaction
-                generatedTransaction={generatedTransaction}
-                handleClick={() => {
-                  onSubmit(generatedTransaction);
-                  clearTransaction();
-                }}
-              />
+              {generatedTransactions.map((transaction, index) => (
+                <GeneratedTransaction
+                  key={index}
+                  generatedTransaction={transaction}
+                  handleClick={() => {
+                    onSubmit(transaction);
+                    removeTransaction(transaction);
+                  }}
+                />
+              ))}
             </Modal>
           )}
         </div>

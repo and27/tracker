@@ -67,7 +67,6 @@ const useAuth = () => {
             (now.getTime() - userCreatedAt.getTime()) / 1000; // diff in seconds
 
           if (timeDifference < 5) {
-            console.log("Nuevo usuario detectado, creando perfil...");
             const { error: dbError } = await createSupabaseUser(
               session.user.id,
               session.user.email || ""

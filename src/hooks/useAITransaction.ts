@@ -10,7 +10,9 @@ export const openai = new OpenAI({
 });
 
 const useAITransaction = () => {
-  const [generatedTransaction, setGeneratedTransaction] = useState(null);
+  const [generatedTransactions, setGeneratedTransactions] = useState<
+    any[] | null
+  >(null);
   const [loading, setLoading] = useState(false);
 
   const extractJSON = (text: string) => {
@@ -19,35 +21,44 @@ const useAITransaction = () => {
   };
 
   const clearTransaction = () => {
-    setGeneratedTransaction(null);
+    setGeneratedTransactions(null);
   };
 
-  const processTransaction = async (userInput: string) => {
+  const removeTransaction = (transactionToRemove: Transaction) => {
+    setGeneratedTransactions((prev) =>
+      (prev || []).filter((t) => t !== transactionToRemove)
+    );
+  };
+
+  const processTransactions = async (userInput: string) => {
     setLoading(true);
     try {
       const categoriesList = JSON.stringify(categoryGroups);
       const paymentMethodsList = JSON.stringify(defaultPaymentMethods);
+
       const completion = await openai.chat.completions.create({
         model: "deepseek-chat",
         messages: [
           {
             role: "system",
-            content: `You are a financial assistant. Categorize transactions using only these categories: ${categoriesList} and this paymentMethods: ${paymentMethodsList} Respond in JSON format with this exact structure:`,
+            content: `You are a financial assistant. Categorize multiple transactions using only these categories: ${categoriesList} and these payment methods: ${paymentMethodsList}. Respond in JSON format with this exact structure:`,
           },
           {
             role: "system",
-            content: `{
-            "description": "Short description",
-            "date": "YYYY-MM-DD",
-            "category": { "id": 1, "name": "food" },
-            "amount": 0,
-            "type": "income or expense",
-            "paymentMethod": { "id": 1, "name": "credit card" },
-          }`,
+            content: `[
+              {
+                "description": "Short description",
+                "date": "YYYY-MM-DD",
+                "category": { "id": 1, "name": "food" },
+                "amount": 0,
+                "type": "income or expense",
+                "paymentMethod": { "id": 1, "name": "credit card" }
+              }
+            ]`,
           },
           {
             role: "user",
-            content: `Convert this into a structured JSON transaction: "${userInput}". Ensure the category and structure match exactly.`,
+            content: `Convert these transactions into structured JSON: "${userInput}". Ensure the categories and structure match exactly.`,
           },
         ],
         temperature: 0.2,
@@ -57,18 +68,21 @@ const useAITransaction = () => {
       const jsonText = extractJSON(rawText || "");
       const jsonResponse = JSON.parse(jsonText);
 
-      setGeneratedTransaction(jsonResponse);
+      setGeneratedTransactions(
+        Array.isArray(jsonResponse) ? jsonResponse : [jsonResponse]
+      );
     } catch (error) {
-      console.error("Error processing transaction:", error);
+      console.error("Error processing transactions:", error);
     }
     setLoading(false);
   };
 
   return {
-    generatedTransaction,
-    processTransaction,
+    generatedTransactions,
+    processTransactions,
     loading,
     clearTransaction,
+    removeTransaction,
   };
 };
 

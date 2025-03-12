@@ -99,7 +99,9 @@ const OnboardingPage: React.FC = () => {
         onPrevious={prevStep}
         onSkip={handleSkip}
       />
-      <LanguageSwitcher />
+      <div className="absolute top-5 right-5">
+        <LanguageSwitcher />
+      </div>
     </section>
   );
 };

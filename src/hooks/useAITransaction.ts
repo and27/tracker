@@ -58,7 +58,7 @@ const useAITransaction = () => {
           },
           {
             role: "user",
-            content: `Convert these transactions into structured JSON: "${userInput}". Ensure the categories and structure match exactly.`,
+            content: `Convert these transaction(s) into structured JSON: "${userInput}". Ensure the categories and structure match exactly.`,
           },
         ],
         temperature: 0.2,

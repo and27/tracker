@@ -66,7 +66,8 @@ const useAuth = () => {
           const timeDifference =
             (now.getTime() - userCreatedAt.getTime()) / 1000; // diff in seconds
 
-          if (timeDifference < 5) {
+          //this is useful only with google login because it doesn't have email_verified field
+          if (timeDifference < 10) {
             const { error: dbError } = await createSupabaseUser(
               session.user.id,
               session.user.email || ""
@@ -93,7 +94,7 @@ const useAuth = () => {
 
   const signupUser = async (user: AuthUser) => {
     const { email, password } = user;
-    const { error } = await supabaseSignup(email, password);
+    const { data, error } = await supabaseSignup(email, password);
 
     if (error) {
       if (isAuthError(error)) {
@@ -101,6 +102,23 @@ const useAuth = () => {
         return null;
       }
     }
+
+    if (data?.user) {
+      console.log("Registrando usuario en la base de datos...");
+
+      const { error: dbError } = await createSupabaseUser(
+        data.user.id,
+        data.user.email || ""
+      );
+
+      if (dbError) {
+        console.error("Error al crear usuario en la DB:", dbError.message);
+      }
+    }
+
+    setError(
+      "Te hemos enviado un correo de verificación. Revisa tu bandeja de entrada."
+    );
   };
 
   const loginUser = async (user: AuthUser) => {

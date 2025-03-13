@@ -1,14 +1,16 @@
 {
   "landing": {
     "title": "Master Your Finances with Ease",
-    "subtitle": "Take charge of your spending and achieve your financial goals with our intuitive budgeting tool.",
+    "subtitle": "The Ultimate Budget Tracking App",
+    "description": "Only 5% of people truly control their money. Are you ready to take charge?.",
     "cta": "Get Started",
     "ctaSecondary": "How It Works",
+
     "example": {
-      "title": "Track Your Spending the Easy Way",
-      "description": "Stay on top of your budget with our interactive dashboard. Watch your expenses come to life in clear, dynamic charts that help you identify spending habits and make smarter decisions.",
-      "cta": "View Example"
+      "title": "Visualize and Optimize Your Money in One Place",
+      "description": "Trackers helps you manage your expenses clearly and visually, so you can make better financial decisions in seconds."
     },
+
     "howItWorks": {
       "title": "How It Works",
       "description": "Sign up, connect your accounts, and track your spending with ease.",

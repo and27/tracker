@@ -1,3 +1,4 @@
+import { useLanguageStore } from "../store/languageStore";
 import PieChart from "./Graphs/PieChart";
 
 const dummyData = [
@@ -8,15 +9,14 @@ const dummyData = [
 ];
 
 export const HomePageChart = () => {
+  const { t } = useLanguageStore();
   return (
     <section className="mx-auto bg-indigo-950 py-[8rem] text-center px-5">
-      <h2 className="text-3xl font-bold pb-8">Track your expenses</h2>
+      <h2 className="text-3xl font-bold pb-8">{t("landing.example.title")}</h2>
       <p className="max-w-96 mx-auto pb-8 leading-relaxed text-indigo-100">
-        Easily monitor your spending with our interactive tracker. Visualize
-        your financial habits with clear, colorful charts and stay on top of
-        your budget.
+        {t("landing.example.description")}
       </p>
-      <div style={{ height: "500px" }}>
+      <div className="w-full lg:h-[30rem] h-[15rem]">
         <PieChart data={dummyData} />
       </div>
     </section>

@@ -34,17 +34,21 @@ const Hero = () => {
         <img src="/logoCard.svg" alt="logo" width="24" height="24" />
 
         <p className="text-sm md:text-base z-10 tracking-wide bg-neutral-950/60 px-5 py-1 rounded-full">
-          The Ultimate Budget Tracking App
+          {t("landing.subtitle")}
         </p>
         <h1 className="font-bold font-outfit md:w-[36rem] text-center mx-auto md:text-6xl">
           {t("landing.title")}
         </h1>
-        <p className="py-2 text-base md:w-[30rem]">{t("landing.subtitle")}</p>
+        <p className="py-2 text-base md:w-[30rem]">
+          {t("landing.description")}
+        </p>
         <div className="flex gap-3">
           <LinkButton to="/login" className="primary">
             {t("landing.cta")}
           </LinkButton>
-          <LinkButton to="#demo">{t("landing.ctaSecondary")}</LinkButton>
+          <LinkButton className=" dark:bg-neutral-800" to="#demo">
+            {t("landing.ctaSecondary")}
+          </LinkButton>
         </div>
       </div>
     </div>

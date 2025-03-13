@@ -1,13 +1,14 @@
 {
   "landing": {
-    "title": "Domina tus finanzas con facilidad",
-    "subtitle": "Toma el control de tus gastos y alcanza tus metas financieras con nuestra herramienta de presupuestos intuitiva.",
+    "title": "Domina tus Finanzas con Facilidad",
+    "subtitle": "Una App Financiera Inteligente",
+    "description": "Solo el 5% de las personas realmente dominan su dinero. \n ¿Estás listo para tomar el control?.",
     "cta": "Empezar",
     "ctaSecondary": "Cómo Funciona",
+
     "example": {
-      "title": "Registra tus gastos sin complicaciones",
-      "description": "Mantén tu presupuesto bajo control con nuestro panel interactivo. Observa tus gastos en gráficos claros y dinámicos que te ayudan a identificar hábitos de consumo y tomar mejores decisiones.",
-      "cta": "Ver Ejemplo"
+      "title": "Visualiza y Optimiza tu Dinero en un Solo Lugar",
+      "description": "Trackers  te ayuda a gestionar tus gastos de forma clara y visual para que tomes mejores decisiones en segundos."
     },
 
     "howItWorks": {

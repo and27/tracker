@@ -199,34 +199,6 @@
     "levelProgress": "Level progress"
   },
 
-  "onboarding": {
-    "step1": {
-      "subtitle": "Step 1 of 2",
-      "title": "What are your financial goals?",
-      "description": "Select up to 3 options"
-    },
-    "step2": {
-      "subtitle": "Step 2 of 2",
-      "title": "How do you handle your money?",
-      "description": "Select up to 3 options"
-    },
-    "financialGoals": {
-      "1": "Save for a goal",
-      "2": "Reduce my debts",
-      "3": "Invest wisely",
-      "4": "Better control my expenses",
-      "5": "Prepare for emergencies",
-      "6": "Improve my financial education"
-    },
-    "moneyManagementOptions": {
-      "1": "I use a budgeting app",
-      "2": "I have a financial advisor",
-      "3": "I track my expenses manually",
-      "4": "I don't have a budget",
-      "5": "I have a retirement account",
-      "6": "I invest in the stock market"
-    }
-  },
   "login": {
     "title": "Welcome!",
     "subtitle": "Please login to continue.",

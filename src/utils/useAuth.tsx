@@ -104,8 +104,6 @@ const useAuth = () => {
     }
 
     if (data?.user) {
-      console.log("Registrando usuario en la base de datos...");
-
       const { error: dbError } = await createSupabaseUser(
         data.user.id,
         data.user.email || ""

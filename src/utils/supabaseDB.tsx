@@ -258,18 +258,18 @@ const getCategoriesWithBudget = async (
   return Object.values(consolidated);
 };
 
-const addOnboardingInfo = async (userId: string, onboardingInfo: any) => {
-  const { data, error } = await supabase
+const updateUserProfile = async (userId: string, data: any) => {
+  const { error } = await supabase
     .from("user_profile")
-    .update({
-      financial_goals: onboardingInfo.financialGoals,
-      money_management: onboardingInfo.moneyManagement[0],
-      onboarding_completed: true,
-    })
-    .eq("user_id", userId)
-    .select();
+    .update(data)
+    .eq("user_id", userId);
 
-  return { data, error };
+  if (error) {
+    console.error("Error updating user profile:", error);
+    return false;
+  }
+
+  return true;
 };
 
 const isOnboardingComplete = async (userId: string) => {
@@ -305,6 +305,54 @@ const addWorkspace = async (userId: string, workspace: string) => {
   return { data, error };
 };
 
+export const getOnboardingQuestions = async (lang = "es") => {
+  const { data, error } = await supabase
+    .from("onboarding_questions")
+    .select("id, question_text, relevance")
+    .eq("language", lang);
+
+  if (error) {
+    console.error("Error fetching onboarding questions:", error);
+    return [];
+  }
+
+  return data;
+};
+
+export const getOnboardingOptions = async (questionId: number, lang = "es") => {
+  const { data, error } = await supabase
+    .from("onboarding_options")
+    .select("id, option_text")
+    .eq("question_id", questionId)
+    .eq("language", lang);
+
+  if (error) {
+    console.error(`Error fetching options for question ${questionId}:`, error);
+    return [];
+  }
+
+  return data;
+};
+
+export const saveOnboardingAnswer = async (
+  userId: string,
+  questionId: number,
+  optionId: number
+) => {
+  const { error } = await supabase
+    .from("user_onboarding_answers")
+    .insert([
+      { user_id: userId, question_id: questionId, option_id: optionId },
+    ]);
+
+  if (error) {
+    console.error("Error guardando la respuesta:", error);
+    return false;
+  }
+
+  return true;
+};
+
 export {
   createTransaction,
   getTransactions,
@@ -318,8 +366,8 @@ export {
   getCategoriesWithBudget,
   getLastTransactions,
   deleteTransaction,
-  addOnboardingInfo,
   isOnboardingComplete,
+  updateUserProfile,
   getWorkspaces,
   addWorkspace,
 };

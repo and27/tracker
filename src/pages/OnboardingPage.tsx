@@ -1,90 +1,77 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useOnboardingStep } from "../hooks/useOnboardingStep";
-import { addOnboardingInfo } from "../utils/supabaseDB";
 import OnboardingStep from "./OnboardingStep";
 import { useLanguageStore } from "../store/languageStore";
 import LanguageSwitcher from "../components/LanguageSwitcher";
+import {
+  getOnboardingOptions,
+  getOnboardingQuestions,
+  saveOnboardingAnswer,
+  updateUserProfile,
+} from "../utils/supabaseDB";
 
 export type UserOnboardingInfo = {
-  financialGoals: string[];
-  moneyManagement: string[];
+  [key: number]: number;
 };
 
 const OnboardingPage: React.FC = () => {
+  type Question = {
+    id: number;
+    question_text: string;
+    relevance: string;
+  };
+
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [options, setOptions] = useState<{ [key: number]: any[] }>({});
   const [userOnboardingInfo, setUserOnboardingInfo] =
-    useState<UserOnboardingInfo | null>(null);
+    useState<UserOnboardingInfo>({});
+
   const { step, nextStep, prevStep } = useOnboardingStep();
   const userId = localStorage.getItem("userId");
   const navigate = useNavigate();
-  const { t } = useLanguageStore();
-
-  const financialGoals = [
-    { id: 1, label: t("onboarding.financialGoals.1"), icon: "💰" },
-    { id: 2, label: t("onboarding.financialGoals.2"), icon: "📉" },
-    { id: 3, label: t("onboarding.financialGoals.3"), icon: "📈" },
-    { id: 4, label: t("onboarding.financialGoals.4"), icon: "📊" },
-    { id: 5, label: t("onboarding.financialGoals.5"), icon: "🚨" },
-    { id: 6, label: t("onboarding.financialGoals.6"), icon: "📚" },
-  ];
-
-  const moneyManagementOptions = [
-    { id: 1, label: t("onboarding.moneyManagementOptions.1"), icon: "📊" },
-    { id: 2, label: t("onboarding.moneyManagementOptions.2"), icon: "👩‍💼" },
-    { id: 3, label: t("onboarding.moneyManagementOptions.3"), icon: "🧾" },
-    { id: 4, label: t("onboarding.moneyManagementOptions.4"), icon: "🤷" },
-    { id: 5, label: t("onboarding.moneyManagementOptions.5"), icon: "🏦" },
-    { id: 6, label: t("onboarding.moneyManagementOptions.6"), icon: "📈" },
-  ];
-
-  const onboardingSteps = [
-    {
-      id: "financialGoals",
-      subtitle: t("onboarding.step1.subtitle"),
-      title: t("onboarding.step1.title"),
-      description: t("onboarding.step1.description"),
-      options: financialGoals,
-    },
-    {
-      id: "moneyManagement",
-      subtitle: t("onboarding.step2.subtitle"),
-      title: t("onboarding.step2.title"),
-      description: t("onboarding.step2.description"),
-      options: moneyManagementOptions,
-    },
-  ];
-  const activeStep = onboardingSteps[step];
-  const LAST_STEP_INDEX = onboardingSteps.length - 1;
-
-  const handleStepCompletion = (options: string[]) => {
-    setUserOnboardingInfo(
-      (prev) =>
-        ({
-          ...prev,
-          [activeStep.id]: options,
-        } as UserOnboardingInfo)
-    );
-    if (step === LAST_STEP_INDEX) return;
-    nextStep();
-  };
+  const { lang } = useLanguageStore();
 
   useEffect(() => {
-    const submitOnboardingData = async () => {
-      const { data, error } = await addOnboardingInfo(
-        userId as string,
-        userOnboardingInfo as UserOnboardingInfo
-      );
-      if (error) console.error("Failed to save onboarding data:", error);
-      if (data) navigate("/account/overview");
+    const fetchOnboardingData = async () => {
+      const loadedQuestions = await getOnboardingQuestions(lang);
+      setQuestions(loadedQuestions);
+
+      const optionsMap: { [key: number]: any[] } = {};
+      for (const question of loadedQuestions) {
+        const questionOptions = await getOnboardingOptions(question.id, lang);
+        optionsMap[question.id] = questionOptions;
+      }
+      setOptions(optionsMap);
     };
 
-    if (
-      userOnboardingInfo &&
-      Object.keys(userOnboardingInfo).length === onboardingSteps.length
-    ) {
-      submitOnboardingData();
+    fetchOnboardingData();
+  }, [lang]);
+
+  const activeStep = questions[step];
+  const LAST_STEP_INDEX = questions.length - 1;
+
+  const handleStepCompletion = async (selectedOptionId: number) => {
+    setUserOnboardingInfo((prev) => ({
+      ...prev,
+      [activeStep.id]: selectedOptionId,
+    }));
+
+    await saveOnboardingAnswer(
+      userId as string,
+      activeStep.id,
+      selectedOptionId
+    );
+
+    if (step < LAST_STEP_INDEX) {
+      nextStep();
+    } else {
+      await updateUserProfile(userId as string, {
+        onboarding_completed: true,
+      });
+      navigate("/account/overview");
     }
-  }, [userOnboardingInfo]);
+  };
 
   const handleSkip = () => {
     navigate("/account/overview");
@@ -92,13 +79,17 @@ const OnboardingPage: React.FC = () => {
 
   return (
     <section className="min-h-screen grid items-center">
-      <OnboardingStep
-        {...activeStep}
-        step={step}
-        onNext={handleStepCompletion}
-        onPrevious={prevStep}
-        onSkip={handleSkip}
-      />
+      {activeStep && (
+        <OnboardingStep
+          subtitle={`Pregunta ${step + 1} de ${questions.length}`}
+          title={activeStep.question_text}
+          options={options[activeStep.id] || []}
+          step={step}
+          onNext={handleStepCompletion}
+          onPrevious={prevStep}
+          onSkip={handleSkip}
+        />
+      )}
       <div className="absolute top-5 right-5">
         <LanguageSwitcher />
       </div>

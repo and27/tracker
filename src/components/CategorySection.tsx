@@ -3,7 +3,7 @@ import { ResponsivePie } from "@nivo/pie";
 import Button from "./Button";
 import CategoryList from "./CategoryList";
 import Subtitle from "./Subtitle";
-import Modal from "./Modal";
+import Modal from "./Modals/Modal";
 import CategoryForm from "./Forms/CategoryForm";
 // import { deleteCategoryByName } from "../utils/api/categories";
 import { useCategories } from "../context/CategoriesContext";

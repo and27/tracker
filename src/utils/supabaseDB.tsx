@@ -308,7 +308,7 @@ const addWorkspace = async (userId: string, workspace: string) => {
 export const getOnboardingQuestions = async (lang = "es") => {
   const { data, error } = await supabase
     .from("onboarding_questions")
-    .select("id, question_text, relevance")
+    .select("id, question_text")
     .eq("language", lang);
 
   if (error) {

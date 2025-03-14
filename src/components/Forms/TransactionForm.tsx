@@ -14,7 +14,7 @@ import useAITransaction from "../../hooks/useAITransaction";
 import { useLanguageStore } from "../../store/languageStore";
 import Spinner from "../Spinner";
 import { getHappyMoneyQuote } from "../../utils/happyMoneyGenerator";
-import Modal from "../Modal";
+import Modal from "../Modals/Modal";
 import GeneratedTransaction from "../GeneratedTransaction";
 
 const TransactionForm = () => {

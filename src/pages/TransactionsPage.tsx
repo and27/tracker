@@ -3,7 +3,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Table from "../components/Table";
 import LinkButton from "../components/LinkButton";
-import Modal from "../components/Modal";
+import Modal from "../components/Modals/Modal";
 import { useTransactionStore } from "../store/transactionStore";
 import Spinner from "../components/Spinner";
 import { useLanguageStore } from "../store/languageStore";

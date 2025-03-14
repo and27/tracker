@@ -19,13 +19,10 @@ const OnboardingPage: React.FC = () => {
   type Question = {
     id: number;
     question_text: string;
-    relevance: string;
   };
 
   const [questions, setQuestions] = useState<Question[]>([]);
   const [options, setOptions] = useState<{ [key: number]: any[] }>({});
-  const [userOnboardingInfo, setUserOnboardingInfo] =
-    useState<UserOnboardingInfo>({});
 
   const { step, nextStep, prevStep } = useOnboardingStep();
   const userId = localStorage.getItem("userId");
@@ -52,11 +49,6 @@ const OnboardingPage: React.FC = () => {
   const LAST_STEP_INDEX = questions.length - 1;
 
   const handleStepCompletion = async (selectedOptionId: number) => {
-    setUserOnboardingInfo((prev) => ({
-      ...prev,
-      [activeStep.id]: selectedOptionId,
-    }));
-
     await saveOnboardingAnswer(
       userId as string,
       activeStep.id,

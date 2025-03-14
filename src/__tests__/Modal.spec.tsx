@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import Modal from "../components/Modal";
+import Modal from "../components/Modals/Modal";
 import "@testing-library/jest-dom";
 
 jest.mock("focus-trap-react", () => ({

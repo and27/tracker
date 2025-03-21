@@ -226,5 +226,39 @@
     "cta": "Reset password",
     "login": "Remembered your password?",
     "loginLink": "Login"
+  },
+  "authErrors": {
+    "invalid_credentials": "Incorrect email or password.",
+    "email_not_confirmed": "You must confirm your email before logging in.",
+    "user_not_found": "We couldn't find a user with this email.",
+    "user_already_exists": "This user is already registered.",
+    "weak_password": "Your password is too weak.",
+    "signup_disabled": "Signups are currently disabled.",
+    "session_expired": "Your session has expired. Please log in again.",
+    "unexpected_error": "An unexpected error occurred. Please try again later."
+  },
+  "validationErrors": {
+    "emailRequired": "Email is required.",
+    "emailInvalid": "Please enter a valid email address.",
+    "passwordRequired": "Password is required.",
+    "passwordMismatch": "The passwords entered do not match.",
+    "weakPassword": "Password must be at least 8 characters long and contain a mix of letters and numbers.",
+    "shortPassword": "The password is too short (minimum 8 characters).",
+    "termsRequired": "You must accept the terms and conditions.",
+    "requiredField": "This field is required."
+  },
+  "auth": {
+    "verificationSent": "We've sent you a verification email. Check your inbox."
+  },
+  "dbAndStorageErrors": {
+    "duplicateEntry": "This entry already exists in the system.",
+    "foreignKeyViolation": "Foreign key violation.",
+    "notNullViolation": "This field cannot be empty.",
+    "syntaxError": "Syntax error in the database.",
+    "undefinedColumn": "The specified column does not exist.",
+    "undefinedTable": "The specified table does not exist.",
+    "databaseTimeout": "Database timeout exceeded.",
+    "accessDenied": "You do not have permission to access this resource.",
+    "databaseError": "Database error."
   }
 }

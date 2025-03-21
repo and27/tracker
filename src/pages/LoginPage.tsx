@@ -8,7 +8,7 @@ import { useLanguageStore } from "../store/languageStore";
 import LanguageSwitcher from "../components/LanguageSwitcher";
 
 const LoginPage = () => {
-  const { loginWithGoogle, loginUser, error, user } = useAuth();
+  const { loginWithGoogle, loginUser, user } = useAuth();
   const { isOnboarded, loading } = useOnboarding(user);
   const navigate = useNavigate();
   const { t } = useLanguageStore();
@@ -37,11 +37,7 @@ const LoginPage = () => {
               </p>
             </div>
           </Link>
-          <LoginForm
-            loginError={error}
-            loginUser={loginUser}
-            loginWithGoogle={loginWithGoogle}
-          />
+          <LoginForm loginUser={loginUser} loginWithGoogle={loginWithGoogle} />
           <p className="mt-3">
             <Link
               to="/password-recovery"

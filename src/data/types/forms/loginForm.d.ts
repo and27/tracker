@@ -4,8 +4,7 @@ type LoginData = {
 };
 
 interface loginFormProps {
-  loginUser: (user: LoginData) => void;
-  loginError: string | null;
+  loginUser: (user: AuthUser) => Promise<string | null>;
   loginWithGoogle: () => void;
 }
 
@@ -13,5 +12,6 @@ type inputLabelProps = {
   label: string;
   name: string;
   type?: string;
+  className?: string;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };

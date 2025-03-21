@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Button from "../Button";
 import { createTransaction } from "../../utils/supabaseDB";
@@ -77,8 +76,6 @@ const TransactionForm = () => {
 
   return (
     <>
-      <ToastContainer />
-
       <div className="flex gap-4">
         <button
           onClick={() => setShowForm(false)}

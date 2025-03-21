@@ -1,9 +1,5 @@
 import { supabase } from "./supabase";
 
-export type AuthError = {
-  message: string;
-};
-
 // const localURL = "http://localhost:5173";
 const prodURL = "https://tracker-ulqw.vercel.app";
 const BASE_URL = prodURL;

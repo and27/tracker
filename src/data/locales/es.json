@@ -212,11 +212,41 @@
     "password": "Contraseña",
     "confirmPassword": "Confirmar contraseña"
   },
+  "authErrors": {
+    "invalid_credentials": "Correo o contraseña incorrectos.",
+    "email_not_confirmed": "Debes confirmar tu correo antes de iniciar sesión.",
+    "user_not_found": "No encontramos un usuario con este correo.",
+    "user_already_exists": "Este usuario ya está registrado.",
+    "weak_password": "Tu contraseña es demasiado débil.",
+    "signup_disabled": "El registro está deshabilitado.",
+    "session_expired": "Tu sesión ha expirado. Inicia sesión nuevamente."
+  },
+  "validationErrors": {
+    "emailRequired": "El correo electrónico es obligatorio.",
+    "passwordRequired": "La contraseña es obligatoria.",
+    "passwordMismatch": "Las contraseñas no coinciden.",
+    "weakPassword": "La contraseña debe tener al menos 8 caracteres.",
+    "termsRequired": "Debes aceptar los términos y condiciones."
+  },
+  "auth": {
+    "verificationSent": "Te hemos enviado un correo de verificación. Revisa tu bandeja de entrada."
+  },
   "forgotPassword": {
     "title": "Olvidé mi contraseña",
     "subtitle": "Por favor ingrese su correo electrónico para restablecer su contraseña.",
     "cta": "Restablecer contraseña",
     "login": "¿Recordaste tu contraseña?",
     "loginLink": "Iniciar sesión"
+  },
+  "dbAndStorageErrors": {
+    "duplicateEntry": "Este dato ya existe en el sistema.",
+    "foreignKeyViolation": "Violación de clave foránea.",
+    "notNullViolation": "Este campo no puede estar vacío.",
+    "syntaxError": "Error de sintaxis en la base de datos.",
+    "undefinedColumn": "La columna especificada no existe.",
+    "undefinedTable": "La tabla especificada no existe.",
+    "databaseTimeout": "Tiempo de espera agotado en la base de datos.",
+    "accessDenied": "No tienes permisos para acceder a este recurso.",
+    "databaseError": "Error de base de datos."
   }
 }

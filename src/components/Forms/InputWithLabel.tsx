@@ -1,9 +1,10 @@
 import { FaEye } from "react-icons/fa6";
 
 const InputWithLabel = ({
+  type = "text",
   label,
   name,
-  type = "text",
+  className,
   handleChange,
 }: inputLabelProps) => (
   <label
@@ -12,7 +13,7 @@ const InputWithLabel = ({
   >
     {label}
     <input
-      className="bg-transparent border border-gray-400 p-2 rounded-md mt-1"
+      className={`bg-transparent border border-gray-400 p-2 rounded-md mt-1  ${className}`}
       type={type}
       id={name}
       name={name}

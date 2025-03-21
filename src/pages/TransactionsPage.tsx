@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import Table from "../components/Table";
 import LinkButton from "../components/LinkButton";
 import Modal from "../components/Modals/Modal";
@@ -76,7 +75,6 @@ const TransactionsPage: React.FC = () => {
 
   return (
     <main className="col-span-12 lg:col-span-10 pt-3 lg:pt-10 px-5 md:px-8 dark:bg-zinc-900 min-h-screen">
-      <ToastContainer />
       <header className="flex flex-col md:flex-row mb-4 gap-2 md:gap-5 md:items-center">
         <h1 className="text-lg lg:text-xl font-outfit text-neutral-700 dark:text-neutral-400">
           {t("transactions.title")}

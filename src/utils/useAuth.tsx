@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import {
-  AuthError,
   createSupabaseUser,
   googleLogin,
   supabaseLogin,
   supabaseSignup,
 } from "./supabaseLogin";
-import { User } from "@supabase/supabase-js";
+import { AuthError, User } from "@supabase/supabase-js";
 import { supabase } from "./supabase";
 import { useInsightStore } from "../store/insightStore";
 import { useTransactionStore } from "../store/transactionStore";
 import { useNavigate } from "react-router-dom";
 import { getWorkspaces } from "./supabaseDB";
+import { useLanguageStore } from "../store/languageStore";
 
 type AuthUser = {
   email: string;
@@ -23,10 +23,34 @@ const isAuthError = (error: unknown): error is AuthError => {
 };
 
 const useAuth = () => {
-  //todo: interact with db, define User interface and use User instead of Partial<User>
   const [user, setUser] = useState<Partial<User> | null>(null);
-  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  const { t } = useLanguageStore();
+
+  const handleDatabaseError = (errorCode: string) => {
+    if (!errorCode) return null;
+
+    switch (errorCode) {
+      case "23505":
+        return t("dbAndStorageErrors.duplicateEntry");
+      case "23503":
+        return t("dbAndStorageErrors.foreignKeyViolation");
+      case "23502":
+        return t("dbAndStorageErrors.notNullViolation");
+      case "42601":
+        return t("dbAndStorageErrors.syntaxError");
+      case "42703":
+        return t("dbAndStorageErrors.undefinedColumn");
+      case "42P01":
+        return t("dbAndStorageErrors.undefinedTable");
+      case "504":
+        return t("dbAndStorageErrors.databaseTimeout");
+      case "403":
+        return t("dbAndStorageErrors.accessDenied");
+      default:
+        return t("dbAndStorageErrors.databaseError");
+    }
+  };
 
   const getWorkspace = async (userId: string) => {
     const { data, error } = await getWorkspaces(userId);
@@ -34,7 +58,6 @@ const useAuth = () => {
       console.error(error);
       return null;
     }
-
     return data?.[0];
   };
 
@@ -46,12 +69,10 @@ const useAuth = () => {
           localStorage.setItem("userId", session.user.id);
 
           let workspaceId = session.user.user_metadata?.workspaceId;
-
           if (!workspaceId) {
             const workspace = await getWorkspace(session.user.id);
             if (workspace?.id) {
               workspaceId = workspace.id;
-
               await supabase.auth.updateUser({ data: { workspaceId } });
             }
           }
@@ -60,24 +81,14 @@ const useAuth = () => {
             localStorage.setItem("workspace", workspaceId);
           }
 
-          //verify if user is new
+          // Verificar si el usuario es nuevo
           const userCreatedAt = new Date(session.user.created_at);
           const now = new Date();
           const timeDifference =
-            (now.getTime() - userCreatedAt.getTime()) / 1000; // diff in seconds
+            (now.getTime() - userCreatedAt.getTime()) / 1000;
 
-          //this is useful only with google login because it doesn't have email_verified field
           if (timeDifference < 10) {
-            const { error: dbError } = await createSupabaseUser(
-              session.user.id,
-              session.user.email || ""
-            );
-
-            if (dbError) {
-              setError(dbError.message);
-            } else {
-              setError(null);
-            }
+            await createSupabaseUser(session.user.id, session.user.email || "");
           }
         } else {
           setUser(null);
@@ -92,15 +103,11 @@ const useAuth = () => {
     };
   }, []);
 
-  const signupUser = async (user: AuthUser) => {
+  const signupUser = async (user: AuthUser): Promise<string | null> => {
     const { email, password } = user;
     const { data, error } = await supabaseSignup(email, password);
-
-    if (error) {
-      if (isAuthError(error)) {
-        setError(error.message);
-        return null;
-      }
+    if (error && isAuthError(error)) {
+      return t(`authErrors.${error.code}`, { defaultValue: error.message });
     }
 
     if (data?.user) {
@@ -108,39 +115,37 @@ const useAuth = () => {
         data.user.id,
         data.user.email || ""
       );
-
       if (dbError) {
-        console.error("Error al crear usuario en la DB:", dbError.message);
+        const errorMessage = handleDatabaseError(dbError.code);
+        return errorMessage || t("dbAndStorageErrors.database_error");
       }
     }
 
-    setError(
-      "Te hemos enviado un correo de verificación. Revisa tu bandeja de entrada."
-    );
+    return null;
   };
 
-  const loginUser = async (user: AuthUser) => {
+  const loginUser = async (user: AuthUser): Promise<string | null> => {
     const { email, password } = user;
     const { error } = await supabaseLogin(email, password);
-    if (error) {
-      if (isAuthError(error)) {
-        setError(error.message);
-        return null;
-      }
+
+    if (error && isAuthError(error)) {
+      return t(`authErrors.${error.code}`, { defaultValue: error.message });
     }
+
+    return null; // No hay errores
   };
 
-  const loginWithGoogle = async () => {
+  const loginWithGoogle = async (): Promise<string | null> => {
     const { error } = await googleLogin();
-    if (error) {
-      setError(error.message);
-      return;
+    if (error && isAuthError(error)) {
+      return t(`authErrors.${error.code}`, { defaultValue: error.message });
     }
+    return null;
   };
 
   const logout = async () => {
     const { error } = await supabase.auth.signOut();
-    if (error) {
+    if (error && isAuthError(error)) {
       console.error("Error logging out:", error.message);
       return;
     }
@@ -156,7 +161,6 @@ const useAuth = () => {
 
   return {
     user,
-    error,
     loginUser,
     signupUser,
     loginWithGoogle,

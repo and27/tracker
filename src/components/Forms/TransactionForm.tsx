@@ -39,6 +39,18 @@ const TransactionForm = () => {
     formState: { errors },
   } = useForm<Transaction>();
 
+  const handleProcessTransactions = async () => {
+    try {
+      if (!userInput) {
+        toast.error("Please enter a description.");
+        return;
+      }
+      await processTransactions(userInput);
+    } catch (error) {
+      handleError(error);
+    }
+  };
+
   const onSubmit: SubmitHandler<Transaction> = async (data) => {
     try {
       const preparedTransaction = prepareTransactionData(data);
@@ -104,13 +116,13 @@ const TransactionForm = () => {
             <textarea
               value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
-              placeholder="Ejemplo: Compré un café por 10 dólares"
+              placeholder={t("transactions.form.autoPlaceholder")}
               className="w-full mt-2 border border-neutral-700 py-2 px-4 rounded-md bg-neutral-100 dark:bg-neutral-800"
               rows={4}
             />
           </label>
           <div className="flex justify-between my-4">
-            <Button onClick={() => processTransactions(userInput)}>
+            <Button onClick={handleProcessTransactions} type="button">
               {loading
                 ? `✨ ${t("transactions.form.loading")}`
                 : t("transactions.form.generate")}
@@ -130,6 +142,7 @@ const TransactionForm = () => {
                   handleClick={() => {
                     onSubmit(transaction);
                     removeTransaction(transaction);
+                    setUserInput("");
                   }}
                 />
               ))}

@@ -1,5 +1,4 @@
 import AccountSummary from "../components/AccountSummary";
-import InsightsBanner from "../components/InsightsBanner";
 import { Footer } from "../components/Sections/Footer";
 import LastTransactions from "../components/Sections/LastTransactions";
 import { useInsightStore } from "../store/insightStore";
@@ -14,11 +13,6 @@ function OverviewPage() {
 
   if (!insights) return null;
 
-  const firstInsight =
-    insights?.spendingPatterns?.length > 0
-      ? insights.spendingPatterns[insights.spendingPatterns.length - 1]?.d
-      : null;
-
   return (
     <div className="flex flex-col col-span-12 lg:col-span-10 overflow-scroll">
       <WelcomeModal userId={user || ""} />
@@ -27,7 +21,7 @@ function OverviewPage() {
           {t("overview.title")}
         </h1>
         <FirstSteps />
-        <InsightsBanner insight={firstInsight as string} />
+        {/* <InsightsBanner insight={firstInsight as string} /> */}
         <div className="md:grid md:grid-cols-6 gap-6 mt-10">
           <AccountSummary />
           <LastTransactions />

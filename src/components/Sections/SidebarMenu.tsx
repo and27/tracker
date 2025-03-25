@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { FaFire, FaTable } from "react-icons/fa6";
+import { FaTable } from "react-icons/fa6";
 import { FaChartColumn } from "react-icons/fa6";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { FaGear } from "react-icons/fa6";
@@ -100,24 +100,24 @@ const SidebarMenu = ({ isOpen, setIsSidebarOpen }: SidebarMenuProps) => {
           </li>
           <li className="w-full">
             <NavLink
-              to="/account/reports"
+              to="/account/explore"
               className="flex gap-2 items-center block text-start px-4 py-3
             rounded active:bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-gray-5"
             >
               <FaChartColumn />
-              {t("menu.reports")}
+              {t("menu.explore")}
             </NavLink>
           </li>
-          <li className="w-full">
+          {/* <li className="w-full">
             <NavLink
-              to="/account/insights"
+              to="/account/alerts"
               className="flex gap-2 items-center block text-start px-4 py-3
             rounded active:bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-gray-5"
             >
               <FaFire />
-              {t("menu.insights")}
+              {t("menu.alerts")}
             </NavLink>
-          </li>
+          </li> */}
           {/* <li className="w-full">
             <NavLink
               to="/account/mission"

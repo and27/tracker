@@ -15,7 +15,7 @@ import { CategoriesProvider } from "./context/CategoriesContext.tsx";
 import PasswordReset from "./pages/PasswordReset.tsx";
 import PasswordRecovery from "./pages/PasswordRecoverys.tsx";
 import { ToastContainer } from "react-toastify";
-import InsightsPage from "./pages/InsightsPage.tsx";
+import "react-toastify/dist/ReactToastify.css";
 import OnboardingPage from "./pages/OnboardingPage.tsx";
 import MissionsPage from "./pages/MissionPage.tsx";
 import App from "./App.tsx";
@@ -36,16 +36,12 @@ const router = createBrowserRouter([
         element: <TransactionsPage />,
       },
       {
-        path: "reports",
-        element: <ReportsPage />,
-      },
-      {
         path: "transaction",
         element: <TransactionFormPage />,
       },
       {
-        path: "insights",
-        element: <InsightsPage />,
+        path: "explore",
+        element: <ReportsPage />,
       },
       {
         path: "mission",
@@ -94,7 +90,16 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <ThemeProvider>
       <CategoriesProvider>
         <RouterProvider router={router} />
-        <ToastContainer />
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop
+          closeOnClick
+          pauseOnHover
+          draggable
+          theme="dark"
+        />
       </CategoriesProvider>
     </ThemeProvider>
   </React.StrictMode>

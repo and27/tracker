@@ -1,22 +1,20 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { fetchConsolidatedTransactions } from "../utils/supabaseDB";
-import { getAIInsights } from "../utils/insightsAIService";
 import { useLanguageStore } from "./languageStore";
+import {
+  getSmartInsights,
+  InsightItem,
+} from "../utils/smartsInsightsAIService";
 
-type SpendingPattern = {
-  id: number;
-  c: string;
-  d: string;
-  p: number;
-  ac: { l: string; t: string }[];
-};
+interface SmartInsightByChart {
+  categorySpending: InsightItem[];
+  monthlyComparison: InsightItem[];
+  projections: InsightItem[];
+}
 
 interface InsightStore {
-  insights: {
-    spendingPatterns: SpendingPattern[];
-    predictions: [];
-  };
+  insights: SmartInsightByChart;
   isLoading: boolean;
   lastUpdated: string | null;
   getInsights: (forceRefresh?: boolean) => Promise<void>;
@@ -28,58 +26,71 @@ export const useInsightStore = create<InsightStore>()(
     (set, get) => ({
       isLoading: false,
       insights: {
-        spendingPatterns: [],
-        predictions: [],
+        categorySpending: [],
+        monthlyComparison: [],
+        projections: [],
       },
       lastUpdated: null,
 
       getInsights: async (forceRefresh = false) => {
-        const today = new Date().toISOString().split("T")[0]; //current date
+        const today = new Date().toISOString().split("T")[0];
 
         if (!forceRefresh && get().lastUpdated === today) {
-          console.log("✅ Using cached insights from Zustand.");
+          console.log("✅ Using cached smart insights from Zustand.");
           return;
         }
 
-        console.log("🔄 Fetching new insights...");
+        console.log("🔄 Fetching new smart insights...");
         set({ isLoading: true });
+
         try {
           const user = localStorage.getItem("userId") as string;
           const { lang } = useLanguageStore.getState();
+
           const consolidatedTransactions = await fetchConsolidatedTransactions(
             user
           );
 
           if (!consolidatedTransactions) {
-            console.error("Failed to fetch consolidated transactions.");
+            console.error("❌ Failed to fetch consolidated transactions.");
+            set({ isLoading: false });
             return;
           }
-          const newInsights = await getAIInsights(
-            lang,
-            consolidatedTransactions
-          );
+
+          const smart = await getSmartInsights(lang, consolidatedTransactions);
+
+          if (!smart?.byChart) {
+            console.error("❌ No insights returned.");
+            set({ isLoading: false });
+            return;
+          }
 
           set({
-            insights: newInsights,
+            insights: smart.byChart,
             lastUpdated: today,
             isLoading: false,
           });
 
-          console.log("✅ Insights updated successfully!");
+          console.log("✅ Smart insights updated successfully!");
         } catch (error) {
-          console.error("Error fetching insights:", error);
+          console.error("❌ Error fetching smart insights:", error);
+          set({ isLoading: false });
         }
       },
+
       clearInsights: () => {
         set({
           insights: {
-            spendingPatterns: [],
-            predictions: [],
+            categorySpending: [],
+            monthlyComparison: [],
+            projections: [],
           },
           lastUpdated: null,
         });
       },
     }),
-    { name: "insight-storage" }
+    {
+      name: "insight-storage",
+    }
   )
 );

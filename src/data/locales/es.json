@@ -65,10 +65,10 @@
     "overview": "Resumen",
     "transactions": "Movimientos",
     "settings": "Configuración",
-    "reports": "Reportes",
+    "explore": "Explorar",
     "insights": "Insights",
     "mission": "Misiones",
-    "newTransaction": "Nuevo movimiento",
+    "newTransaction": "Registrar",
     "logout": "Cerrar sesión"
   },
 
@@ -169,7 +169,7 @@
     "cta": "Nueva categoría"
   },
   "reports": {
-    "title": "Reportes",
+    "title": "Explora tu historia financiera",
     "barChartTitle": "Gastos por categoría",
     "lineChartTitle": "¿Cuánto estás gastando?",
     "heatMapTitle": "¿Cuáles son tus gastos principales?"

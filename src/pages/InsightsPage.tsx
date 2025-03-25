@@ -1,12 +1,10 @@
 import { useEffect } from "react";
 import { useInsightStore } from "../store/insightStore";
-import SpendingPatterns from "../components/Insights/SpendingPatterns";
-import PredictionsTrends from "../components/Insights/PredictionTrends";
 import { useLanguageStore } from "../store/languageStore";
 import Spinner from "../components/Spinner";
 
 const InsightsPage = () => {
-  const { isLoading, insights, getInsights } = useInsightStore();
+  const { isLoading, getInsights } = useInsightStore();
   const { t } = useLanguageStore();
 
   useEffect(() => {
@@ -35,8 +33,8 @@ const InsightsPage = () => {
           </div>
         ) : (
           <>
-            <SpendingPatterns data={insights.spendingPatterns} />
-            <PredictionsTrends data={insights.predictions} />
+            {/* <SpendingPatterns data={insights.spendingPatterns} />
+            <PredictionsTrends data={insights.predictions} /> */}
           </>
         )}
       </div>

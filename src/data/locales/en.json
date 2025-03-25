@@ -65,10 +65,10 @@
     "overview": "Overview",
     "transactions": "Transactions",
     "settings": "Settings",
-    "reports": "Reports",
+    "explore": "Explore",
     "insights": "Insights",
     "mission": "Missions",
-    "newTransaction": "New transaction",
+    "newTransaction": "Register",
     "logout": "Logout"
   },
   "overview": {
@@ -167,7 +167,7 @@
     "cta": "Add category"
   },
   "reports": {
-    "title": "Reports",
+    "title": "Explore your finances",
     "barChartTitle": "Expenses by category",
     "lineChartTitle": "How much are you spending?",
     "heatMapTitle": "What are your top expenses?"

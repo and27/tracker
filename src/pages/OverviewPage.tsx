@@ -4,7 +4,6 @@ import LastTransactions from "../components/Sections/LastTransactions";
 import { useInsightStore } from "../store/insightStore";
 import { useLanguageStore } from "../store/languageStore";
 import WelcomeModal from "../components/Modals/WelcomeModal";
-import FirstSteps from "../components/FirstSteps";
 
 function OverviewPage() {
   const { t } = useLanguageStore();
@@ -20,7 +19,7 @@ function OverviewPage() {
         <h1 className="text-2xl lg:text-3xl mb-6 font-outfit">
           {t("overview.title")}
         </h1>
-        <FirstSteps />
+        {/* <FirstSteps /> */}
         {/* <InsightsBanner insight={firstInsight as string} /> */}
         <div className="md:grid md:grid-cols-6 gap-6 mt-10">
           <AccountSummary />

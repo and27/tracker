@@ -4,7 +4,6 @@ import { useState } from "react";
 import { FaBars, FaX } from "react-icons/fa6";
 import UsersnapWidget from "./UserSnap";
 import LanguageSwitcher from "./LanguageSwitcher";
-import EnvironmentSwitcher from "./EnvironmentSwitcher";
 
 const Layout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -17,7 +16,7 @@ const Layout = () => {
       >
         <div className="flex gap-3 absolute right-20 top-3 lg:right-6 lg:top-5">
           <LanguageSwitcher />
-          <EnvironmentSwitcher />
+          {/* <EnvironmentSwitcher /> */}
         </div>
         <button
           className="relative static lg:hidden bg-indigo-700 text-white mr-4 py-3 mt-3 self-end"

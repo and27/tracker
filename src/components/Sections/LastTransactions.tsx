@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Button from "../Button";
 import Subtitle from "../Subtitle";
 import TransactionItem from "../TransactionItem";
 import { getLastTransactions } from "../../utils/supabaseDB";
 import { useLanguageStore } from "../../store/languageStore";
+import LinkButton from "../LinkButton";
 
 const LastTransactions = () => {
-  const [transactions, setTransactions] = useState<Transaction[]>();
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
   const { t } = useLanguageStore();
-  const navigate = useNavigate();
-  const noTransactions = !transactions || transactions.length === 0;
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -27,11 +24,14 @@ const LastTransactions = () => {
     fetchTransactions();
   }, []);
   return (
-    <div className="col-span-2">
-      <Subtitle title={t("overview.lastTransactions")} />
-      {noTransactions ? (
-        <p>No transactions</p>
-      ) : (
+    transactions.length > 0 && (
+      <div className="col-span-3">
+        <div className="flex items-center justify-between mb-4">
+          <Subtitle title={t("overview.lastTransactions")} />
+          <LinkButton className="primary" to="/account/transaction">
+            {t("overview.registerTransaction")}
+          </LinkButton>
+        </div>
         <div className="pt-7 shadow-md dark:shadow-none bg-transparent dark:bg-neutral-800/50 pt-4 p-8 rounded-lg">
           <ul className="grid grid-cols-1 gap-4">
             {transactions?.map((transaction) => (
@@ -45,15 +45,12 @@ const LastTransactions = () => {
               />
             ))}
           </ul>
-          <Button
-            className="mt-4 w-full"
-            onClick={() => navigate("/account/transactions")}
-          >
+          <LinkButton className="mt-4 w-full" to="/account/transactions">
             {t("overview.viewAll")}
-          </Button>
+          </LinkButton>
         </div>
-      )}
-    </div>
+      </div>
+    )
   );
 };
 

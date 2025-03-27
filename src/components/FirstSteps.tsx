@@ -1,103 +1,107 @@
 import { FaCheckCircle, FaRegCircle } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Button from "./Button";
+import { useLanguageStore } from "../store/languageStore";
+import LinkButton from "./LinkButton";
+import Subtitle from "./Subtitle";
 
 const FirstSteps = () => {
-  const navigate = useNavigate();
+  const { t, lang } = useLanguageStore();
 
-  const [steps, setSteps] = useState([
+  const [steps, setSteps] = useState<
     {
-      id: 1,
-      title: "Completa tu quiz inicial",
-      description: "Responde 3 preguntas para personalizar tu experiencia.",
-      completed: localStorage.getItem("onboardingCompleted") === "true",
-      action: () => navigate("/onboarding"),
-    },
-    {
-      id: 2,
-      title: "Agrega tu primera transacción",
-      description: "Registra tu primer gasto o ingreso.",
-      completed: localStorage.getItem("hasTransaction") === "true",
-      action: () => navigate("/account/transaction"),
-    },
-    {
-      id: 3,
-      title: "Define tu primer presupuesto",
-      description: "Establece límites para mejorar tu control financiero.",
-      completed: localStorage.getItem("hasBudget") === "true",
-      action: () => navigate("/account/settings"),
-    },
-  ]);
+      id: number;
+      title: string;
+      description: string;
+      completed: boolean;
+      to: string;
+    }[]
+  >([]);
 
-  // Optional: puedes actualizar dinámicamente desde store o API
   useEffect(() => {
-    setSteps((prev) =>
-      prev.map((step) => {
-        if (step.id === 1) {
-          return {
-            ...step,
-            completed: localStorage.getItem("onboardingCompleted") === "true",
-          };
-        }
-        if (step.id === 2) {
-          return {
-            ...step,
-            completed: localStorage.getItem("hasTransaction") === "true",
-          };
-        }
-        if (step.id === 3) {
-          return {
-            ...step,
-            completed: localStorage.getItem("hasBudget") === "true",
-          };
-        }
-        return step;
-      })
-    );
-  }, []);
+    setSteps([
+      {
+        id: 1,
+        title: t("firstSteps.steps.quiz.title"),
+        description: t("firstSteps.steps.quiz.description"),
+        completed: localStorage.getItem("onboardingCompleted") === "true",
+        to: "/onboarding",
+      },
+      {
+        id: 2,
+        title: t("firstSteps.steps.transaction.title"),
+        description: t("firstSteps.steps.transaction.description"),
+        completed: localStorage.getItem("hasTransaction") === "true",
+        to: "/account/transaction",
+      },
+      {
+        id: 3,
+        title: t("firstSteps.steps.budget.title"),
+        description: t("firstSteps.steps.budget.description"),
+        completed: localStorage.getItem("hasBudget") === "true",
+        to: "/account/budget",
+      },
+    ]);
+  }, [lang, t]);
 
+  const firstIncompleteId = steps.find((s) => !s.completed)?.id;
   const allCompleted = steps.every((step) => step.completed);
+  const completedCount = steps.filter((s) => s.completed).length;
+  const remainingSteps = steps.length - completedCount;
 
   if (allCompleted) return null;
 
+  const progressText =
+    remainingSteps === 1
+      ? t("firstSteps.progress.one")
+      : t("firstSteps.progress.other", { count: String(remainingSteps) });
+
   return (
-    <section className="bg-neutral-800 rounded-lg p-6 mb-6">
-      <h2 className="text-lg font-semibold mb-4 text-neutral-800 dark:text-neutral-100">
-        🧭 Primeros pasos para empezar
-      </h2>
+    <section className="rounded-2xl mb-8 shadow-md">
+      <Subtitle title={t("firstSteps.title")} />
+      <p className="text-sm text-neutral-300 mt-2 mb-4">{progressText}</p>
+
       <ul className="grid md:grid-cols-3 gap-5">
-        {steps.map((step) => (
-          <li
-            key={step.id}
-            className={`flex flex-col items-start justify-between gap-4 p-4 rounded-md border ${
-              step.completed
-                ? "bg-neutral-100 dark:bg-zinc-700 border-neutral-200 dark:border-zinc-600 opacity-60"
-                : "bg-indigo-50 dark:bg-indigo-900 border-indigo-200 dark:border-indigo-700"
-            }`}
-          >
-            <div className="flex items-start gap-3">
-              {step.completed ? (
-                <FaCheckCircle className="text-green-500 mt-1" />
-              ) : (
-                <FaRegCircle className="text-indigo-500 mt-1" />
-              )}
-              <div>
-                <p className="font-medium text-neutral-800 dark:text-neutral-100">
-                  {step.title}
-                </p>
-                {/* <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                  {step.description}
-                </p> */}
+        {steps.map((step) => {
+          const isFirstIncomplete = step.id === firstIncompleteId;
+
+          return (
+            <li
+              key={step.id}
+              className={`flex flex-col justify-between p-5 rounded-xl border shadow-sm ${
+                step.completed
+                  ? "bg-neutral-100 dark:bg-zinc-800 border-neutral-200 dark:border-zinc-600 opacity-60"
+                  : "bg-white dark:bg-zinc-900 border-indigo-300 dark:border-indigo-700"
+              }`}
+            >
+              <div className="flex items-start gap-3 h-full">
+                {step.completed ? (
+                  <FaCheckCircle className="text-green-500 mt-1 text-lg" />
+                ) : (
+                  <FaRegCircle className="text-indigo-500 mt-1 text-lg" />
+                )}
+                <div className="flex flex-col h-full gap-2">
+                  <p className="font-semibold text-neutral-800 dark:text-neutral-100">
+                    {step.title}
+                  </p>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-2">
+                    {step.description}
+                  </p>
+                  {!step.completed && (
+                    <LinkButton
+                      to={step.to}
+                      variant={isFirstIncomplete ? "primary" : "secondary"}
+                      className={`py-1.5 px-4 w-fit ${
+                        isFirstIncomplete ? "primary" : ""
+                      }`}
+                    >
+                      {t("firstSteps.ctaPrimary")}
+                    </LinkButton>
+                  )}
+                </div>
               </div>
-            </div>
-            {!step.completed && (
-              <Button onClick={step.action} type="button" className="py-1.5">
-                Ir ahora →
-              </Button>
-            )}
-          </li>
-        ))}
+            </li>
+          );
+        })}
       </ul>
     </section>
   );

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import PieChartDataProvider from "./Sections/PieChartDataProvider";
+// import PieChartDataProvider from "./Sections/PieChartDataProvider";
 import Subtitle from "./Subtitle";
 import { getTransactions } from "../utils/supabaseDB";
 import { useLanguageStore } from "../store/languageStore";
@@ -49,34 +49,36 @@ const AccountSummary = () => {
   }, []);
 
   return (
-    <section className="col-span-4 max-w-4xl">
-      <Subtitle title={t("overview.accountSummary")} />
-      <div className="grid grid-cols-2 gap-4 md:max-w-[80%]">
-        <SummaryCard
-          title={t("overview.income")}
-          value={totalIncome.toString()}
-        />
-        <SummaryCard
-          title={t("overview.expense")}
-          value={totalExpense.toString()}
-        />
-        <SummaryCard
-          title={t("overview.balance")}
-          value={(totalIncome - totalExpense).toString()}
-        />
-        <SummaryCard
-          title={t("overview.totalTransactions")}
-          value={totalTransactions.toString()}
-        />
-      </div>
+    totalTransactions > 0 && (
+      <section className="col-span-5 max-w-4xl">
+        <Subtitle title={t("overview.accountSummary")} />
+        <div className="grid grid-cols-2 gap-4 md:max-w-[80%] mt-3">
+          <SummaryCard
+            title={t("overview.income")}
+            value={totalIncome.toString()}
+          />
+          <SummaryCard
+            title={t("overview.expense")}
+            value={totalExpense.toString()}
+          />
+          <SummaryCard
+            title={t("overview.balance")}
+            value={(totalIncome - totalExpense).toString()}
+          />
+          <SummaryCard
+            title={t("overview.totalTransactions")}
+            value={totalTransactions.toString()}
+          />
+        </div>
 
-      <div className="mt-10 overflow-auto">
+        {/* <div className="mt-10 overflow-auto">
         <Subtitle title={t("overview.expensesByCategory")} />
         <div className="lg:w-[90%] w-[110%]" style={{ height: "500px" }}>
           <PieChartDataProvider />
         </div>
-      </div>
-    </section>
+      </div> */}
+      </section>
+    )
   );
 };
 

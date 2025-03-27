@@ -82,9 +82,33 @@
     "expensesByCategory": "Expenses by category",
     "insightsPlaceholder": "No insights available yet.",
     "lastTransactions": "Last transactions",
+    "registerTransaction": "Register",
     "insightsBanner": {
       "button": "Go to insights"
     }
+  },
+  "firstSteps": {
+    "title": "Start here!",
+    "progress": {
+      "one": "You're just 1 step away from having everything ready.",
+      "other": "You're just {{count}} steps away from having everything ready."
+    },
+    "steps": {
+      "quiz": {
+        "title": "Complete your initial quiz",
+        "description": "Answer 3 questions to personalize your experience."
+      },
+      "transaction": {
+        "title": "Add your first transaction",
+        "description": "Record your first expense or income and gain clarity."
+      },
+      "budget": {
+        "title": "Set your first budget",
+        "description": "Set limits to take control of your finances."
+      }
+    },
+    "ctaPrimary": "Complete",
+    "ctaSecondary": "Later"
   },
   "transactions": {
     "title": "All your transactions",

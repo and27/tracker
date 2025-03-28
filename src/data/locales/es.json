@@ -95,8 +95,8 @@
       "other": "Solo te faltan {{count}} pasos para tener todo listo."
     },
     "steps": {
-      "quiz": {
-        "title": "Completa tu quiz inicial",
+      "financialProfile": {
+        "title": "Completa tu Perfil Financiero",
         "description": "Responde 3 preguntas para personalizar tu experiencia."
       },
       "transaction": {

@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import { User } from "@supabase/supabase-js";
 import { isOnboardingComplete } from "../utils/supabaseDB";
 
-const useOnboarding = (user: Partial<User> | null) => {
+const useOnboardingStatus = (user: Partial<User> | null) => {
   const [isOnboarded, setIsOnboarded] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const checkOnboarding = async () => {
+    const check = async () => {
       if (!user?.id) {
         setIsOnboarded(null);
         setLoading(false);
@@ -15,15 +15,15 @@ const useOnboarding = (user: Partial<User> | null) => {
       }
 
       setLoading(true);
-      const onboarded = await isOnboardingComplete(user.id);
-      setIsOnboarded(onboarded);
+      const completed = await isOnboardingComplete(user.id);
+      setIsOnboarded(completed);
       setLoading(false);
     };
 
-    checkOnboarding();
+    check();
   }, [user]);
 
   return { isOnboarded, loading };
 };
 
-export default useOnboarding;
+export default useOnboardingStatus;

@@ -3,10 +3,15 @@ import { useEffect, useState } from "react";
 import { useLanguageStore } from "../store/languageStore";
 import LinkButton from "./LinkButton";
 import Subtitle from "./Subtitle";
+import useFinancialProfile from "../hooks/useFinancialProfile";
+import useAuth from "../utils/useAuth";
+import useHasTransaction from "../hooks/useHasTransaction";
 
 const FirstSteps = () => {
   const { t, lang } = useLanguageStore();
-
+  const { user } = useAuth();
+  const { isCompleted } = useFinancialProfile(user);
+  const hasTransaction = useHasTransaction();
   const [steps, setSteps] = useState<
     {
       id: number;
@@ -21,16 +26,16 @@ const FirstSteps = () => {
     setSteps([
       {
         id: 1,
-        title: t("firstSteps.steps.quiz.title"),
-        description: t("firstSteps.steps.quiz.description"),
-        completed: localStorage.getItem("onboardingCompleted") === "true",
-        to: "/onboarding",
+        title: t("firstSteps.steps.financialProfile.title"),
+        description: t("firstSteps.steps.financialProfile.description"),
+        completed: isCompleted === true,
+        to: "/financialProfile",
       },
       {
         id: 2,
         title: t("firstSteps.steps.transaction.title"),
         description: t("firstSteps.steps.transaction.description"),
-        completed: localStorage.getItem("hasTransaction") === "true",
+        completed: hasTransaction,
         to: "/account/transaction",
       },
       {
@@ -41,7 +46,7 @@ const FirstSteps = () => {
         to: "/account/budget",
       },
     ]);
-  }, [lang, t]);
+  }, [lang, t, isCompleted, hasTransaction]);
 
   const firstIncompleteId = steps.find((s) => !s.completed)?.id;
   const allCompleted = steps.every((step) => step.completed);

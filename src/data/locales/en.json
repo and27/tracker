@@ -94,8 +94,8 @@
       "other": "You're just {{count}} steps away from having everything ready."
     },
     "steps": {
-      "quiz": {
-        "title": "Complete your initial quiz",
+      "financialProfile": {
+        "title": "Complete your Financial Profile",
         "description": "Answer 3 questions to personalize your experience."
       },
       "transaction": {

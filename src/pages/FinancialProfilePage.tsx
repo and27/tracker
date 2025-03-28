@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useOnboardingStep } from "../hooks/useOnboardingStep";
-import OnboardingStep from "./OnboardingStep";
 import { useLanguageStore } from "../store/languageStore";
 import LanguageSwitcher from "../components/LanguageSwitcher";
 import {
-  getOnboardingOptions,
-  getOnboardingQuestions,
-  saveOnboardingAnswer,
+  getFinancialProfileOptions,
+  getFinancialProfileQuestions,
+  saveFinancialProfileAnswer,
   updateUserProfile,
 } from "../utils/supabaseDB";
+import { useFinancialProfileStep } from "../hooks/useFinancialProfileStep";
+import FinancialProfileStep from "./FinancialProfileStep";
 
-export type UserOnboardingInfo = {
+export type UserFinancialProfileInfo = {
   [key: number]: number;
 };
 
-const OnboardingPage: React.FC = () => {
+const FinancialProfilePage: React.FC = () => {
   type Question = {
     id: number;
     question_text: string;
@@ -24,32 +24,35 @@ const OnboardingPage: React.FC = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [options, setOptions] = useState<{ [key: number]: any[] }>({});
 
-  const { step, nextStep, prevStep } = useOnboardingStep();
+  const { step, nextStep, prevStep } = useFinancialProfileStep();
   const userId = localStorage.getItem("userId");
   const navigate = useNavigate();
   const { lang } = useLanguageStore();
 
   useEffect(() => {
-    const fetchOnboardingData = async () => {
-      const loadedQuestions = await getOnboardingQuestions(lang);
+    const fetchFinancialProfileData = async () => {
+      const loadedQuestions = await getFinancialProfileQuestions(lang);
       setQuestions(loadedQuestions);
 
       const optionsMap: { [key: number]: any[] } = {};
       for (const question of loadedQuestions) {
-        const questionOptions = await getOnboardingOptions(question.id, lang);
+        const questionOptions = await getFinancialProfileOptions(
+          question.id,
+          lang
+        );
         optionsMap[question.id] = questionOptions;
       }
       setOptions(optionsMap);
     };
 
-    fetchOnboardingData();
+    fetchFinancialProfileData();
   }, [lang]);
 
   const activeStep = questions[step];
   const LAST_STEP_INDEX = questions.length - 1;
 
   const handleStepCompletion = async (selectedOptionId: number) => {
-    await saveOnboardingAnswer(
+    await saveFinancialProfileAnswer(
       userId as string,
       activeStep.id,
       selectedOptionId
@@ -59,7 +62,7 @@ const OnboardingPage: React.FC = () => {
       nextStep();
     } else {
       await updateUserProfile(userId as string, {
-        onboarding_completed: true,
+        financial_profile_completed: true,
       });
       navigate("/account/overview");
     }
@@ -72,7 +75,7 @@ const OnboardingPage: React.FC = () => {
   return (
     <section className="min-h-screen grid items-center">
       {activeStep && (
-        <OnboardingStep
+        <FinancialProfileStep
           subtitle={`Pregunta ${step + 1} de ${questions.length}`}
           title={activeStep.question_text}
           options={options[activeStep.id] || []}
@@ -89,4 +92,4 @@ const OnboardingPage: React.FC = () => {
   );
 };
 
-export default OnboardingPage;
+export default FinancialProfilePage;

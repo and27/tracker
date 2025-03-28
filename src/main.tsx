@@ -16,10 +16,10 @@ import PasswordReset from "./pages/PasswordReset.tsx";
 import PasswordRecovery from "./pages/PasswordRecoverys.tsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import OnboardingPage from "./pages/OnboardingPage.tsx";
 import MissionsPage from "./pages/MissionPage.tsx";
 import App from "./App.tsx";
 import PrivateRoute from "./components/PrivateRoute.tsx";
+import FinancialProfilePage from "./pages/FinancialProfilePage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -79,8 +79,8 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/onboarding",
-    element: <OnboardingPage />,
+    path: "/financialProfile",
+    element: <FinancialProfilePage />,
     errorElement: <ErrorPage />,
   },
 ]);

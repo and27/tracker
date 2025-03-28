@@ -272,7 +272,22 @@ const updateUserProfile = async (userId: string, data: any) => {
   return true;
 };
 
-const isOnboardingComplete = async (userId: string) => {
+const isFinancialProfileComplete = async (userId: string) => {
+  const { data, error } = await supabase
+    .from("user_profile")
+    .select("financial_profile_completed")
+    .eq("user_id", userId)
+    .single();
+
+  if (error) {
+    console.error("Error fetching financialProfile status:", error);
+    return false;
+  }
+
+  return data?.financial_profile_completed;
+};
+
+export const isOnboardingComplete = async (userId: string) => {
   const { data, error } = await supabase
     .from("user_profile")
     .select("onboarding_completed")
@@ -280,11 +295,11 @@ const isOnboardingComplete = async (userId: string) => {
     .single();
 
   if (error) {
-    console.error("Error fetching onboarding status:", error);
+    console.error("Error checking onboarding status:", error);
     return false;
   }
 
-  return data?.onboarding_completed;
+  return data.onboarding_completed === true;
 };
 
 const getWorkspaces = async (userId: string) => {
@@ -305,21 +320,24 @@ const addWorkspace = async (userId: string, workspace: string) => {
   return { data, error };
 };
 
-export const getOnboardingQuestions = async (lang = "es") => {
+export const getFinancialProfileQuestions = async (lang = "es") => {
   const { data, error } = await supabase
     .from("onboarding_questions")
     .select("id, question_text")
     .eq("language", lang);
 
   if (error) {
-    console.error("Error fetching onboarding questions:", error);
+    console.error("Error fetching financialProfile questions:", error);
     return [];
   }
 
   return data;
 };
 
-export const getOnboardingOptions = async (questionId: number, lang = "es") => {
+export const getFinancialProfileOptions = async (
+  questionId: number,
+  lang = "es"
+) => {
   const { data, error } = await supabase
     .from("onboarding_options")
     .select("id, option_text")
@@ -334,7 +352,7 @@ export const getOnboardingOptions = async (questionId: number, lang = "es") => {
   return data;
 };
 
-export const saveOnboardingAnswer = async (
+export const saveFinancialProfileAnswer = async (
   userId: string,
   questionId: number,
   optionId: number
@@ -366,7 +384,7 @@ export {
   getCategoriesWithBudget,
   getLastTransactions,
   deleteTransaction,
-  isOnboardingComplete,
+  isFinancialProfileComplete,
   updateUserProfile,
   getWorkspaces,
   addWorkspace,

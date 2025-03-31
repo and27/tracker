@@ -20,6 +20,7 @@ import MissionsPage from "./pages/MissionPage.tsx";
 import App from "./App.tsx";
 import PrivateRoute from "./components/PrivateRoute.tsx";
 import FinancialProfilePage from "./pages/FinancialProfilePage.tsx";
+import BudgetPage from "./pages/BudgetPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: "mission",
         element: <MissionsPage />,
+      },
+      {
+        path: "budget",
+        element: <BudgetPage />,
       },
       {
         path: "settings",

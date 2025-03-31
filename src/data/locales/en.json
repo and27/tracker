@@ -69,6 +69,7 @@
     "insights": "Insights",
     "mission": "Missions",
     "newTransaction": "Register",
+    "budget": "Budget",
     "logout": "Logout"
   },
   "overview": {
@@ -168,6 +169,19 @@
       "cancel": "Cancel",
       "requiredError": "This field is required"
     }
+  },
+  "budget": {
+    "title": "Budget",
+    "period": "Period",
+    "periodOptions": {
+      "weekly": "Weekly",
+      "monthly": "Monthly",
+      "yearly": "Yearly"
+    },
+    "survival": "Survival",
+    "optional": "Optional",
+    "culture": "Culture",
+    "extra": "Extra"
   },
   "settings": {
     "title": "Settings",

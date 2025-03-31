@@ -68,6 +68,7 @@
     "explore": "Explorar",
     "insights": "Insights",
     "mission": "Misiones",
+    "budget": "Planificador",
     "newTransaction": "Registrar",
     "logout": "Cerrar sesión"
   },
@@ -169,6 +170,20 @@
       "cancel": "Cancelar",
       "requiredError": "Este campo es obligatorio"
     }
+  },
+
+  "budget": {
+    "title": "Planificador",
+    "period": "Periodo",
+    "periodOptions": {
+      "weekly": "Semanal",
+      "monthly": "Mensual",
+      "yearly": "Anual"
+    },
+    "survival": "Supervivencia",
+    "optional": "Opcional",
+    "culture": "Cultura",
+    "extra": "Extra"
   },
 
   "settings": {

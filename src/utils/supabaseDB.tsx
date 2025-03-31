@@ -75,8 +75,11 @@ const getPaymentMethods = async () => {
   return { data, error };
 };
 
-const getCategories = async () => {
-  const { data, error } = await supabase.from("category").select("*");
+const getCategories = async (userId: string) => {
+  const { data, error } = await supabase
+    .from("category")
+    .select("*")
+    .or(`user_id.eq.${userId},is_global.eq.true`);
   return { data, error };
 };
 
@@ -120,28 +123,40 @@ const addCategoryWithBudget = async (category: Category, userId: string) => {
 };
 
 const editCategoryWithBudget = async (category: Category, userId: string) => {
-  const { data, error } = await supabase
-    .from("category")
-    .update({ name: category.name, group: category.group })
-    .match({ id: category.id })
-    .select();
+  let data = null;
+  let error = null;
 
-  if (error) {
-    console.error("Error updating category:", error);
-    return { data, error };
+  if (!category.isGlobal) {
+    const result = await supabase
+      .from("category")
+      .update({ name: category.name, group: category.group })
+      .match({ id: category.id })
+      .select();
+
+    data = result.data;
+    error = result.error;
+
+    if (error) {
+      console.error("Error updating category:", error);
+      return { data, error };
+    }
   }
 
   const { data: budgetData, error: budgetError } = await supabase
     .from("budgets")
-    .upsert([
-      {
-        category: category.id,
-        user_id: userId,
-        amount: category.budget,
-        is_active: category.isActive,
-      },
-    ])
+    .upsert(
+      [
+        {
+          category: category.id,
+          user_id: userId,
+          amount: category.budget,
+          is_active: category.isActive,
+        },
+      ],
+      { onConflict: "category, user_id" }
+    )
     .select();
+
   return { data, error, budgetData, budgetError };
 };
 
@@ -218,7 +233,8 @@ const getCategoriesWithBudget = async (
 ): Promise<CategoryGroup[]> => {
   const { data: categories, error: categoryError } = await supabase
     .from("category")
-    .select("id, name, group");
+    .select("id, name, group, is_global")
+    .or(`user_id.eq.${userId}, is_global.eq.true`);
 
   if (categoryError) {
     console.error("Error fetching categories:", categoryError);
@@ -249,6 +265,7 @@ const getCategoriesWithBudget = async (
       name: category.name,
       group: category.group,
       isActive: budget ? budget.is_active : false,
+      isGlobal: category.is_global,
       budget: budget ? budget.amount : null,
     });
 

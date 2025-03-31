@@ -1,7 +1,21 @@
 import Modal from "../Modals/Modal";
 import CategoryForm from "../Forms/CategoryForm";
 
-const BudgetModal = ({ isOpen, onClose, onSave, currentCategory, type }) => {
+type BudgetModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  onSave: (category: any) => void;
+  currentCategory?: any;
+  type: "add" | "edit";
+};
+
+const BudgetModal = ({
+  isOpen,
+  onClose,
+  onSave,
+  currentCategory,
+  type,
+}: BudgetModalProps) => {
   return (
     <Modal
       isOpen={isOpen}

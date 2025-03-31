@@ -1,3 +1,4 @@
+//OLD COMPONENT THAT WAS USED ON SETTINGS PAGE
 import { useEffect, useState } from "react";
 import { ResponsivePie } from "@nivo/pie";
 import Button from "./Button";

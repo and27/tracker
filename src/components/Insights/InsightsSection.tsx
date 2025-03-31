@@ -4,6 +4,7 @@ import {
   IoChevronUpCircleOutline,
 } from "react-icons/io5";
 import { useInsightStore } from "../../store/insightStore";
+import Button from "../Button";
 
 type InsightSectionProps = {
   type: "categorySpending" | "monthlyComparison" | "projections";
@@ -41,20 +42,20 @@ export default function InsightSection({ type }: InsightSectionProps) {
 
   return (
     <div ref={wrapperRef} className="z-50">
-      <button
+      <Button
         onClick={() => setOpen((prev) => !prev)}
-        className="border border-neutral-400 flex items-center gap-2 text-indigo-100 hover:text-indigo-300 focus:outline-none"
         aria-expanded={open}
         aria-controls="insight-panel"
+        className="flex items-center gap-2 "
+        variant="secondary"
       >
-        💡
         {!open ? "Mostrar insights" : "Ocultar insights"}
         {open ? (
           <IoChevronUpCircleOutline className="w-5 h-5" />
         ) : (
           <IoChevronDownCircleOutline className="w-5 h-5" />
         )}
-      </button>
+      </Button>
 
       <div
         id="insight-panel"

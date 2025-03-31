@@ -100,6 +100,16 @@ const SidebarMenu = ({ isOpen, setIsSidebarOpen }: SidebarMenuProps) => {
           </li>
           <li className="w-full">
             <NavLink
+              to="/account/budget"
+              className="flex gap-2 items-center block text-start px-4 py-3
+            rounded active:bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-gray-5"
+            >
+              <FaChartColumn />
+              {t("menu.budget")}
+            </NavLink>
+          </li>
+          <li className="w-full">
+            <NavLink
               to="/account/explore"
               className="flex gap-2 items-center block text-start px-4 py-3
             rounded active:bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-gray-5"

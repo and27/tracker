@@ -75,8 +75,11 @@ const getPaymentMethods = async () => {
   return { data, error };
 };
 
-const getCategories = async () => {
-  const { data, error } = await supabase.from("category").select("*");
+const getCategories = async (userId: string) => {
+  const { data, error } = await supabase
+    .from("category")
+    .select("*")
+    .or(`user_id.eq.${userId},is_global.eq.true`);
   return { data, error };
 };
 
@@ -120,28 +123,40 @@ const addCategoryWithBudget = async (category: Category, userId: string) => {
 };
 
 const editCategoryWithBudget = async (category: Category, userId: string) => {
-  const { data, error } = await supabase
-    .from("category")
-    .update({ name: category.name, group: category.group })
-    .match({ id: category.id })
-    .select();
+  let data = null;
+  let error = null;
 
-  if (error) {
-    console.error("Error updating category:", error);
-    return { data, error };
+  if (!category.isGlobal) {
+    const result = await supabase
+      .from("category")
+      .update({ name: category.name, group: category.group })
+      .match({ id: category.id })
+      .select();
+
+    data = result.data;
+    error = result.error;
+
+    if (error) {
+      console.error("Error updating category:", error);
+      return { data, error };
+    }
   }
 
   const { data: budgetData, error: budgetError } = await supabase
     .from("budgets")
-    .upsert([
-      {
-        category: category.id,
-        user_id: userId,
-        amount: category.budget,
-        is_active: category.isActive,
-      },
-    ])
+    .upsert(
+      [
+        {
+          category: category.id,
+          user_id: userId,
+          amount: category.budget,
+          is_active: category.isActive,
+        },
+      ],
+      { onConflict: "category, user_id" }
+    )
     .select();
+
   return { data, error, budgetData, budgetError };
 };
 
@@ -218,7 +233,8 @@ const getCategoriesWithBudget = async (
 ): Promise<CategoryGroup[]> => {
   const { data: categories, error: categoryError } = await supabase
     .from("category")
-    .select("id, name, group");
+    .select("id, name, group, is_global")
+    .or(`user_id.eq.${userId}, is_global.eq.true`);
 
   if (categoryError) {
     console.error("Error fetching categories:", categoryError);
@@ -249,6 +265,7 @@ const getCategoriesWithBudget = async (
       name: category.name,
       group: category.group,
       isActive: budget ? budget.is_active : false,
+      isGlobal: category.is_global,
       budget: budget ? budget.amount : null,
     });
 
@@ -272,7 +289,22 @@ const updateUserProfile = async (userId: string, data: any) => {
   return true;
 };
 
-const isOnboardingComplete = async (userId: string) => {
+const isFinancialProfileComplete = async (userId: string) => {
+  const { data, error } = await supabase
+    .from("user_profile")
+    .select("financial_profile_completed")
+    .eq("user_id", userId)
+    .single();
+
+  if (error) {
+    console.error("Error fetching financialProfile status:", error);
+    return false;
+  }
+
+  return data?.financial_profile_completed;
+};
+
+export const isOnboardingComplete = async (userId: string) => {
   const { data, error } = await supabase
     .from("user_profile")
     .select("onboarding_completed")
@@ -280,11 +312,11 @@ const isOnboardingComplete = async (userId: string) => {
     .single();
 
   if (error) {
-    console.error("Error fetching onboarding status:", error);
+    console.error("Error checking onboarding status:", error);
     return false;
   }
 
-  return data?.onboarding_completed;
+  return data.onboarding_completed === true;
 };
 
 const getWorkspaces = async (userId: string) => {
@@ -305,21 +337,24 @@ const addWorkspace = async (userId: string, workspace: string) => {
   return { data, error };
 };
 
-export const getOnboardingQuestions = async (lang = "es") => {
+export const getFinancialProfileQuestions = async (lang = "es") => {
   const { data, error } = await supabase
     .from("onboarding_questions")
     .select("id, question_text")
     .eq("language", lang);
 
   if (error) {
-    console.error("Error fetching onboarding questions:", error);
+    console.error("Error fetching financialProfile questions:", error);
     return [];
   }
 
   return data;
 };
 
-export const getOnboardingOptions = async (questionId: number, lang = "es") => {
+export const getFinancialProfileOptions = async (
+  questionId: number,
+  lang = "es"
+) => {
   const { data, error } = await supabase
     .from("onboarding_options")
     .select("id, option_text")
@@ -334,7 +369,7 @@ export const getOnboardingOptions = async (questionId: number, lang = "es") => {
   return data;
 };
 
-export const saveOnboardingAnswer = async (
+export const saveFinancialProfileAnswer = async (
   userId: string,
   questionId: number,
   optionId: number
@@ -366,7 +401,7 @@ export {
   getCategoriesWithBudget,
   getLastTransactions,
   deleteTransaction,
-  isOnboardingComplete,
+  isFinancialProfileComplete,
   updateUserProfile,
   getWorkspaces,
   addWorkspace,

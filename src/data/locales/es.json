@@ -68,12 +68,13 @@
     "explore": "Explorar",
     "insights": "Insights",
     "mission": "Misiones",
+    "budget": "Planificador",
     "newTransaction": "Registrar",
     "logout": "Cerrar sesión"
   },
 
   "overview": {
-    "title": "Bienvenido, aquí está el resumen de tu cuenta",
+    "title": "Hola, este es tu resumen financiero.",
     "accountSummary": "Resumen de cuenta",
     "income": "Ingresos",
     "expense": "Gastos",
@@ -83,9 +84,33 @@
     "expensesByCategory": "Gastos por categoría",
     "insightsPlaceholder": "Aún no hay insights disponibles.",
     "lastTransactions": "Últimas transacciones",
+    "registerTransaction": "Registrar",
     "insightsBanner": {
       "button": "Ir a insights"
     }
+  },
+  "firstSteps": {
+    "title": "¡Comienza aquí!",
+    "progress": {
+      "one": "Solo te falta 1 paso para tener todo listo.",
+      "other": "Solo te faltan {{count}} pasos para tener todo listo."
+    },
+    "steps": {
+      "financialProfile": {
+        "title": "Completa tu Perfil Financiero",
+        "description": "Responde 3 preguntas para personalizar tu experiencia."
+      },
+      "transaction": {
+        "title": "Agrega tu primera transacción",
+        "description": "Registra tu primer gasto o ingreso y comienza a tener claridad."
+      },
+      "budget": {
+        "title": "Define tu primer presupuesto",
+        "description": "Establece límites para tomar el control de tus finanzas."
+      }
+    },
+    "ctaPrimary": "Completar",
+    "ctaSecondary": "Ir luego"
   },
   "transactions": {
     "title": "Todos tus movimientos",
@@ -145,6 +170,20 @@
       "cancel": "Cancelar",
       "requiredError": "Este campo es obligatorio"
     }
+  },
+
+  "budget": {
+    "title": "Planificador",
+    "period": "Periodo",
+    "periodOptions": {
+      "weekly": "Semanal",
+      "monthly": "Mensual",
+      "yearly": "Anual"
+    },
+    "survival": "Supervivencia",
+    "optional": "Opcional",
+    "culture": "Cultura",
+    "extra": "Extra"
   },
 
   "settings": {

@@ -3,10 +3,10 @@ import useAuth from "../../utils/useAuth";
 import Button from "../Button";
 import { useNavigate } from "react-router-dom";
 import InputWithLabel from "./InputWithLabel";
-import useOnboarding from "../../hooks/useOnboarding";
 import { useLanguageStore } from "../../store/languageStore";
 import { toast } from "react-toastify";
 import { FaTriangleExclamation } from "react-icons/fa6";
+import useOnboardingStatus from "../../hooks/useOnboardingStatus";
 
 type SignupData = {
   email: string;
@@ -23,7 +23,7 @@ const SignupForm = () => {
 
   const [errors, setErrors] = useState<Partial<SignupData>>({});
   const { signupUser, user } = useAuth();
-  const { isOnboarded, loading } = useOnboarding(user);
+  const { isOnboarded, loading } = useOnboardingStatus(user);
   const navigate = useNavigate();
   const { t } = useLanguageStore();
 
@@ -63,7 +63,7 @@ const SignupForm = () => {
 
   useEffect(() => {
     if (user && !loading) {
-      navigate(isOnboarded ? "/account/overview" : "/onboarding");
+      navigate(isOnboarded ? "/account/overview" : "/financialProfile");
     }
   }, [user, isOnboarded, loading, navigate]);
 

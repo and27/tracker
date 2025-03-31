@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const useOnboardingStep = () => {
+export const useFinancialProfileStep = () => {
   const [step, setStep] = useState(0);
 
   const nextStep = () => {

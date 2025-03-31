@@ -5,7 +5,7 @@ import Toggle, { options } from "../Toggle";
 interface CategoryFormProps {
   type: "add" | "edit";
   currentCategory?: Category;
-  handleAction: ({}: any) => void;
+  handleAction: (category: Category) => void;
 }
 
 const CategoryForm = ({
@@ -14,35 +14,39 @@ const CategoryForm = ({
   handleAction,
 }: CategoryFormProps) => {
   const [category, setCategory] = useState<Category>(
-    currentCategory ||
-      ({
-        isActive: type === "add" ? true : false,
-      } as any)
+    currentCategory || {
+      id: "",
+      name: "",
+      group: "",
+      budget: 0,
+      isActive: true,
+    }
   );
+
   const [error, setError] = useState<string>("");
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    setCategory(
-      (prev) =>
-        ({
-          ...prev,
-          [e.target.id]: e.target.value,
-        } as any)
-    );
+    const { id, value } = e.target;
+
+    setCategory((prev) => ({
+      ...prev,
+      [id]: id === "budget" ? Number(value) : value,
+    }));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!category) {
-      setError("Category is required");
+    if (!category.name || !category.group || category.budget === undefined) {
+      setError("All fields are required");
       return;
     }
     handleAction(category);
   };
 
   return (
-    <form onSubmit={handleSubmit} aria-label="new category form">
+    <form onSubmit={handleSubmit} aria-label="category form">
       <label
         htmlFor="name"
         className="mb-5 flex flex-col text-gray-700 dark:text-neutral-200 font-semibold text-lg"
@@ -53,14 +57,15 @@ const CategoryForm = ({
           className={`${
             type === "edit"
               ? "bg-neutral-900/50 text-neutral-400"
-              : "bg-transparent "
+              : "bg-transparent"
           } border border-neutral-700 py-2 px-4 rounded-md mt-1`}
           type="text"
-          value={category?.name}
+          value={category.name}
           onChange={handleChange}
           disabled={type === "edit"}
         />
       </label>
+
       <label
         htmlFor="group"
         className="mb-5 flex flex-col text-gray-700 dark:text-neutral-200 font-semibold text-lg"
@@ -69,10 +74,10 @@ const CategoryForm = ({
         <select
           id="group"
           onChange={handleChange}
-          value={category?.group}
+          value={category.group}
           className="border border-neutral-700 py-2 px-4 rounded-md bg-neutral-100 dark:bg-neutral-800"
         >
-          <option>Select a group</option>
+          <option value="">Select a group</option>
           <option value="survival">Survival</option>
           <option value="optional">Optional</option>
           <option value="culture">Culture</option>
@@ -89,24 +94,30 @@ const CategoryForm = ({
           id="budget"
           className="bg-transparent border border-neutral-700 py-2 px-4 rounded-md mt-1"
           type="number"
-          value={category?.budget}
+          value={category.budget}
           onChange={handleChange}
         />
       </label>
-      <div className="flex justify-between items-center pb-5">
-        <label className="mb-5 flex flex-col text-gray-700 dark:text-neutral-200 font-semibold text-lg">
-          Active
-        </label>
+
+      <div className="flex items-center justify-between mb-5">
+        <span className="text-gray-700 dark:text-neutral-200 font-semibold text-lg">
+          {category.isActive ? "Active" : "Inactive"}
+        </span>
         <Toggle
           name={type === "add" ? "other" : (currentCategory?.name as options)}
-          handler={() => {
-            setCategory((prev) => ({ ...prev, isActive: !prev.isActive }));
-          }}
-          isActiveByDefault={type === "add" ? true : currentCategory?.isActive}
+          handler={() =>
+            setCategory((prev) => ({ ...prev, isActive: !prev.isActive }))
+          }
+          isActiveByDefault={
+            type === "add" ? true : !!currentCategory?.isActive
+          }
         />
       </div>
-      <Button>{type === "edit" ? "Edit Category" : "Add Category"}</Button>
-      {error && <p>{error}</p>}
+
+      <Button type="submit">
+        {type === "edit" ? "Edit Category" : "Add Category"}
+      </Button>
+      {error && <p className="mt-2 text-red-500 text-sm">{error}</p>}
     </form>
   );
 };

@@ -43,10 +43,10 @@ const Hero = () => {
           {t("landing.description")}
         </p>
         <div className="flex gap-3">
-          <LinkButton to="/login" className="primary">
+          <LinkButton to="/login" variant="primary">
             {t("landing.cta")}
           </LinkButton>
-          <LinkButton className=" dark:bg-neutral-800" to="#demo">
+          <LinkButton variant="secondary" to="#demo">
             {t("landing.ctaSecondary")}
           </LinkButton>
         </div>

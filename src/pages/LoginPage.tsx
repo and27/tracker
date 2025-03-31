@@ -3,19 +3,19 @@ import { Link, useNavigate } from "react-router-dom";
 import LoginForm from "../components/Forms/LoginForm";
 import useAuth from "../utils/useAuth";
 import LogoImage from "../components/LogoImage";
-import useOnboarding from "../hooks/useOnboarding";
 import { useLanguageStore } from "../store/languageStore";
 import LanguageSwitcher from "../components/LanguageSwitcher";
+import useOnboardingStatus from "../hooks/useOnboardingStatus";
 
 const LoginPage = () => {
   const { loginWithGoogle, loginUser, user } = useAuth();
-  const { isOnboarded, loading } = useOnboarding(user);
+  const { isOnboarded, loading } = useOnboardingStatus(user);
   const navigate = useNavigate();
   const { t } = useLanguageStore();
 
   useEffect(() => {
     if (user && !loading && isOnboarded !== null) {
-      navigate(isOnboarded ? "/account/overview" : "/onboarding");
+      navigate(isOnboarded ? "/account/overview" : "/financialProfile");
     }
   }, [user, isOnboarded, loading, navigate]);
 

@@ -1,7 +1,7 @@
 import Button from "../components/Button";
 import { useEffect, useState } from "react";
 
-type OnboardingStepProps = {
+type FinancialProfileStepProps = {
   subtitle: string;
   title: string;
   options: { id: number; option_text: string }[];
@@ -11,12 +11,12 @@ type OnboardingStepProps = {
   onSkip: () => void;
 };
 
-const OnboardingStep = ({
+const FinancialProfileStep = ({
   onNext,
   onPrevious,
   onSkip,
   ...rest
-}: OnboardingStepProps) => {
+}: FinancialProfileStepProps) => {
   const { subtitle, title, options, step } = rest;
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
 
@@ -98,4 +98,4 @@ const OnboardingStep = ({
   );
 };
 
-export default OnboardingStep;
+export default FinancialProfileStep;

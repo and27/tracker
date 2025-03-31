@@ -12,8 +12,6 @@ const ReportsPage = () => {
 
   useEffect(() => {
     getInsights();
-    console.log("Insights fetched");
-    console.log(insights);
   }, [getInsights, insights]);
 
   return (

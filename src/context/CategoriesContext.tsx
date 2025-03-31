@@ -27,7 +27,6 @@ interface CategoriesProviderProps {
 
 export const CategoriesProvider = ({ children }: CategoriesProviderProps) => {
   const [categories, setCategories] = useState<CategoryGroup[]>([]);
-
   const fetchCategories = async () => {
     const user = (await localStorage.getItem("userId")) as string;
     const consolidated = await getCategoriesWithBudget(user);
@@ -104,13 +103,14 @@ export const CategoriesProvider = ({ children }: CategoriesProviderProps) => {
         ],
       };
 
-      return [
+      const updatedCategories: CategoryGroup[] = [
         ...prevCategories.filter(
           (cat) => cat.id !== category.group && cat.id !== oldGroup?.id
         ),
         updatedGroup,
         oldUpdatedGroup,
       ];
+      return updatedCategories;
     });
 
     await fetchCategories();

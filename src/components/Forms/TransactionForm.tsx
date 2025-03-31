@@ -23,6 +23,7 @@ const TransactionForm = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const [userInput, setUserInput] = useState("");
   const [quote, setQuote] = useState("");
+  const userId = localStorage.getItem("userId") as string;
 
   const {
     generatedTransactions,
@@ -71,7 +72,7 @@ const TransactionForm = () => {
     (async () => {
       try {
         const [categoriesData, paymentMethodsData] = await Promise.all([
-          fetchCategories(),
+          fetchCategories(userId),
           fetchPaymentMethods(),
         ]);
         setCategories(categoriesData);
@@ -89,24 +90,28 @@ const TransactionForm = () => {
   return (
     <>
       <div className="flex gap-4">
-        <button
+        <Button
           onClick={() => setShowForm(false)}
-          className={`border-0 ${
+          className={`${
             !showForm && "border-b-4"
-          } border-indigo-500 px-5 mt-2 rounded dark:border-indigo-400 bg-neutral-200 dark:bg-neutral-800`}
+          } border-0 py-5 text-neutral-700  hover:bg-neutral-300 dark:hover:bg-neutral-700 
+           border-indigo-500 px-5 mt-2 rounded dark:border-indigo-400 bg-neutral-200 dark:bg-neutral-800
+         `}
         >
           {t("transactions.form.autoEntry")}
-        </button>
-        <button
-          className={`border-0 ${
+        </Button>
+        <Button
+          className={`${
             showForm && "border-b-4"
-          } border-indigo-500 px-5 mt-2 rounded dark:border-indigo-400 bg-neutral-200 dark:bg-neutral-800`}
+          } border-0 py-5 text-neutral-700  hover:bg-neutral-300 dark:hover:bg-neutral-700 
+           border-indigo-500 px-5 mt-2 rounded dark:border-indigo-400 bg-neutral-200 dark:bg-neutral-800
+         `}
           onClick={() => {
             setShowForm(!showForm);
           }}
         >
           {t("transactions.form.manualEntry")}
-        </button>
+        </Button>
       </div>
       {!showForm && (
         <div className="text-white pt-10 rounded-lg max-w-96">

@@ -5,8 +5,8 @@ import {
 } from "../utils/supabaseDB";
 import { toast } from "react-toastify";
 
-export const fetchCategories = async (): Promise<Category[]> => {
-  const { data, error } = await getCategories();
+export const fetchCategories = async (userId: string): Promise<Category[]> => {
+  const { data, error } = await getCategories(userId);
   if (error) throw new Error("Failed to fetch categories");
   return data || [];
 };

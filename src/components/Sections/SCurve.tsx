@@ -20,7 +20,7 @@ const Scurve = () => {
               </li>
             ))}
           </ul>
-          <LinkButton className="primary" to="/login">
+          <LinkButton variant="primary" to="/login">
             {t("landing.whyPeopleJoin.cta")}
           </LinkButton>
         </div>

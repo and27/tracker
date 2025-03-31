@@ -12,9 +12,9 @@ const LinkButton = ({ children, to, className, variant }: LinkButtonProps) => {
       <button
         className={`${
           variant === "primary"
-            ? "bg-indigo-600 hover:bg-indigo-700"
-            : "bg-transparent border border-neutral-800 dark:border-white hover:bg-neutral-700/50"
-        } text-white px-5 rounded font-bold text-sm md:text-base ${className}`}
+            ? "bg-indigo-600 hover:bg-indigo-700 text-neutral-100"
+            : "bg-transparent border border-neutral-800 dark:border-white hover:bg-neutral-800 text-neutral-800 dark:text-neutral-100"
+        } px-5 py-2 rounded text-sm md:text-base ${className}`}
       >
         {children}
       </button>

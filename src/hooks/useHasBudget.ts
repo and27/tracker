@@ -21,7 +21,6 @@ const useHasBudget = () => {
 
         if (error) throw error;
 
-        console.log(data.length, "data length");
         setHasBudget(data.length > 0);
       } catch (err: any) {
         console.error("Error fetching budgets:", err);

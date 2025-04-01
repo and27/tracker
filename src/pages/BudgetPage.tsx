@@ -82,7 +82,7 @@ const BudgetPage = () => {
       if (preparedData) setBudgetData(preparedData);
     };
 
-    fetchBudgets();
+    if (user) fetchBudgets();
   }, [user, categories]);
 
   const totalBudget = preparedCategories.reduce(

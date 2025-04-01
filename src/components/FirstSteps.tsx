@@ -1,29 +1,31 @@
 import { FaCheckCircle, FaRegCircle } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import { useLanguageStore } from "../store/languageStore";
 import LinkButton from "./LinkButton";
 import Subtitle from "./Subtitle";
-import useFinancialProfile from "../hooks/useFinancialProfile";
-import useAuth from "../utils/useAuth";
-import useHasTransaction from "../hooks/useHasTransaction";
 
-const FirstSteps = () => {
+type Step = {
+  id: number;
+  title: string;
+  description: string;
+  completed: boolean;
+  to: string;
+};
+
+type FirstStepsProps = {
+  isCompleted: boolean;
+  hasTransaction: boolean;
+  hasBudget: boolean;
+};
+const FirstSteps: React.FC<FirstStepsProps> = ({
+  isCompleted,
+  hasTransaction,
+  hasBudget,
+}) => {
   const { t, lang } = useLanguageStore();
-  const { user } = useAuth();
-  const { isCompleted } = useFinancialProfile(user);
-  const hasTransaction = useHasTransaction();
-  const [steps, setSteps] = useState<
-    {
-      id: number;
-      title: string;
-      description: string;
-      completed: boolean;
-      to: string;
-    }[]
-  >([]);
 
-  useEffect(() => {
-    setSteps([
+  const steps: Step[] = useMemo(
+    () => [
       {
         id: 1,
         title: t("firstSteps.steps.financialProfile.title"),
@@ -42,11 +44,12 @@ const FirstSteps = () => {
         id: 3,
         title: t("firstSteps.steps.budget.title"),
         description: t("firstSteps.steps.budget.description"),
-        completed: localStorage.getItem("hasBudget") === "true",
+        completed: hasBudget,
         to: "/account/budget",
       },
-    ]);
-  }, [lang, t, isCompleted, hasTransaction]);
+    ],
+    [lang, t, isCompleted, hasTransaction, hasBudget]
+  );
 
   const firstIncompleteId = steps.find((s) => !s.completed)?.id;
   const allCompleted = steps.every((step) => step.completed);
@@ -61,7 +64,7 @@ const FirstSteps = () => {
       : t("firstSteps.progress.other", { count: String(remainingSteps) });
 
   return (
-    <section className="rounded-2xl mb-8 shadow-md">
+    <section className="rounded-2xl shadow-md mb-10">
       <Subtitle title={t("firstSteps.title")} />
       <p className="text-sm text-neutral-300 mt-2 mb-4">{progressText}</p>
 

@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { User } from "@supabase/supabase-js";
 import { isFinancialProfileComplete } from "../utils/supabaseDB";
+import useAuth from "../utils/useAuth";
 
-const useFinancialProfile = (user: Partial<User> | null) => {
+const useFinancialProfile = () => {
   const [isCompleted, setIsCompleted] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
 
   useEffect(() => {
     const checkFinancialProfile = async () => {

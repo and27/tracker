@@ -27,8 +27,7 @@ interface CategoriesProviderProps {
 
 export const CategoriesProvider = ({ children }: CategoriesProviderProps) => {
   const [categories, setCategories] = useState<CategoryGroup[]>([]);
-  const fetchCategories = async () => {
-    const user = (await localStorage.getItem("userId")) as string;
+  const fetchCategories = async (user: string) => {
     const consolidated = await getCategoriesWithBudget(user);
     const categoriesWithIcons = consolidated?.map((category) => ({
       ...category,
@@ -41,7 +40,10 @@ export const CategoriesProvider = ({ children }: CategoriesProviderProps) => {
   };
 
   useEffect(() => {
-    fetchCategories();
+    const user = localStorage.getItem("userId");
+    if (user) {
+      fetchCategories(user);
+    }
   }, []);
 
   const addCategory = (category: Category) => {
@@ -112,8 +114,6 @@ export const CategoriesProvider = ({ children }: CategoriesProviderProps) => {
       ];
       return updatedCategories;
     });
-
-    await fetchCategories();
   };
 
   // const removeCategory = (name: string) => {

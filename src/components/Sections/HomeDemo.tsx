@@ -22,21 +22,26 @@ const HomeDemo = () => {
   ];
 
   return (
-    <section className="bg-indigo-950 pb-[8rem] text-center px-6 text-white">
+    <section
+      id="demo"
+      className="bg-indigo-950 pb-[8rem] text-center px-6 text-white"
+    >
       <h2 className="text-3xl font-bold mb-4">
         {t("landing.howItWorks.title")}
       </h2>
-      <p className="mb-8">{t("landing.howItWorks.description")}</p>
-      <div className="grid md:grid-cols-3 gap-6">
-        {steps.map((step, index) => (
-          <div key={index} className="p-6 border rounded-xl shadow-md">
-            <div className="flex items-center justify-center w-14 h-14 mx-auto mb-4 bg-gray-100 rounded-full">
-              {step.icon}
+      <div className="max-w-[1000px] mx-auto mb-4">
+        <p className="mb-8">{t("landing.howItWorks.description")}</p>
+        <div className="grid md:grid-cols-3 gap-6">
+          {steps.map((step, index) => (
+            <div key={index} className="p-6 border rounded-xl shadow-md">
+              <div className="flex items-center justify-center w-14 h-14 mx-auto mb-4 bg-gray-100 rounded-full">
+                {step.icon}
+              </div>
+              <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
+              <p className="text-gray-400">{step.description}</p>
             </div>
-            <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
-            <p className="text-gray-400">{step.description}</p>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );

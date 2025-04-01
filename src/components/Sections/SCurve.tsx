@@ -8,7 +8,7 @@ const Scurve = () => {
   ) as unknown as string[];
   return (
     <section className="mx-auto py-[8rem] bg-neutral-900 px-5">
-      <div className="grid grid-cols-1 md:grid-cols-2 max-w-[1280px] mx-auto items-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 max-w-[1000px]  mx-auto items-center">
         <div className="grid gap-5">
           <h2 className="text-3xl font-bold">
             {t("landing.whyPeopleJoin.title")}

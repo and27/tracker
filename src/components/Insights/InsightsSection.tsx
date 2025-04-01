@@ -75,11 +75,7 @@ export default function InsightSection({ type }: InsightSectionProps) {
             >
               {insight.d} - {insight.p}%
               {insight.ac?.map((action) => (
-                <a
-                  href="#"
-                  className="text-indigo-300 hover:underline"
-                  onClick={() => console.log("test")}
-                >
+                <a href="#" className="text-indigo-300 hover:underline">
                   {action.l}
                 </a>
               ))}

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { FaBars, FaX } from "react-icons/fa6";
 import UsersnapWidget from "./UserSnap";
 import LanguageSwitcher from "./LanguageSwitcher";
+import Button from "./Button";
 
 const Layout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -18,13 +19,13 @@ const Layout = () => {
           <LanguageSwitcher />
           {/* <EnvironmentSwitcher /> */}
         </div>
-        <button
+        <Button
           className="relative static lg:hidden bg-indigo-700 text-white mr-4 py-3 mt-3 self-end"
           aria-label="Menu"
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
         >
           {isSidebarOpen ? <FaX /> : <FaBars />}
-        </button>
+        </Button>
         <div className="grid grid-cols-12 w-full">
           <SidebarMenu
             isOpen={isSidebarOpen}

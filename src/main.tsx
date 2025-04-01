@@ -21,6 +21,7 @@ import App from "./App.tsx";
 import PrivateRoute from "./components/PrivateRoute.tsx";
 import FinancialProfilePage from "./pages/FinancialProfilePage.tsx";
 import BudgetPage from "./pages/BudgetPage.tsx";
+import ClarityProvider from "./services/analytics/ClarityProvider.tsx";
 
 const router = createBrowserRouter([
   {
@@ -94,6 +95,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ThemeProvider>
       <CategoriesProvider>
+        <ClarityProvider />
         <RouterProvider router={router} />
         <ToastContainer
           position="top-right"

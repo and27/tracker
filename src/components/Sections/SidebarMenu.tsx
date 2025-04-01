@@ -2,9 +2,13 @@ import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { FaTable } from "react-icons/fa6";
 import { FaChartColumn } from "react-icons/fa6";
-import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { FaGear } from "react-icons/fa6";
-import { FaPlusCircle, FaSignOutAlt } from "react-icons/fa";
+import {
+  FaClipboardList,
+  FaHome,
+  FaPlusCircle,
+  FaSignOutAlt,
+} from "react-icons/fa";
 import "../../styles/SidebarMenu.css";
 import { useLanguageStore } from "../../store/languageStore";
 import Button from "../Button";
@@ -53,6 +57,11 @@ const SidebarMenu = ({ isOpen, setIsSidebarOpen }: SidebarMenuProps) => {
     >
       <div>
         <div className="flex items-center gap-4 pl-2 mb-10">
+          <p
+            className={`font-bold text-xl uppercase tracking-wide  font-outfit`}
+          >
+            Tracker
+          </p>
           <img
             src="/logoCard.svg"
             alt=""
@@ -61,11 +70,6 @@ const SidebarMenu = ({ isOpen, setIsSidebarOpen }: SidebarMenuProps) => {
             height="20"
             className=""
           />
-          <p
-            className={`font-bold text-xl uppercase tracking-wide  font-outfit`}
-          >
-            Tracker
-          </p>
         </div>
         <ul className="flex flex-col gap-2 md:gap-4 items-start w-full">
           <li className="w-full">
@@ -74,7 +78,7 @@ const SidebarMenu = ({ isOpen, setIsSidebarOpen }: SidebarMenuProps) => {
               className="flex gap-2 items-center block text-start px-4 py-3 
             rounded active:bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-gray-5"
             >
-              <FaMoneyCheckDollar />
+              <FaHome />
               {t("menu.overview")}
             </NavLink>
           </li>
@@ -104,7 +108,7 @@ const SidebarMenu = ({ isOpen, setIsSidebarOpen }: SidebarMenuProps) => {
               className="flex gap-2 items-center block text-start px-4 py-3
             rounded active:bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-gray-5"
             >
-              <FaChartColumn />
+              <FaClipboardList />
               {t("menu.budget")}
             </NavLink>
           </li>

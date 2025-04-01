@@ -1,4 +1,4 @@
-import { useCategories } from "../context/CategoriesContext";
+import { useCategoriesStore } from "../store/categoriesStore";
 import { formatCurrency } from "../utils/formatCurrency";
 
 export interface ITransactionOverview {
@@ -14,7 +14,7 @@ const TransactionItem: React.FC<ITransactionOverview> = (
   props: ITransactionOverview
 ) => {
   const { description, amount, type, category } = props;
-  const { categories } = useCategories();
+  const { categories } = useCategoriesStore();
   const Icon = categories.map((categoryGroup) => {
     return categoryGroup.categories.map((cat) => {
       if (cat.name === category) {

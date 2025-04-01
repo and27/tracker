@@ -7,6 +7,7 @@ import { useLanguageStore } from "../../store/languageStore";
 import { toast } from "react-toastify";
 import { FaTriangleExclamation } from "react-icons/fa6";
 import useOnboardingStatus from "../../hooks/useOnboardingStatus";
+import Spinner from "../Spinner";
 
 type SignupData = {
   email: string;
@@ -21,6 +22,7 @@ const SignupForm = () => {
     confirmPassword: "",
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Partial<SignupData>>({});
   const { signupUser, user } = useAuth();
   const { isOnboarded, loading } = useOnboardingStatus(user);
@@ -35,6 +37,7 @@ const SignupForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsSubmitting(true);
     const { email, password, confirmPassword } = signupData;
 
     let newErrors: Partial<SignupData> = {};
@@ -48,16 +51,22 @@ const SignupForm = () => {
 
     if (Object.entries(newErrors).length > 0) {
       setErrors(newErrors);
+      setIsSubmitting(false);
       return;
     }
 
-    const response = await signupUser({ email, password });
-    if (response) {
-      toast.error(response);
+    try {
+      const response = await signupUser({ email, password });
+      if (response) {
+        toast.error(response);
+        return;
+      }
+    } catch (e) {
+      console.error(e);
+      toast.error(t("auth.signupError"));
       return;
-    } else {
-      toast.success(t("auth.verificationSent"));
-      return;
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -121,7 +130,9 @@ const SignupForm = () => {
         )}
       </div>
 
-      <Button className="w-full">{t("register.cta")}</Button>
+      <Button className="w-full">
+        {isSubmitting ? <Spinner size={6} height={8} /> : t("register.cta")}
+      </Button>
     </form>
   );
 };

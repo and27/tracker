@@ -90,20 +90,20 @@ const TransactionForm = () => {
   return (
     <>
       <div className="flex gap-4">
-        <Button
+        <button
           onClick={() => setShowForm(false)}
           className={`${
             !showForm && "border-b-4"
-          } border-0 py-5 text-neutral-700  hover:bg-neutral-300 dark:hover:bg-neutral-700 
+          } border-0 py-4 text-neutral-700 dark:text-neutral-100 hover:bg-neutral-300 dark:hover:bg-neutral-800/50 
            border-indigo-500 px-5 mt-2 rounded dark:border-indigo-400 bg-neutral-200 dark:bg-neutral-800
          `}
         >
           {t("transactions.form.autoEntry")}
-        </Button>
-        <Button
+        </button>
+        <button
           className={`${
             showForm && "border-b-4"
-          } border-0 py-5 text-neutral-700  hover:bg-neutral-300 dark:hover:bg-neutral-700 
+          } border-0 py-4 text-neutral-700 dark:text-neutral-100 hover:bg-neutral-300 dark:hover:bg-neutral-800/50 
            border-indigo-500 px-5 mt-2 rounded dark:border-indigo-400 bg-neutral-200 dark:bg-neutral-800
          `}
           onClick={() => {
@@ -111,7 +111,7 @@ const TransactionForm = () => {
           }}
         >
           {t("transactions.form.manualEntry")}
-        </Button>
+        </button>
       </div>
       {!showForm && (
         <div className="text-white pt-10 rounded-lg max-w-96">

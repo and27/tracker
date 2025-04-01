@@ -4,6 +4,7 @@ import InputWithLabel from "./InputWithLabel";
 import { FaGoogle, FaTriangleExclamation } from "react-icons/fa6";
 import { useLanguageStore } from "../../store/languageStore";
 import { toast } from "react-toastify";
+import Spinner from "../Spinner";
 
 const LoginForm: React.FC<loginFormProps> = ({
   loginUser,
@@ -84,12 +85,13 @@ const LoginForm: React.FC<loginFormProps> = ({
       </div>
 
       <Button className="w-full" disabled={isSubmitting}>
-        {isSubmitting ? t("login.loading") : t("login.cta")}
+        {isSubmitting ? <Spinner size={6} height={8} /> : t("login.cta")}
       </Button>
 
       <button
         className="bg-neutral-800 font-bold text-white w-full flex items-center gap-3 justify-center py-2 rounded-md"
         onClick={loginWithGoogle}
+        type="button"
       >
         <FaGoogle />
         {t("login.google")}

@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import BudgetList from "../components/Budget/BudgetList";
 import BudgetModal from "../components/Budget/BudgetModal";
 import Subtitle from "../components/Subtitle";
-import { useCategories } from "../context/CategoriesContext";
 import { useLanguageStore } from "../store/languageStore";
 import { useTransactionStore } from "../store/transactionStore";
 import { ResponsivePie } from "@nivo/pie";
@@ -12,6 +11,7 @@ import {
   getBudgets,
 } from "../utils/supabaseDB";
 import { translateCategory } from "../utils/translationUtils";
+import { useCategoriesStore } from "../store/categoriesStore";
 
 type BudgetData = { name: string; value: number };
 
@@ -33,7 +33,8 @@ const BudgetPage = () => {
     categories,
     addCategory: addCategoryLocal,
     editCategory,
-  } = useCategories();
+    fetchCategories,
+  } = useCategoriesStore();
 
   const addCat = async (category: Category) => {
     const { error } = await addCategoryWithBudget(category, user);
@@ -71,6 +72,12 @@ const BudgetPage = () => {
   }, [categories, transactions, lang]);
 
   useEffect(() => {
+    if (user) {
+      fetchCategories(user);
+    }
+  }, [user, editCategory, addCategoryLocal]);
+
+  useEffect(() => {
     const fetchBudgets = async () => {
       const { data, error } = await getBudgets(user);
       if (error) console.error("Failed to fetch budgets:", error);
@@ -82,7 +89,7 @@ const BudgetPage = () => {
       if (preparedData) setBudgetData(preparedData);
     };
 
-    fetchBudgets();
+    if (user) fetchBudgets();
   }, [user, categories]);
 
   const totalBudget = preparedCategories.reduce(

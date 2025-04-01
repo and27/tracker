@@ -12,6 +12,7 @@ import { useTransactionStore } from "../store/transactionStore";
 import { useNavigate } from "react-router-dom";
 import { getWorkspaces } from "./supabaseDB";
 import { useLanguageStore } from "../store/languageStore";
+import { useCategoriesStore } from "../store/categoriesStore";
 
 type AuthUser = {
   email: string;
@@ -26,6 +27,12 @@ const useAuth = () => {
   const [user, setUser] = useState<Partial<User> | null>(null);
   const navigate = useNavigate();
   const { t } = useLanguageStore();
+
+  const clearGlobalState = () => {
+    useTransactionStore.getState().clearTransactions();
+    useInsightStore.getState().clearInsights();
+    useCategoriesStore.getState().clearCategories();
+  };
 
   const handleDatabaseError = (errorCode: string) => {
     if (!errorCode) return null;
@@ -94,6 +101,7 @@ const useAuth = () => {
           setUser(null);
           localStorage.removeItem("userId");
           localStorage.removeItem("workspace");
+          clearGlobalState();
         }
       }
     );
@@ -152,8 +160,7 @@ const useAuth = () => {
     localStorage.removeItem("userId");
     localStorage.removeItem("workspace");
 
-    useInsightStore.getState().clearInsights();
-    useTransactionStore.getState().clearTransactions();
+    clearGlobalState();
 
     setUser(null);
     navigate("/login", { replace: true });

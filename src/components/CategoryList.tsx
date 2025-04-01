@@ -1,4 +1,4 @@
-import { useCategories } from "../context/CategoriesContext";
+import { useCategoriesStore } from "../store/categoriesStore";
 import { translateCategory } from "../utils/translationUtils";
 import CategoryItem from "./CategoryItem";
 
@@ -8,7 +8,7 @@ interface CategoryListProps {
 }
 
 const CategoryList = ({ handleEditCategory }: CategoryListProps) => {
-  const { categories } = useCategories();
+  const { categories } = useCategoriesStore();
 
   const orderMap: Record<string, number> = {
     survival: 1,

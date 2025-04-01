@@ -22,6 +22,7 @@ const InputWithLabel = ({
     {name === "password" && (
       <>
         <button
+          type="button"
           className="bg-transparent p-0 absolute right-4 bottom-4 text-gray-500"
           onClick={() => {
             const input = document.getElementById(name) as HTMLInputElement;

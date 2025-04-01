@@ -13,7 +13,7 @@ interface CategoriesState {
   clearCategories: () => void;
 }
 
-export const useCategoriesStore = create<CategoriesState>((set, get) => ({
+export const useCategoriesStore = create<CategoriesState>((set) => ({
   categories: [],
   setCategories: (categories) => set({ categories }),
 

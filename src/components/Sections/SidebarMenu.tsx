@@ -2,14 +2,12 @@ import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { FaTable } from "react-icons/fa6";
 import { FaChartColumn } from "react-icons/fa6";
-import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { FaGear } from "react-icons/fa6";
 import {
   FaClipboardList,
   FaHome,
   FaPlusCircle,
   FaSignOutAlt,
-  FaTachometerAlt,
 } from "react-icons/fa";
 import "../../styles/SidebarMenu.css";
 import { useLanguageStore } from "../../store/languageStore";

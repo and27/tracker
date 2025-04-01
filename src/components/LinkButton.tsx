@@ -38,7 +38,7 @@ const LinkButton = (props: LinkButtonProps) => {
 
   if ("to" in props) {
     return (
-      <Link to={props.to} className={finalClass}>
+      <Link to={props.to as string} className={finalClass}>
         {children}
       </Link>
     );

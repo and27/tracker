@@ -4,6 +4,7 @@
     "subtitle": "Una App Financiera Inteligente",
     "description": "Solo el 5% de las personas realmente dominan su dinero. \n ¿Estás listo para tomar el control?.",
     "cta": "Empezar",
+    "loginCta": "Iniciar sesión",
     "ctaSecondary": "Cómo Funciona",
 
     "example": {
@@ -13,23 +14,24 @@
 
     "howItWorks": {
       "title": "Cómo Funciona",
-      "description": "Regístrate, conecta tus cuentas y monitorea tus gastos con facilidad.",
+      "description": "Regístrate, registra tus movimientos y toma el control de tus finanzas sin complicaciones.",
       "cta": "Aprender Más",
       "steps": [
         {
-          "title": "Regístrate y Conéctate",
-          "description": "Crea tu cuenta y vincula tus cuentas bancarias de forma segura en solo unos clics."
+          "title": "Regístrate y empieza",
+          "description": "Crea tu cuenta en segundos y comienza a llevar un registro claro de tus ingresos y gastos."
         },
         {
-          "title": "Clasifica tus Gastos",
-          "description": "Ordena automáticamente tus transacciones y configura categorías personalizadas."
+          "title": "Clasifica sin esfuerzo",
+          "description": "Organiza tus movimientos en categorías personalizadas con ayuda de sugerencias inteligentes."
         },
         {
-          "title": "Analiza y Mejora",
-          "description": "Monitorea tus gastos en tiempo real y descubre oportunidades de ahorro."
+          "title": "Visualiza y mejora",
+          "description": "Analiza tus hábitos, ajusta presupuestos y encuentra oportunidades para ahorrar mes a mes."
         }
       ]
     },
+
     "testimonials": {
       "title": "Historias de Éxito",
       "description": "Miles de personas han reducido gastos, ahorrado más y tomado el control total de sus finanzas. Estos son algunos de sus testimonios.",

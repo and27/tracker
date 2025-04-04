@@ -73,7 +73,7 @@ const FinancialProfilePage: React.FC = () => {
   };
 
   return (
-    <section className="min-h-screen grid items-center">
+    <section className="min-h-screen grid mt-10 lg:mt-20">
       {activeStep && (
         <FinancialProfileStep
           subtitle={`Pregunta ${step + 1} de ${questions.length}`}

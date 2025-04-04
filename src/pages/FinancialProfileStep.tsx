@@ -73,20 +73,33 @@ const FinancialProfileStep = ({
       <p className="text-gray-400">{subtitle}</p>
       <h2 className="text-2xl font-semibold text-white mb-6">{title}</h2>
       <div className="grid md:grid-cols-2 gap-4 mb-6">
-        {options.map((option) => (
-          <button
-            key={option.id}
-            className={`p-5 rounded-lg text-left flex gap-2 items-center border transition-all ${
-              selectedOption === option.id
-                ? "border-neutral-400 bg-gray-900"
-                : "border-neutral-800 bg-neutral-800/50 hover:border-gray-600"
-            }`}
-            onClick={() => setSelectedOption(option.id)}
-          >
-            <span className="text-xl">{optionIcons[option.id]}</span>
-            {option.option_text}
-          </button>
-        ))}
+        {options.length === 0 ? (
+          <>
+            {[1, 2, 3, 4, 5, 6].map((_, i) => (
+              <div
+                key={i}
+                className="h-[50px] bg-neutral-700/50 animate-pulse rounded-lg"
+              />
+            ))}
+          </>
+        ) : (
+          <>
+            {options.map((option) => (
+              <button
+                key={option.id}
+                className={`p-5 rounded-lg text-left flex gap-2 items-center border transition-all ${
+                  selectedOption === option.id
+                    ? "border-neutral-400 bg-gray-900"
+                    : "border-neutral-800 bg-neutral-800/50 hover:border-gray-600"
+                }`}
+                onClick={() => setSelectedOption(option.id)}
+              >
+                <span className="text-xl">{optionIcons[option.id]}</span>
+                {option.option_text}
+              </button>
+            ))}
+          </>
+        )}
       </div>
       <Button
         onClick={() => onNext(selectedOption!)}

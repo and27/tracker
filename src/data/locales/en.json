@@ -4,6 +4,7 @@
     "subtitle": "The Ultimate Budget Tracking App",
     "description": "Only 5% of people truly control their money. Are you ready to take charge?.",
     "cta": "Get Started",
+    "loginCta": "Login",
     "ctaSecondary": "How It Works",
 
     "example": {
@@ -13,23 +14,24 @@
 
     "howItWorks": {
       "title": "How It Works",
-      "description": "Sign up, connect your accounts, and track your spending with ease.",
+      "description": "Sign up, log your movements, and take control of your finances without the hassle.",
       "cta": "Learn More",
       "steps": [
         {
-          "title": "Sign Up & Connect",
-          "description": "Create your account and securely link your bank accounts in just a few clicks."
+          "title": "Sign Up and Get Started",
+          "description": "Create your account in seconds and start tracking your income and expenses with ease."
         },
         {
-          "title": "Categorize Your Expenses",
-          "description": "Automatically sort your transactions and set up custom spending categories."
+          "title": "Classify with Ease",
+          "description": "Organize your transactions into custom categories, assisted by smart suggestions."
         },
         {
-          "title": "Analyze & Improve",
-          "description": "Track your spending with real-time insights and discover saving opportunities."
+          "title": "Visualize and Improve",
+          "description": "Analyze your habits, adjust budgets, and uncover opportunities to save every month."
         }
       ]
     },
+
     "testimonials": {
       "title": "Success Stories",
       "description": "Thousands of people have cut expenses, saved more, and taken complete control of their finances. Here are a few of their journeys.",

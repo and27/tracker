@@ -15,7 +15,10 @@ const Hero = () => {
       }}
       className="h-full relative px-5 grid items-center overflow-hidden"
     >
-      <div className="absolute top-5 right-5">
+      <div className="absolute top-5 right-5 gap-2 flex">
+        <LinkButton to="/login" variant="secondary">
+          {t("landing.loginCta")}
+        </LinkButton>
         <LanguageSwitcher />
       </div>
 
@@ -56,7 +59,7 @@ const Hero = () => {
           {t("landing.description")}
         </p>
         <div className="flex gap-3">
-          <LinkButton to="/login" variant="primary">
+          <LinkButton to="/financialProfile" variant="primary">
             {t("landing.cta")}
           </LinkButton>
           <LinkButton variant="secondary" href="#demo">

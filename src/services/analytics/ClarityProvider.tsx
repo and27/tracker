@@ -7,10 +7,10 @@ const ClarityProvider = () => {
   useEffect(() => {
     if (import.meta.env.MODE === "production") {
       Clarity.init(projectId);
-    }
-    const userId = localStorage.getItem("userId");
-    if (userId) {
-      Clarity.identify(userId);
+      const userId = localStorage.getItem("userId");
+      if (userId) {
+        Clarity.identify(userId);
+      }
     }
   }, []);
 

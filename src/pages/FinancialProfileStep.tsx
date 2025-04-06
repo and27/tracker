@@ -107,6 +107,9 @@ const FinancialProfileStep = ({
       >
         Continuar
       </Button>
+      <Button onClick={onSkip} variant="secondary" className="ml-2 px-5">
+        Omitir
+      </Button>
     </div>
   );
 };

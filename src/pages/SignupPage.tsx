@@ -1,12 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useLanguageStore } from "../store/languageStore";
 import { supabaseLogout } from "../utils/supabaseLogin";
 import SignupForm from "../components/Forms/Signup";
 import LogoImage from "../components/LogoImage";
 import LanguageSwitcher from "../components/LanguageSwitcher";
+import useAuth from "../utils/useAuth";
+import ProfileCard from "../components/Cards/ProfileCard";
 
 const SignupPage = () => {
+  const [localProfileResult, setLocalProfileResult] = useState(null);
+  const { user } = useAuth();
   const { t } = useLanguageStore();
   const handleLogout = () => {
     supabaseLogout();
@@ -15,6 +19,15 @@ const SignupPage = () => {
   useEffect(() => {
     handleLogout();
   }, []);
+
+  useEffect(() => {
+    if (!user) {
+      const savedProfile = localStorage.getItem("financialProfileResult");
+      if (savedProfile) {
+        setLocalProfileResult(JSON.parse(savedProfile));
+      }
+    }
+  }, [user]);
 
   return (
     <section className="relative min-h-screen bg-neutral-50 dark:bg-neutral-900 grid items-center">
@@ -33,6 +46,8 @@ const SignupPage = () => {
             </p>
           </div>
         </Link>
+        {localProfileResult && <ProfileCard profile={localProfileResult} />}
+
         <SignupForm />
         <p className="mt-3">
           {t("register.login")}

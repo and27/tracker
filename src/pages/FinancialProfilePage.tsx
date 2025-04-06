@@ -5,15 +5,10 @@ import LanguageSwitcher from "../components/LanguageSwitcher";
 import {
   getFinancialProfileOptions,
   getFinancialProfileQuestions,
-  saveFinancialProfileAnswer,
-  updateUserProfile,
 } from "../utils/supabaseDB";
 import { useFinancialProfileStep } from "../hooks/useFinancialProfileStep";
 import FinancialProfileStep from "./FinancialProfileStep";
-
-export type UserFinancialProfileInfo = {
-  [key: number]: number;
-};
+import { useFinancialProfileEngine } from "../hooks/useFinancialProfileEngine"; // 🚨 nuevo import
 
 const FinancialProfilePage: React.FC = () => {
   type Question = {
@@ -25,9 +20,9 @@ const FinancialProfilePage: React.FC = () => {
   const [options, setOptions] = useState<{ [key: number]: any[] }>({});
 
   const { step, nextStep, prevStep } = useFinancialProfileStep();
-  const userId = localStorage.getItem("userId");
   const navigate = useNavigate();
   const { lang } = useLanguageStore();
+  const { saveAnswer, finalizeProfile } = useFinancialProfileEngine(); // 🚨 nuevo hook
 
   useEffect(() => {
     const fetchFinancialProfileData = async () => {
@@ -52,24 +47,22 @@ const FinancialProfilePage: React.FC = () => {
   const LAST_STEP_INDEX = questions.length - 1;
 
   const handleStepCompletion = async (selectedOptionId: number) => {
-    await saveFinancialProfileAnswer(
-      userId as string,
-      activeStep.id,
-      selectedOptionId
-    );
+    if (!activeStep) return;
+
+    saveAnswer(activeStep.id, selectedOptionId);
 
     if (step < LAST_STEP_INDEX) {
       nextStep();
     } else {
-      await updateUserProfile(userId as string, {
-        financial_profile_completed: true,
-      });
-      navigate("/account/overview");
+      const result = await finalizeProfile();
+      console.log("Perfil final calculado:", result);
+
+      navigate("/login");
     }
   };
 
   const handleSkip = () => {
-    navigate("/account/overview");
+    navigate("/login");
   };
 
   return (

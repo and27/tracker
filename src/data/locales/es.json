@@ -289,5 +289,45 @@
     "databaseTimeout": "Tiempo de espera agotado en la base de datos.",
     "accessDenied": "No tienes permisos para acceder a este recurso.",
     "databaseError": "Error de base de datos."
+  },
+  "financialProfile": {
+    "profiles": {
+      "saver": {
+        "friendly_name": "Ahorrador estratégico",
+        "description": "Te gusta guardar dinero para lo que realmente importa."
+      },
+      "investor": {
+        "friendly_name": "Inversionista calculador",
+        "description": "Buscas hacer crecer tu dinero con decisiones inteligentes."
+      },
+      "spender": {
+        "friendly_name": "Gastador emocional",
+        "description": "Te gusta darte gustos y vivir el presente."
+      },
+      "debtor": {
+        "friendly_name": "Pagador responsable",
+        "description": "Prefieres saldar deudas antes que gastar o invertir."
+      },
+      "balanced": {
+        "friendly_name": "Equilibrado",
+        "description": "Disfrutas pero también te cuidas: equilibrio es tu lema."
+      },
+      "security": {
+        "friendly_name": "Buscador de estabilidad",
+        "description": "Tu meta es sentirte financieramente tranquilo."
+      },
+      "growth": {
+        "friendly_name": "Enfocado en el crecimiento",
+        "description": "Piensas en el futuro y quieres hacer crecer tu dinero."
+      },
+      "organized": {
+        "friendly_name": "Organizador nato",
+        "description": "Prefieres tener el control sobre tu dinero y gastos."
+      },
+      "present": {
+        "friendly_name": "Vive el ahora",
+        "description": "No te estresas por el dinero, solo quieres disfrutar el presente."
+      }
+    }
   }
 }

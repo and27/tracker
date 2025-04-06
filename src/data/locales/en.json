@@ -252,7 +252,7 @@
   },
   "register": {
     "title": "Create an account",
-    "subtitle": "Please fill in the form to create an account.",
+    "subtitle": "Please fill in the form to continue",
     "cta": "Register",
     "login": "Already have an account?",
     "loginLink": "Login",
@@ -300,5 +300,45 @@
     "databaseTimeout": "Database timeout exceeded.",
     "accessDenied": "You do not have permission to access this resource.",
     "databaseError": "Database error."
+  },
+  "financialProfile": {
+    "profiles": {
+      "saver": {
+        "friendly_name": "Strategic Saver",
+        "description": "You like to save money for what truly matters."
+      },
+      "investor": {
+        "friendly_name": "Calculated Investor",
+        "description": "You aim to grow your money through smart decisions."
+      },
+      "spender": {
+        "friendly_name": "Emotional Spender",
+        "description": "You enjoy treating yourself and living in the moment."
+      },
+      "debtor": {
+        "friendly_name": "Responsible Debtor",
+        "description": "You prefer to pay off debts before spending or investing."
+      },
+      "balanced": {
+        "friendly_name": "Balanced",
+        "description": "You enjoy life but also stay cautious – balance is your mantra."
+      },
+      "security": {
+        "friendly_name": "Security Seeker",
+        "description": "Your goal is to feel financially safe and worry-free."
+      },
+      "growth": {
+        "friendly_name": "Growth Oriented",
+        "description": "You think about the future and want your money to grow."
+      },
+      "organized": {
+        "friendly_name": "Natural Organizer",
+        "description": "You like having control over your money and expenses."
+      },
+      "present": {
+        "friendly_name": "Live-in-the-Moment",
+        "description": "You don’t stress about money, you just want to enjoy the present."
+      }
+    }
   }
 }

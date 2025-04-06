@@ -341,7 +341,8 @@ export const getFinancialProfileQuestions = async (lang = "es") => {
   const { data, error } = await supabase
     .from("onboarding_questions")
     .select("id, question_text")
-    .eq("language", lang);
+    .eq("language", lang)
+    .eq("stage", "initial");
 
   if (error) {
     console.error("Error fetching financialProfile questions:", error);
@@ -388,6 +389,57 @@ export const saveFinancialProfileAnswer = async (
   return true;
 };
 
+const getUserFinancialProfile = async (userId: string) => {
+  const { data, error } = await supabase.rpc("get_user_financial_profile", {
+    uid: userId,
+  });
+
+  if (error) {
+    console.error("Error fetching user financial profile:", error);
+    return null;
+  }
+
+  return data; // { profile: "spender", friendly_name: "Gastador emocional", description: "..." }
+};
+
+const getFinancialProfileFromOptions = async (optionIds: number[]) => {
+  const { data, error } = await supabase.rpc(
+    "get_financial_profile_from_options",
+    { option_ids: optionIds }
+  );
+
+  if (error) {
+    console.error("Error fetching financial profile:", error);
+    return null;
+  }
+
+  return data?.[0] ?? null; // { profile: "saver", total_weight: 9 }
+};
+
+const getOptionWeightsFromSupabase = async (
+  optionIds: number[]
+): Promise<Record<number, { profile: string; weight: number }>> => {
+  const { data, error } = await supabase
+    .from("onboarding_options")
+    .select("id, profile, weight")
+    .in("id", optionIds);
+
+  if (error) {
+    console.error("Error fetching weights:", error);
+    return {};
+  }
+
+  const map = data.reduce((acc, option) => {
+    acc[option.id] = {
+      profile: option.profile,
+      weight: option.weight,
+    };
+    return acc;
+  }, {} as Record<number, { profile: string; weight: number }>);
+
+  return map;
+};
+
 export {
   createTransaction,
   getTransactions,
@@ -405,4 +457,7 @@ export {
   updateUserProfile,
   getWorkspaces,
   addWorkspace,
+  getUserFinancialProfile,
+  getFinancialProfileFromOptions,
+  getOptionWeightsFromSupabase,
 };

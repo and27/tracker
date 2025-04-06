@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { FaTriangleExclamation } from "react-icons/fa6";
 import useOnboardingStatus from "../../hooks/useOnboardingStatus";
 import Spinner from "../Spinner";
+import { FaGoogle } from "react-icons/fa";
 
 type SignupData = {
   email: string;
@@ -21,6 +22,8 @@ const SignupForm = () => {
     password: "",
     confirmPassword: "",
   });
+
+  const { loginWithGoogle } = useAuth();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Partial<SignupData>>({});
@@ -133,6 +136,14 @@ const SignupForm = () => {
       <Button className="w-full">
         {isSubmitting ? <Spinner size={6} height={8} /> : t("register.cta")}
       </Button>
+      <button
+        className="bg-neutral-800 font-bold text-white w-full flex items-center gap-3 justify-center py-2 rounded-md"
+        onClick={loginWithGoogle}
+        type="button"
+      >
+        <FaGoogle />
+        {t("login.google")}
+      </button>
     </form>
   );
 };

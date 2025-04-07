@@ -54,10 +54,8 @@ const FinancialProfilePage: React.FC = () => {
     if (step < LAST_STEP_INDEX) {
       nextStep();
     } else {
-      const result = await finalizeProfile();
-      console.log("Perfil final calculado:", result);
-
-      navigate("/login");
+      await finalizeProfile();
+      navigate("/signup");
     }
   };
 

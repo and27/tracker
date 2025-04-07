@@ -41,14 +41,16 @@ export const useFinancialProfileEngine = () => {
 
     if (!topProfile) return null;
 
-    const result = {
+    localStorage.setItem(
+      "financialProfileResult",
+      JSON.stringify({ profile: topProfile })
+    );
+
+    return {
       profile: topProfile,
       friendly_name: t(`financialProfile.profiles.${topProfile}.friendly_name`),
       description: t(`financialProfile.profiles.${topProfile}.description`),
     };
-
-    localStorage.setItem("financialProfileResult", JSON.stringify(result));
-    return result;
   };
 
   return {

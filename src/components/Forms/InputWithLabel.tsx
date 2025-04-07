@@ -1,5 +1,4 @@
 import { FaEye } from "react-icons/fa6";
-import { useState } from "react";
 
 const InputWithLabel = ({
   type = "text",
@@ -8,8 +7,6 @@ const InputWithLabel = ({
   className,
   handleChange,
 }: inputLabelProps) => {
-  const [focused, setFocused] = useState(false);
-
   return (
     <div className="relative w-full mb-2">
       <input
@@ -18,15 +15,13 @@ const InputWithLabel = ({
         id={name}
         name={name}
         placeholder=" "
-        onFocus={() => setFocused(true)}
-        onBlur={(e) => setFocused(e.target.value !== "")}
         onChange={handleChange}
       />
       <label
         htmlFor={name}
         className={`
           bg-neutral-900 px-2 rounded absolute left-2 -top-2 text-sm text-gray-400 dark:text-neutral-300 transition-all
-          peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-neutral-300
+          peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-neutral-300
           peer-focus:-top-2.5 peer-focus:text-sm 
         `}
       >

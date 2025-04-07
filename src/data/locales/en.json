@@ -256,6 +256,7 @@
     "cta": "Register",
     "login": "Already have an account?",
     "loginLink": "Login",
+    "google": "Register with Google",
     "email": "Email",
     "password": "Password",
     "confirmPassword": "Confirm password"
@@ -302,6 +303,7 @@
     "databaseError": "Database error."
   },
   "financialProfile": {
+    "title": "Your financial profile",
     "profiles": {
       "saver": {
         "friendly_name": "Strategic Saver",

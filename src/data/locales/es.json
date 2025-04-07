@@ -251,7 +251,8 @@
     "loginLink": "Iniciar sesión",
     "email": "Correo electrónico",
     "password": "Contraseña",
-    "confirmPassword": "Confirmar contraseña"
+    "confirmPassword": "Confirmar contraseña",
+    "google": "Registrarse con Google"
   },
   "authErrors": {
     "invalid_credentials": "Correo o contraseña incorrectos.",
@@ -291,6 +292,7 @@
     "databaseError": "Error de base de datos."
   },
   "financialProfile": {
+    "title": "Tu perfil financiero",
     "profiles": {
       "saver": {
         "friendly_name": "Ahorrador estratégico",

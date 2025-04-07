@@ -142,7 +142,7 @@ const SignupForm = () => {
         type="button"
       >
         <FaGoogle />
-        {t("login.google")}
+        {t("register.google")}
       </button>
     </form>
   );

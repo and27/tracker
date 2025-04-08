@@ -26,19 +26,20 @@ const Hero = () => {
         initial={{ x: -150, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 1 }}
-        src="heroImage1.svg"
+        src="heroImage1.webp"
         alt="hero"
-        className="absolute hidden md:block -left-[10rem] bottom-0 object-cover"
+        className="w-[15rem] md:w-[20rem] lg:w-[25rem] xl:w-[30rem] 2xl:w-[35rem]    
+        absolute -left-[7rem] top-20 xl:top-14 h-auto"
       />
 
       <motion.img
         initial={{ x: 150, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 1, delay: 0.3 }}
-        src="heroImage2.svg"
+        src="heroImage2.webp"
         alt="hero"
-        className="size-[15rem] md:size-[20rem] lg:size-[25rem] xl:size-[30rem] 2xl:size-[35rem]    
-        absolute -right-[7rem] top-20 xl:top-14"
+        className="w-[15rem] md:w-[20rem] lg:w-[25rem] xl:w-[30rem] 2xl:w-[34rem]    
+        absolute -right-[7rem] top-20 xl:top-15"
       />
 
       <motion.div

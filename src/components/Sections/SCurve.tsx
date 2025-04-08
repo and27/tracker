@@ -31,7 +31,7 @@ const Scurve = () => {
 
   return (
     <section className="mx-auto py-[8rem] bg-neutral-900 px-5" ref={ref}>
-      <div className="grid grid-cols-1 md:grid-cols-2 max-w-[1000px] mx-auto items-center">
+      <div className="gap-5 grid grid-cols-1 md:grid-cols-2 max-w-[1000px] mx-auto items-center">
         <motion.div
           className="grid gap-5"
           initial="hidden"
@@ -58,7 +58,10 @@ const Scurve = () => {
             ))}
           </motion.ul>
 
-          <motion.div variants={item}>
+          <motion.div
+            variants={item}
+            className="flex justify-center md:justify-start"
+          >
             <LinkButton variant="primary" to="/login">
               {t("landing.whyPeopleJoin.cta")}
             </LinkButton>
@@ -66,9 +69,9 @@ const Scurve = () => {
         </motion.div>
 
         <img
-          src="scurveImage.svg"
+          src="calculator-girl.webp"
           alt="scurve"
-          className="mt-10 md:mt-0 md:px-10"
+          className="mt-10 md:mt-0 md:px-10 w-[18rem] lg:w-[21rem] xl:w-[22rem] 2xl:w-[25rem] h-auto mx-auto"
         />
       </div>
     </section>

@@ -244,8 +244,8 @@
     "google": "Iniciar sesión con Google"
   },
   "register": {
-    "title": "Registro",
-    "subtitle": "Completa el formulario para crear una cuenta.",
+    "title": "Crear tu cuenta",
+    "subtitle": "Completa el formulario para empezar",
     "cta": "Registrarse",
     "login": "¿Ya tienes una cuenta?",
     "loginLink": "Iniciar sesión",

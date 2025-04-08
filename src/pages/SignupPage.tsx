@@ -61,16 +61,16 @@ const SignupPage = () => {
       </div>
 
       <div className="flex flex-col justify-center bg-white dark:bg-transparent shadow p-5 mx-3 sm:p-10 md:mx-auto rounded md:w-1/2 xl:w-1/3">
-        <Link to="/" className="flex gap-3 justify-center items-center mb-7">
-          <LogoImage />
-          <div>
+        <Link to="/" className="flex flex-col gap-2 justify-start mb-7">
+          <div className="flex items-center gap-4">
+            <LogoImage />
             <h1 className="text-3xl font-bold font-outfit">
               {t("register.title")}
             </h1>
-            <p className="text-neutral-500 dark:text-neutral-400 leading-none text-lg">
-              {t("register.subtitle")}
-            </p>
           </div>
+          <p className="text-neutral-500 dark:text-neutral-400 leading-none text-lg">
+            {t("register.subtitle")}
+          </p>
         </Link>
 
         {translatedProfile && <ProfileCard profileData={translatedProfile} />}
